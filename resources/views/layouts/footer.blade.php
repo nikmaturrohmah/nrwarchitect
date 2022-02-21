@@ -6,4 +6,4 @@
                     </div>
                 </div>
             </footer>
-            <!-- 1End of Footer -->
+            <!-- End of Footer -->
