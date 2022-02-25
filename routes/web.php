@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\PetugasadminController;
 use App\Http\Controllers\FaqController;
 
 Route::get('/', function () {
@@ -55,3 +56,12 @@ Route::get('/faq/simpan', [FaqController::class, 'simpan']);
 Route::get('faq/edit/{id_faq}', [FaqController::class, 'edit']);
 route::get('faq/update/{id_faq}',[FaqController::class, 'update']);
 Route::get('faq/softdel/{id}', [FaqController::class, 'softdel']);
+
+//petugasadmin
+Route::get('datapetugasadmin', [PetugasadminController::class, 'petugasadmin']);
+Route::get('/petugasadmin/cari', [PetugasadminController::class, 'petugasadmin']);
+Route::get('petugasadmin/tambahpetugasadmin', [PetugasadminController::class, 'tambahpetugasadmin']);
+Route::get('/petugasadmin/simpan', [PetugasadminController::class, 'simpan']);
+Route::get('petugasadmin/edit/{id}', [PetugasadminController::class, 'edit']);
+route::get('petugasadmin/update/{id}',[PetugasadminController::class, 'update']);
+Route::get('petugasadmin/softdel/{id}', [PetugasadminController::class, 'softdel']);

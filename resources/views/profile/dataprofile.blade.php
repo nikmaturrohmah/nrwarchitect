@@ -41,7 +41,9 @@
 
     <tr>
       <center>
-      <td scope="row">{{ $r->id_profile }}</td>
+
+      <td>{{ $loop -> iteration }}</td>
+      <!-- <td scope="row">{{ $r->id_profile }}</td> -->
       <td>{{ $r->nama_profile }}</td>
       <td>{{ $r->umur_profile }}</td>
       <td>{{ $r->karier }}</td>

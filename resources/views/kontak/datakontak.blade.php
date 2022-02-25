@@ -27,7 +27,7 @@
     <table class="table datatable">
     <thead>
       <tr>
-        <th scope="col">ID Contact</th>
+        <th scope="col">No</th>
         <th scope="col">Nama Contact</th>
         <th scope="col">No Telepon</th>
         <th scope="col">email</th>
@@ -40,7 +40,8 @@
 
     <tr>
       <center>
-      <td scope="row">{{ $r->id_kontak }}</td>
+      <td>{{ $loop -> iteration }}</td>
+      <!-- <td scope="row">{{ $r->id_kontak }}</td> -->
       <td>{{ $r->nama_kontak }}</td>
       <td>{{ $r->no_tlpn }}</td>
       <td>{{ $r->email }}</td>
