@@ -8,6 +8,7 @@ use App\Http\Controllers\KontakController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PetugasadminController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\TestimonialController;
 
 Route::get('/', function () {
     return view('layouts/master');
@@ -65,3 +66,12 @@ Route::get('/petugasadmin/simpan', [PetugasadminController::class, 'simpan']);
 Route::get('petugasadmin/edit/{id}', [PetugasadminController::class, 'edit']);
 route::get('petugasadmin/update/{id}',[PetugasadminController::class, 'update']);
 Route::get('petugasadmin/softdel/{id}', [PetugasadminController::class, 'softdel']);
+
+//testimonial
+Route::get('datatestimonial', [TestimonialController::class, 'testimonial']);
+Route::get('/testimonial/cari', [TestimonialController::class, 'testimonial']);
+Route::get('testimonial/tambahtestimonial', [TestimonialController::class, 'tambahtestimonial']);
+Route::post('/testimonial/simpan', [TestimonialController::class, 'simpan']);
+Route::get('testimonial/edit/{id}', [TestimonialController::class, 'edit']);
+route::get('testimonial/update/{id}',[TestimonialController::class, 'update']);
+Route::get('testimonial/softdel/{id}', [TestimonialController::class, 'softdel']);

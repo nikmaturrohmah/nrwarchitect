@@ -30,7 +30,6 @@
         <th scope="col">No</th>
         <th scope="col">Nama Petugas Admin</th>
         <th scope="col">Email</th>
-        <th scope="col">Password</th>
         <th scope="col">Opsi</th>
       </tr>
     </thead>
@@ -44,11 +43,10 @@
       <!-- <td scope="row">{{ $r->id_petugasadmin }}</td> -->
       <td>{{ $r->name }}</td>
       <td>{{ $r->email }}</td>
-      <td>{{ $r->password }}</td>
+     
       <td>
         <a href="/petugasadmin/edit/{{ $r->id }}" class="btn btn-info">Edit</a>
-        |
-        <a href="/petugasadmin/softdel/{{ $r->id }}" class="btn btn-info">Hapus</a>
+        <a href="/petugasadmin/softdel/{{ $r->id }}" class="btn btn-danger">Hapus</a>
       </td>
       </center>
     </tr>
