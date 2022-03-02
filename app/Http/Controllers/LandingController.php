@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Landing;
@@ -41,11 +42,18 @@ class LandingController extends Controller
                         $metaKey => 'image|mimes:jpeg,png,jpg,gif,svg',
                     ]);
 
+                    $imageOld = public_path('images/').$value->meta_value;
+                    if(File::exists($imageOld)) {
+                        File::delete($imageOld);
+                    }
+
                     $image = $request->file($metaKey);
                     $extension = $image->getClientOriginalExtension();
                     $name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                     $imageName = "slider" . "-" . Str::slug(date('Y-m-d-h-i-s') . Str::random(8)) . '.' . $extension;
-                    $storage = Storage::putFileAs("public/images/", $image, $imageName);
+                    
+                    //$storage = Storage::putFileAs("public/images/", $image, $imageName);
+                    $image->move(public_path('images/'), $imageName);
 
                     $data = [ 'meta_value' => $imageName ];
                 }

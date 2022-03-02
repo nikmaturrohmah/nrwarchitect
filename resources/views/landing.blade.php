@@ -71,7 +71,7 @@
         <div class="carousel-inner" role="listbox">
 
           @for($i = 0; $i < (sizeof($landing['slider'])/3); $i++)
-          <div class="carousel-item {{ ($i == 0 ? 'active' : '' ) }}" style="background-image: url('{{ asset('storage/images/'.$landing['slider'][($i*3)+2]->meta_value) }}');">
+          <div class="carousel-item {{ ($i == 0 ? 'active' : '' ) }}" style="background-image: url('{{ asset('images/'.$landing['slider'][($i*3)+2]->meta_value) }}');">
             <div class="carousel-container">
               <div class="carousel-content container">
                 <h2 class="animate__animated animate__fadeInDown">{{ $landing['slider'][($i*3)+0]->meta_value }}</h2>
@@ -129,7 +129,7 @@
 
         <div class="row no-gutters">
           <div class="col-lg-6 video-box">
-            <img src="{{ asset('storage/images/'.$landing['aboutus'][1]->meta_value) }}" class="img-fluid" alt="">
+            <img src="{{ asset('images/'.$landing['aboutus'][1]->meta_value) }}" class="img-fluid" alt="">
           </div>
 
           <div class="col-lg-6 d-flex flex-column justify-content-center about-content">

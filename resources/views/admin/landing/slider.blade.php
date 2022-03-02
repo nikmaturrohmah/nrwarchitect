@@ -20,7 +20,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="">Image</label>
-                                <img src="{{ asset('storage/images/'.$slider[($i*3)+2]->meta_value) }}" style="width: 100%; height: 250px; object-fit: cover" class="rounded mb-2 shadow border-0" alt="">
+                                <img src="{{ asset('images/'.$slider[($i*3)+2]->meta_value) }}" style="width: 100%; height: 250px; object-fit: cover" class="rounded mb-2 shadow border-0" alt="">
                                 <input name="{{ 'landing_slider_product_'.($i+1).'_image' }}" type="file" class="form-control" required>
                             </div>
                             <div class="mb-3">

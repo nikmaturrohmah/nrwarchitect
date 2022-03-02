@@ -27,7 +27,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Image</label>
-                            <img src="{{ asset('storage/images/'.$about[1]->meta_value) }}" style="width: 100%; height: 250px; object-fit: cover" class="rounded mb-2 shadow border-0" alt="">
+                            <img src="{{ asset('images/'.$about[1]->meta_value) }}" style="width: 100%; height: 250px; object-fit: cover" class="rounded mb-2 shadow border-0" alt="">
                             <input name="landing_about_us_image" type="file" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-primary">
