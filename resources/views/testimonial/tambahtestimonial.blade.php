@@ -23,18 +23,23 @@
                     <label for="exampleInputEmail1">ID testimonial</label>
                     <input readonly type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="id" required="required">
                 </div>
-                </br>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nama testimonial</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name" required="required">
                 </div>
-                </br>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Foto testimonial</label>
                     <input type="file" name="photo" required="required">
                 </div>
-                </br>
                 <div class="form-group">
+                    <label for="exampleInputEmail1">Posted</label>
+                <select name="posted">
+                <option value="">Pilih Posted</option>
+                    <option   value="published">Published</br></option>
+                    <option   value="drafted">Drafted</br>
+                    </option>
+                </div>
+                <div class="form-group b">
                     <label for="exampleInputEmail1">Keterangan</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="content" required="required">
                 </div>

@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PetugasadminController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\CategoriesController;
 
 Route::get('/', function () {
     return view('layouts/master');
@@ -23,40 +24,13 @@ Route::name('auth.')->prefix('auth')->group(function () {
 });
 
 //profile
-Route::get('dataprofile', [ProfileController::class, 'profile']);
-Route::get('/profile/cari', [ProfileController::class, 'profile']);
-Route::get('profile/tambahprofile', [ProfileController::class, 'tambahprofile']);
-Route::get('/profile/simpan', [ProfileController::class, 'simpan']);
-Route::get('profile/edit/{id_profile}', [ProfileController::class, 'edit']);
-route::get('profile/update/{id_profile}',[ProfileController::class, 'update']);
-Route::get('profile/softdel/{id}', [ProfileController::class, 'softdel']);
-
-//kontak
-Route::get('datakontak', [KontakController::class, 'kontak']);
-Route::get('/kontak/cari', [KontakController::class, 'kontak']);
-Route::get('kontak/tambahkontak', [KontakController::class, 'tambahkontak']);
-Route::get('/kontak/simpan', [KontakController::class, 'simpan']);
-Route::get('kontak/edit/{id_kontak}', [KontakController::class, 'edit']);
-route::get('kontak/update/{id_kontak}',[KontakController::class, 'update']);
-Route::get('kontak/softdel/{id}', [KontakController::class, 'softdel']);
-
-//about
-Route::get('dataabout', [AboutController::class, 'about']);
-Route::get('/about/cari', [AboutController::class, 'about']);
-Route::get('about/tambahabout', [AboutController::class, 'tambahabout']);
-Route::get('/about/simpan', [AboutController::class, 'simpan']);
-Route::get('about/edit/{id_about}', [AboutController::class, 'edit']);
-route::get('about/update/{id_about}',[AboutController::class, 'update']);
-Route::get('about/softdel/{id}', [AboutController::class, 'softdel']);
-
-//faq
-Route::get('datafaq', [FaqController::class, 'faq']);
-Route::get('/faq/cari', [FaqController::class, 'faq']);
-Route::get('faq/tambahfaq', [FaqController::class, 'tambahfaq']);
-Route::get('/faq/simpan', [FaqController::class, 'simpan']);
-Route::get('faq/edit/{id_faq}', [FaqController::class, 'edit']);
-route::get('faq/update/{id_faq}',[FaqController::class, 'update']);
-Route::get('faq/softdel/{id}', [FaqController::class, 'softdel']);
+Route::get('dataportofolio', [PortofolioController::class, 'portofolio']);
+Route::get('/portofolio/cari', [PortofolioController::class, 'portofolio']);
+Route::get('portofolio/tambahportofolio', [PortofolioController::class, 'tambahportofolio']);
+Route::get('/portofolio/simpan', [PortofolioController::class, 'simpan']);
+Route::get('portofolio/edit/{id_portofolio}', [PortofolioController::class, 'edit']);
+route::get('portofolio/update/{id_portofolio}',[PortofolioController::class, 'update']);
+Route::get('portofolio/softdel/{id}', [PortofolioController::class, 'softdel']);
 
 //petugasadmin
 Route::get('datapetugasadmin', [PetugasadminController::class, 'petugasadmin']);
@@ -75,3 +49,12 @@ Route::post('/testimonial/simpan', [TestimonialController::class, 'simpan']);
 Route::get('testimonial/edit/{id}', [TestimonialController::class, 'edit']);
 route::get('testimonial/update/{id}',[TestimonialController::class, 'update']);
 Route::get('testimonial/softdel/{id}', [TestimonialController::class, 'softdel']);
+
+//categories
+Route::get('datacategories', [categoriesController::class, 'categories']);
+Route::get('/categories/cari', [categoriesController::class, 'categories']);
+Route::get('categories/tambahcategories', [categoriesController::class, 'tambahcategories']);
+Route::get('/categories/simpan', [categoriesController::class, 'simpan']);
+Route::get('categories/edit/{id}', [categoriesController::class, 'edit']);
+route::get('categories/update/{id}',[categoriesController::class, 'update']);
+Route::get('categories/softdel/{id}', [categoriesController::class, 'softdel']);

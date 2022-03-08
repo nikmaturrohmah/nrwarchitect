@@ -36,6 +36,7 @@ class TestimonialController extends Controller
         $testimonial->name = $request->name;
         $testimonial->photo = $fileName;
         $testimonial->content = $request->content;
+        $testimonial->posted = $request->posted;
 
         $testimonial->save();
 
@@ -59,10 +60,23 @@ class TestimonialController extends Controller
     public function update(Request $request, $id)
     {
         DB::table('testimonials')->where('id', $id, $request->id)->update([
-            'name' => $request->name,
-            'photo' => $request->photo,
-            'content' => $request->content,
+        $file = $request->photo,
+        $fileName = $request->name .'.' . $file->extension(),
+        $file->move(public_path('testimoni'), $fileName),
+
+        $testimonial = new testimonial,
+        $testimonial->name = $request->name,
+        $testimonial->photo = $fileName,
+        $testimonial->content = $request->content,
+        $testimonial->posted = $request->posted,
+
+        $testimonial->save(),
+            // 'name' => $request->name,
+            // 'photo' => $request->photo,
+            // 'content' => $request->content,
+            // 'posted' => $request->posted,
         ]);
+    
         return redirect('/datatestimonial');
     }
 

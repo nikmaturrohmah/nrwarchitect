@@ -17,13 +17,14 @@ class CreatePortofolioTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->float('dimensi_lahan');
-            $table->float('luas_lahan');
-            $table->float('luas_bangunan');
-            $table->float('jumlah_lantai');
-            $table->float('kamar_tidur');
-            $table->float('kamar_mandi');
+            $table->string('dimensi_lahan');
+            $table->string('luas_lahan');
+            $table->string('luas_bangunan');
+            $table->string('jumlah_lantai');
+            $table->string('kamar_tidur');
+            $table->string('kamar_mandi');
             $table->timestamps();
+            $table->datetime('deleted_at')->nullable();
         });
     }
 

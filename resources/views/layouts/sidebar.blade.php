@@ -55,6 +55,7 @@
             <!-- <h6 class="collapse-header">Components Profile:</h6> -->
             <!-- <a class="collapse-item" href="/dataprofile">Data Profile</a> -->
             <a class="collapse-item" href="/datatestimonial">Data Testimonial</a>
+            <a class="collapse-item" href="/datacategories">Data Categories</a>
         </div>
     </div>
 </li>
@@ -69,7 +70,7 @@
     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Components Profile:</h6> -->
-            <a class="collapse-item" href="#">Data Portofolio</a>
+            <a class="collapse-item" href="/dataportofolio">Data Portofolio</a>
         </div>
     </div>
 </li>

@@ -18,7 +18,9 @@ class CreateTestimonialTable extends Migration
             $table->string('name');
             $table->string('photo');
             $table->text('content');
+            $table->enum('posted', ['drafted', 'published'])->default('drafted');
             $table->timestamps();
+            $table->datetime('deleted_at')->nullable();
         });
     }
 

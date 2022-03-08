@@ -17,7 +17,7 @@ class CreateCategoryTable extends Migration
             $table->id();
             $table->string('name');
             $table->timestamps();
-            $table->datetime();
+            $table->datetime('deleted_at')->nullable();
         });
     }
 

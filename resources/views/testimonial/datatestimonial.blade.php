@@ -28,9 +28,10 @@
     <thead>
       <tr>
         <th scope="col">No</th>
-        <th scope="col">Nama testimonial</th>
-        <th scope="col" >Foto testimonial</th>
-        <th scope="col">Keterangan</th>
+        <th scope="col">Name</th>
+        <th scope="col" >Photo</th>
+        <th scope="col">Content</th>
+        <th scope="col">Posted</th>
         <th scope="col">Opsi</th>
       </tr>
     </thead>
@@ -45,6 +46,7 @@
       <td>{{ $r->name }}</td>
       <td><figure><img src="{{ asset('/testimoni/'.$r->photo) }}" alt="" style="width:320px; height: 240px; text-align: center;"></figure></td>
       <td>{{ $r->content }}</td>
+      <td>{{ $r->posted }}</td>
       <td>
         <a href="/testimonial/edit/{{ $r->id }}" class="btn btn-info">Edit</a>
         <a href="/testimonial/softdel/{{ $r->id }}" class="btn btn-danger">Hapus</a>
