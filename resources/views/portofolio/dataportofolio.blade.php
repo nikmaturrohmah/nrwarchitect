@@ -28,8 +28,14 @@
     <thead>
       <tr>
         <th scope="col">No</th>
-        <th scope="col">Nama Deskripsi</th>
-        <th scope="col">Spesifikasi</th>
+        <th scope="col">Judul Desain</th>
+        <th scope="col">Deskripsi</th>
+        <th scope="col">Dimensi Lahan</th>
+        <th scope="col">L Lahan</th>
+        <th scope="col">L Bangunan</th>
+        <th scope="col">Jmlh Lantai</th>
+        <th scope="col">Jmlh KM Mandi</th>
+        <th scope="col">Jmlh KM Tidur</th>
         <th scope="col">Opsi</th>
       </tr>
     </thead>
@@ -41,15 +47,24 @@
 
       <td>{{ $loop -> iteration }}</td>
       <!-- <td scope="row">{{ $r->id_portofolio }}</td> -->
-      <td>
+      
+      <td>{{ $r -> name }}</td>
+      <td>{{ $r -> description }}</td>
+      <td>{{ $r -> panjang_lahan }} {{ $r -> lebar_lahan }}</td>
+      <td>{{ $r -> luas_lahan }}</td>
+      <td>{{ $r -> luas_bangunan }}</td>
+      <td>{{ $r -> jumlah_lantai }}</td>
+      <td>{{ $r -> kamar_tidur }}</td>
+      <td>{{ $r -> kamar_mandi }}</td>
+      <!-- <td>
       <div class="row">
                             <div class="col-12">
                                 <span class="text">(Judul Desain) {{ $r -> name }}</span> <br>
                                 <span class="text">(Description) {{ $r -> description }}</span>
                             </div>
                         </div>
-      </td>
-      <td>
+      </td> -->
+      <!-- <td>
       <div class="row">
                             <div class="col-12">
                                 <span class="text">Dimensi Lahan {{ $r -> dimensi_lahan }},</span> <br>
@@ -60,10 +75,14 @@
                                 <span class="text">Kamar Mandi {{ $r -> kamar_mandi }}</span>
                             </div>
                         </div>
-      </td>
+      </td> -->
       <td>
-        <a href="/portofolio/edit/{{ $r->id }}" class="btn btn-info">Edit</a>
-        <a href="/portofolio/softdel/{{ $r->id }}" class="btn btn-danger">Hapus</a>
+      <div class="row">
+          <div class="col-12">
+          <span class="text"><a href="/portofolio/edit/{{ $r->id }}" class="fa fa-pencil" aria-hidden="true"></a></span>
+          <a href="/portofolio/softdel/{{ $r->id }}" class="fa fa-trash" aria-hidden="true"></a>
+          </div>
+      </div>
       </td>
       </center>
     </tr>
