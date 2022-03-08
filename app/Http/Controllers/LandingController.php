@@ -12,6 +12,7 @@ class LandingController extends Controller
 {
     public function index()
     {
+        $landing['logo'] = Landing::where('meta_key', 'like', 'landing_logo%')->get();
         $landing['slider'] = Landing::where('meta_key', 'like', 'landing_slider_%')->get();
         $landing['aboutus'] = Landing::where('meta_key', 'like', 'landing_about_us_%')->get();
         $landing['contactus'] = Landing::where('meta_key', 'like', 'landing_contact_%')->get();
@@ -22,7 +23,10 @@ class LandingController extends Controller
 
     public function detail()
     {
-        return view('detail');
+        $landing['logo'] = Landing::where('meta_key', 'like', 'landing_logo%')->get();
+        $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
+        
+        return view('detail', ['landing' => $landing]);
     }
 
     public function adminIndex()
@@ -50,7 +54,7 @@ class LandingController extends Controller
                     $image = $request->file($metaKey);
                     $extension = $image->getClientOriginalExtension();
                     $name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                    $imageName = "slider" . "-" . Str::slug(date('Y-m-d-h-i-s') . Str::random(8)) . '.' . $extension;
+                    $imageName = $customImageName . "-" . Str::slug(date('Y-m-d-h-i-s') . Str::random(8)) . '.' . $extension;
                     
                     //$storage = Storage::putFileAs("public/images/", $image, $imageName);
                     $image->move(public_path('images/'), $imageName);
@@ -128,5 +132,20 @@ class LandingController extends Controller
         $this->updateData($request, $socialMedia);
 
         return redirect()->route('adminlanding.admin.socialmedia')->with(['success' => 'Data berhasil diubah']);
+    }
+
+    public function adminLogo()
+    {
+        $logo = Landing::where('meta_key', 'like', 'landing_logo%')->get();
+        return view('admin.landing.logo', ['logo' => $logo]);
+    }
+
+    public function adminLogoUpdate(Request $request)
+    {
+        $about = Landing::where('meta_key', 'like', 'landing_logo%')->get();
+
+        $this->updateData($request, $about, "logo");
+
+        return redirect()->route('adminlanding.admin.logo')->with(['success' => 'Data berhasil diubah']);
     }
 }
