@@ -4,16 +4,36 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class portofolio extends Model
+class Portofolio extends Model
 {
-    protected $table = "portofolios";
-    protected $primaryKey = "id";
-    // public function pegawai(){
-    //     return $this->hasMany(pegawai::class, 'id_pegawai');
-    // }
-	use SoftDeletes;
-    protected $timestamp= false;
-    protected $dates= ['deleted_at'];
+    use HasFactory;
+
+    protected $fillable = [
+        'portofolio_category_id',
+        'name',
+        'description',
+    ];
+
+    public function category()
+    {
+        return $this->hasOne(PortofolioCategory::class, 'id', 'portofolio_category_id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(PortofolioImage::class, 'portofolio_id', 'id');
+    }
+
+    public function specificationBuilding()
+    {
+        return $this->hasOne(PortofolioBuilding::class, 'portofolio_id', 'id');
+    }
+
+    public function specificationInterior()
+    {
+        return $this->hasOne(PortofolioInterior::class, 'portofolio_id', 'id');
+    }
+
+    protected $with = ['specificationBuilding', 'specificationInterior'];
 }

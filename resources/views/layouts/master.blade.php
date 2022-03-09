@@ -89,8 +89,8 @@
         </div>
     </div>
 
-    <!-- @include('layouts.js') -->
-    <!-- @stack('scripts') -->
+    @include('layouts.js')
+    @stack('scripts')
 
 </body>
 

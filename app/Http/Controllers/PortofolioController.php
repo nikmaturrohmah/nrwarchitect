@@ -4,70 +4,79 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\portofolio;
+use App\Models\Portofolio;
+use App\Models\PortofolioCategory;
 
 class PortofolioController extends Controller
 {
-    public function portofolio(Request $request)
+    public function index()
     {
-        
-        // mengambil data dari table portofolio
-        if ($request->has('cari')){ $portofolio = portofolio::where('name','like','%'.$request->cari."%")->get ();}
-        else{
-        $portofolio = portofolio::all();
-        }
- 
-        // mengirim data petugas ke view portofolio
-        return view('/portofolio/dataportofolio',['portofolio' => $portofolio]);
+        $portofolio = Portofolio::with('category')->get();
+        return view('admin.portofolio.index', ['portofolio' => $portofolio]);
     }
 
-    public function tambahportofolio()
+    public function create()
     {
-        return view('portofolio/tambahportofolio');
+        $category = PortofolioCategory::get();
+        return view('admin.portofolio.create', ['category' => $category]);
     }
 
-    public function simpan(Request $request)
+    public function store(Request $request)
     {
-        DB::table('portofolios')->insert([
-            // 'id' => $request->id,
-            'name' => $request->name,
-            'description' => $request->description,
-            'dimensi_lahan' => $request->dimensi_lahan,
-            'luas_lahan' => $request->luas_lahan,
-            'luas_bangunan' => $request->luas_bangunan,
-            'jumlah_lantai' => $request->jumlah_lantai,
-            'kamar_tidur' => $request->kamar_tidur,
-            'kamar_mandi' => $request->kamar_mandi,
+        $request->validate([
+            'portofolio_category_id'    => 'required',
+            'name'                      => 'required',
+            'description'               => 'required',
         ]);
-        //alihkan ke halaman portofolio
-        return redirect('/dataportofolio');
+
+        $newData = [
+            'portofolio_category_id'    => $request->portofolio_category_id,
+            'name'                      => $request->name,
+            'description'               => $request->description,
+        ];
+
+        Portofolio::create($newData);
+
+        return redirect()->route('admin.portofolio.index')->with(['success' => 'Data berhasil dibuat']);
     }
 
     public function edit($id)
     {
-        $portofolio = DB::table('portofolios')->where('id',$id)->get();
-        return view('/portofolio/edit',['portofolio' => $portofolio]);
+        $portofolio = Portofolio::find($id);
+        $category = PortofolioCategory::get();
+        return view('admin.portofolio.edit', ['portofolio' => $portofolio, 'category' => $category]);
     }
 
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
-        DB::table('portofolios')->where('id', $id, $request->id)->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'dimensi_lahan' => $request->dimensi_lahan,
-            'luas_lahan' => $request->luas_lahan,
-            'luas_bangunan' => $request->luas_bangunan,
-            'jumlah_lantai' => $request->jumlah_lantai,
-            'kamar_tidur' => $request->kamar_tidur,
-            'kamar_mandi' => $request->kamar_mandi,
+        $request->validate([
+            'portofolio_category_id'    => 'required',
+            'name'                      => 'required',
+            'description'               => 'required',
         ]);
-        return redirect('/dataportofolio');
+
+        $dataUpdate = [
+            'portofolio_category_id'    => $request->portofolio_category_id,
+            'name'                      => $request->name,
+            'description'               => $request->description,
+        ];
+
+        Portofolio::where('id', $id)->update($dataUpdate);
+        return redirect()->route('admin.portofolio.index')->with(['success' => 'Data berhasil diubah']);
     }
 
-    public function softdel($id)
+    public function detail($id)
     {
-        $portofolio = portofolio::find($id);
+        $portofolio = Portofolio::with(['category', 'images'])->find($id);
+        $category = PortofolioCategory::get();
+        return view('admin.portofolio.detail', ['portofolio' => $portofolio, 'category' => $category,]);
+    }
+
+    public function delete($id)
+    {
+        $portofolio = Portofolio::find($id);
         $portofolio->delete();
-        return redirect('/dataportofolio');
+        
+        return redirect()->route('admin.portofolio.index')->with(['success' => 'Data berhasil dihapus']);
     }
 }

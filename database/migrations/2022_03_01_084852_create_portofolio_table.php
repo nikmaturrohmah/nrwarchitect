@@ -15,16 +15,11 @@ class CreatePortofolioTable extends Migration
     {
         Schema::create('portofolios', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('portofolio_category_id');
             $table->string('name');
             $table->text('description');
-            $table->string('dimensi_lahan');
-            $table->string('luas_lahan');
-            $table->string('luas_bangunan');
-            $table->string('jumlah_lantai');
-            $table->string('kamar_tidur');
-            $table->string('kamar_mandi');
             $table->timestamps();
-            $table->datetime('deleted_at')->nullable();
+            $table->foreign('portofolio_category_id')->references('id')->on('portofolio_categories')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -12,7 +12,7 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
-                        <form action="{{ route('adminlanding.admin.slider.update', $i+1) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.landing.slider.update', $i+1) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="">Title</label>

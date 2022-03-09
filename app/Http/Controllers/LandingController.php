@@ -86,7 +86,7 @@ class LandingController extends Controller
 
         $this->updateData($request, $slider, "slider");
 
-        return redirect()->route('adminlanding.admin.slider')->with(['success' => 'Data berhasil diubah']);
+        return redirect()->route('admin.landing.slider')->with(['success' => 'Data berhasil diubah']);
     }
 
     public function adminAboutus()
@@ -101,7 +101,7 @@ class LandingController extends Controller
 
         $this->updateData($request, $about, "about");
 
-        return redirect()->route('adminlanding.admin.aboutus')->with(['success' => 'Data berhasil diubah']);
+        return redirect()->route('admin.landing.aboutus')->with(['success' => 'Data berhasil diubah']);
     }
 
     public function adminContactus()
@@ -116,7 +116,7 @@ class LandingController extends Controller
 
         $this->updateData($request, $contact);
 
-        return redirect()->route('adminlanding.admin.contactus')->with(['success' => 'Data berhasil diubah']);
+        return redirect()->route('admin.landing.contactus')->with(['success' => 'Data berhasil diubah']);
     }
 
     public function adminSocialmedia()
@@ -131,7 +131,7 @@ class LandingController extends Controller
 
         $this->updateData($request, $socialMedia);
 
-        return redirect()->route('adminlanding.admin.socialmedia')->with(['success' => 'Data berhasil diubah']);
+        return redirect()->route('admin.landing.socialmedia')->with(['success' => 'Data berhasil diubah']);
     }
 
     public function adminLogo()
@@ -146,6 +146,6 @@ class LandingController extends Controller
 
         $this->updateData($request, $about, "logo");
 
-        return redirect()->route('adminlanding.admin.logo')->with(['success' => 'Data berhasil diubah']);
+        return redirect()->route('admin.landing.logo')->with(['success' => 'Data berhasil diubah']);
     }
 }

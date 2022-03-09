@@ -110,6 +110,11 @@ class LandingSeeder extends Seeder
                 "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, non? Sunt est laboriosam consequuntur, incidunt, nulla error quisquam nisi totam veritatis, ipsum vitae iusto officiis at? Dolor sunt sint eos.",
                 "string",
             ],
+            [
+                'landing_logo',
+                null,
+                "image",
+            ],
         ];
         
         foreach ($data as $key => $value) {

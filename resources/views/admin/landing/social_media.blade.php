@@ -11,7 +11,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <form action="{{ route('adminlanding.admin.socialmedia.update') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.landing.socialmedia.update') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="">Instagram</label>

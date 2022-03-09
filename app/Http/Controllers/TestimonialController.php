@@ -4,86 +4,111 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\testimonial;
+use Illuminate\Support\Facades\File;
+use App\Models\Testimonial;
 
 class TestimonialController extends Controller
 {
-    public function testimonial(Request $request)
+    public function index()
     {
-        
-        // mengambil data dari table testimonial
-        if ($request->has('cari')){ $testimonial = testimonial::where('name','like','%'.$request->cari."%")->get ();}
-        else{
-        $testimonial = testimonial::all();
+        $testimonial = Testimonial::get();
+        return view('admin.testimonial.index', ['testimonial' => $testimonial]);
+    }
+
+    public function create()
+    {
+        return view('admin.testimonial.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name'  => 'required',
+            'content'   => 'required',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $newData = [
+            'name'      => $request->name,
+            'content'   => $request->content,
+            'posted'    => 'published',
+        ];
+
+        if ($request->hasFile('photo')) {
+            $imageName = "testimonial-".time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('images'), $imageName);
+
+            $newData = array_merge($newData, ['photo' => $imageName]);
         }
- 
-        // mengirim data petugas ke view testimonial
-        return view('/testimonial/datatestimonial',['testimonial' => $testimonial]);
-    }
 
-    public function tambahtestimonial()
-    {
-        return view('testimonial/tambahtestimonial');
-    }
+        Testimonial::create($newData);
 
-    public function simpan(Request $request)
-    {
-        $file = $request->photo;
-        $fileName = $request->name .'.' . $file->extension();
-        $file->move(public_path('testimoni'), $fileName);
-
-        $testimonial = new testimonial;
-        $testimonial->name = $request->name;
-        $testimonial->photo = $fileName;
-        $testimonial->content = $request->content;
-        $testimonial->posted = $request->posted;
-
-        $testimonial->save();
-
-        // return redirect('/admin/client')->with('Success', 'Data Added Successfully');
-        // DB::table('testimonial')->insert([
-        //     // 'id' => $request->id,
-        //     'name' => $request->name,
-        //     'photo' => $filename,
-        //     'content' => $request->content,
-        // ]);
-        //alihkan ke halaman testimonial
-        return redirect('/datatestimonial');
+        return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil dibuat']);
     }
 
     public function edit($id)
     {
-        $testimonial = DB::table('testimonials')->where('id',$id)->get();
-        return view('/testimonial/edit',['testimonial' => $testimonial]);
+        $testimonial = Testimonial::find($id);
+        return view('admin.testimonial.edit', ['testimonial' => $testimonial]);
     }
 
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
-        DB::table('testimonials')->where('id', $id, $request->id)->update([
-        $file = $request->photo,
-        $fileName = $request->name .'.' . $file->extension(),
-        $file->move(public_path('testimoni'), $fileName),
-
-        $testimonial = new testimonial,
-        $testimonial->name = $request->name,
-        $testimonial->photo = $fileName,
-        $testimonial->content = $request->content,
-        $testimonial->posted = $request->posted,
-
-        $testimonial->save(),
-            // 'name' => $request->name,
-            // 'photo' => $request->photo,
-            // 'content' => $request->content,
-            // 'posted' => $request->posted,
+        $request->validate([
+            'name'  => 'required',
+            'content'   => 'required',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-    
-        return redirect('/datatestimonial');
+
+        $dataUpdate = [
+            'name'      => $request->name,
+            'content'   => $request->content,
+        ];
+
+        $old = Testimonial::find($id);
+
+        if ($request->hasFile('photo')) {
+
+            $imagePath = public_path('images/').$old->photo;
+            if(File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+
+            $imageName = "testimonial-".time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('images'), $imageName);
+
+            $dataUpdate = array_merge($dataUpdate, ['photo' => $imageName]);
+        }
+
+        Testimonial::where('id', $id)->update($dataUpdate);
+        return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil diubah']);
     }
 
-    public function softdel($id)
+    public function delete($id)
     {
-        $testimonial = testimonial::find($id);
+        $testimonial = Testimonial::find($id);
         $testimonial->delete();
-        return redirect('/datatestimonial');
+        
+        return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil dihapus']);
+    }
+
+    public function publish($id, Request $request)
+    {
+        $dataUpdate = [
+            'posted'      => "published",
+        ];
+
+        Testimonial::where('id', $id)->update($dataUpdate);
+        return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil dipublish']);
+    }
+
+    public function draft($id, Request $request)
+    {
+        $dataUpdate = [
+            'posted'      => "drafted",
+        ];
+
+        Testimonial::where('id', $id)->update($dataUpdate);
+        return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil didraft']);
     }
 }

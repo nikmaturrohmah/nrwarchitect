@@ -21,12 +21,6 @@
 
 <!-- Divider -->
 <hr class="sidebar-divider">
-
-<!-- Heading -->
-<div class="sidebar-heading">
-    Interface
-</div>
-
 <!-- Nav Item - Pages Collapse Menu -->
 <!-- <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -48,14 +42,31 @@
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
         aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-solid fa-users"></i>
-        <span>Data Master</span>
+        <span>Landing Page</span>
     </a>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Components Profile:</h6> -->
-            <!-- <a class="collapse-item" href="/dataprofile">Data Profile</a> -->
-            <a class="collapse-item" href="/datatestimonial">Data Testimonial</a>
-            <a class="collapse-item" href="/datacategories">Data Categories</a>
+            <a class="collapse-item" href="{{ route('admin.landing.slider') }}">Slider</a>
+            <a class="collapse-item" href="{{ route('admin.landing.aboutus') }}">About Us</a>
+            <a class="collapse-item" href="{{ route('admin.landing.contactus') }}">Contact Us</a>
+            <a class="collapse-item" href="{{ route('admin.landing.socialmedia') }}">Social Media</a>
+        </div>
+    </div>
+</li>
+
+<!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+        aria-expanded="true" aria-controls="collapseOne">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Testimonial</span>
+    </a>
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <!-- <h6 class="collapse-header">Components Profile:</h6> -->
+            <a class="collapse-item" href="{{ route('admin.testimonial.index') }}">Data Testimonial</a>
+            <a class="collapse-item" href="{{ route('admin.testimonial.create') }}">Buat Testimonial</a>
         </div>
     </div>
 </li>
@@ -67,10 +78,11 @@
         <i class="fas fa-fw fa-cog"></i>
         <span>Portofolio</span>
     </a>
-    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Components Profile:</h6> -->
-            <a class="collapse-item" href="/dataportofolio">Data Portofolio</a>
+            <a class="collapse-item" href="{{ route('admin.portofolio.index') }}">Data Portofolio</a>
+            <a class="collapse-item" href="{{ route('admin.portofolio.create') }}">Buat Portofolio</a>
         </div>
     </div>
 </li>
@@ -82,7 +94,7 @@
         <i class="fas fa-solid fa-user"></i>
         <span>Petugas Admin</span>
     </a>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+    <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Components Profile:</h6> -->
             <a class="collapse-item" href="/datapetugasadmin">Data Petugas Admin</a>

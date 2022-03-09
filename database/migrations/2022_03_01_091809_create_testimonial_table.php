@@ -16,11 +16,10 @@ class CreateTestimonialTable extends Migration
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->text('content');
             $table->enum('posted', ['drafted', 'published'])->default('drafted');
             $table->timestamps();
-            $table->datetime('deleted_at')->nullable();
         });
     }
 

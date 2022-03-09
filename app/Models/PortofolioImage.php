@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Landing extends Model
+class PortofolioImage extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'meta_key',
-        'meta_value',
-        'meta_type',
+        'portofolio_id',
+        'image',
     ];
 }

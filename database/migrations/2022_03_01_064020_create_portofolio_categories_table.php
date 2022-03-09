@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePortofolioCategoryTable extends Migration
+class CreatePortofolioCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,8 @@ class CreatePortofolioCategoryTable extends Migration
     {
         Schema::create('portofolio_categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('portofolio_id');
-            $table->unsignedBigInteger('categories_id');
+            $table->string('name');
             $table->timestamps();
-            $table->datetime('deleted_at')->nullable();
-            $table->foreign('portofolio_id')->references('id')->on('portofolios');
-            $table->foreign('categories_id')->references('id')->on('categories');
         });
     }
 
