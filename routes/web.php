@@ -13,6 +13,7 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PortofolioImageController;
 use App\Http\Controllers\PortofolioSpecificationController;
+use App\Http\Controllers\PortofolioTagsController;
 
 Route::get('/', [LandingController::class, 'index']);
 Route::get('/detail', [LandingController::class, 'detail'])->name('detail');
@@ -76,6 +77,14 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::post('store/{id}', [PortofolioSpecificationController::class, 'store'])->name('store');
             Route::get('edit/{id}', [PortofolioSpecificationController::class, 'edit'])->name('edit');
             route::post('update/{id}',[PortofolioSpecificationController::class, 'update'])->name('update');
+        });
+
+        Route::name('tags.')->prefix('tags')->group(function () {
+            Route::get('create/{id}', [PortofolioTagsController::class, 'create'])->name('create');
+            Route::post('store/{id}', [PortofolioTagsController::class, 'store'])->name('store');
+            Route::get('edit/{tagId}', [PortofolioTagsController::class, 'edit'])->name('edit');
+            route::post('update/{tagId}',[PortofolioTagsController::class, 'update'])->name('update');
+            Route::get('delete/{tagId}', [PortofolioTagsController::class, 'delete'])->name('delete');
         });
     });
 });

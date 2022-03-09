@@ -1,61 +1,63 @@
 @extends('layouts.master')
 
 @section('content')
-<main id="main" class="main">
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow mb-4">
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Data Petugas Admin</h6>
+                    <a href="/petugasadmin/tambahpetugasadmin">
+                        <button class="btn btn-primary">Tambah Data Petugas Admin</button>
+                    </a>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    @if ($message = Session::get('success'))
+                    <div class="alert alert-success alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @endif
 
-    <!-- <div class="pagetitle">
-      <h1>Data petugasadmin</h1>
-    </div>End Page Title -->
 
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Data Petugas Admin</h5>
-
-              <p><form action="/petugasadmin/cari" method="GET" >
-    <!-- <input type="text" name="cari" placeholder="Cari petugasadmin .." value="{{ old('cari') }}">
-    <input type="submit" value="CARI"> -->
-  </form></p>
-
- <!-- <center><h1>Data petugasadmin Pegawai</h1></center> -->
-    <a href="/petugasadmin/tambahpetugasadmin" class="btn btn-success">+ Tambah Data Petugas Admin</a>
-    <div class = "table1">
-  <table cellspacing='0'>
-    <table class="table datatable">
-    <thead>
-      <tr>
-        <th scope="col">No</th>
-        <th scope="col">Nama Petugas Admin</th>
-        <th scope="col">Email</th>
-        <th scope="col">Opsi</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach($petugasadmin as $r)
-
-    <tr>
-      <center>
-
-      <td>{{ $loop -> iteration }}</td>
-      <!-- <td scope="row">{{ $r->id_petugasadmin }}</td> -->
-      <td>{{ $r->name }}</td>
-      <td>{{ $r->email }}</td>
-     
-      <td>
-        <a href="/petugasadmin/edit/{{ $r->id }}" class="btn btn-info">Edit</a>
-        <a href="/petugasadmin/softdel/{{ $r->id }}" class="btn btn-danger">Hapus</a>
-      </td>
-      </center>
-    </tr>
-    @endforeach
-    </tbody>
-  </table>
+                    @if ($message = Session::get('error'))
+                    <div class="alert alert-danger alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @endif
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tableImage" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama Petugas Admin</th>
+                                    <th>Email</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($petugasadmin as $r)
+                                <tr>
+                                    <td>{{ $loop -> iteration }}</td>
+                                    <td>{{ $r->name }}</td>
+                                    <td>{{ $r->email }}</td>
+                                    <td>
+                                        <a href="/petugasadmin/edit/{{ $r->id }}"><button class="btn btn-success btn-sm">edit</button></a>
+                                        <a href="/petugasadmin/softdel/{{ $r->id }}"><button class="btn btn-danger btn-sm">hapus</button></a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
 
 @endsection
               

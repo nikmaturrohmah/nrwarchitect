@@ -183,6 +183,61 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-12">
+            <div class="card shadow mb-4">
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Tags Portofolio</h6>
+                    <a href="{{ route('admin.portofolio.tags.create', $portofolio->id) }}">
+                        <button class="btn btn-primary">Tambah Tags</button>
+                    </a>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    @if ($message = Session::get('success'))
+                    <div class="alert alert-success alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @endif
+
+
+                    @if ($message = Session::get('error'))
+                    <div class="alert alert-danger alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @endif
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tableTag" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Tags</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($portofolio->tags as $key=>$value)
+                                <tr>
+                                    <td>{{ $key+1 }}</td>
+                                    <td>
+                                    {{ $value->tag}}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.portofolio.tags.edit', $value->id) }}"><button class="btn btn-success btn-sm">edit</button></a>
+                                        <a href="{{ asset('tags/'.$value->tags) }}"><button class="btn btn-info btn-sm">lihat</button></a>
+                                        <a href="{{ route('admin.portofolio.tags.delete', $value->id) }}"><button class="btn btn-danger btn-sm">hapus</button></a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -203,6 +258,11 @@
       $(function () {
         
         var table = $('#tableImage').DataTable({
+            processing: true,
+            serverSide: false,
+        });
+
+        var table1 = $('#tableTag').DataTable({
             processing: true,
             serverSide: false,
         });

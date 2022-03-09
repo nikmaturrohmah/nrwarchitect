@@ -13,9 +13,9 @@ class PetugasadminController extends Controller
     {
         
         // mengambil data dari table petugasadmin
-        if ($request->has('cari')){ $petugasadmin = petugasadmin::where('name','like','%'.$request->cari."%")->get ();}
+        if ($request->has('cari')){ $petugasadmin = PetugasAdmin::where('name','like','%'.$request->cari."%")->get ();}
         else{
-        $petugasadmin = petugasadmin::all();
+        $petugasadmin = PetugasAdmin::all();
         }
  
         // mengirim data petugas ke view petugasadmin
@@ -57,7 +57,7 @@ class PetugasadminController extends Controller
 
     public function softdel($id)
     {
-        $petugasadmin = petugasadmin::find($id);
+        $petugasadmin = PetugasAdmin::find($id);
         $petugasadmin->delete();
         return redirect('/datapetugasadmin');
     }

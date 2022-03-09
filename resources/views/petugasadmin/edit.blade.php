@@ -1,42 +1,57 @@
 @extends('layouts.master')
 
 @section('content')
-<main id="main" class="main">
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow mb-4">
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Edit Data Petugas Admin</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
 
-    <div class="pagetitle">
-      <h1>Data Tables</h1>
-    </div><!-- End Page Title -->
+                    @if ($message = Session::get('success'))
+                    <div class="alert alert-success alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @endif
 
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
 
-        <div class="card">
-            <div class="card-body">
-            <h2><p class="text-dark">Edit Data Petugas Admin</p></h2>
-            <br/>
-                <a href="/datapetugasadmin" class="btn btn-warning">Kembali</a>
-            <br/>
-            @foreach($petugasadmin as $o)
-            <form action="/petugasadmin/update/{{$o->id}}" method="get">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Id petugasadmin</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="id" required="required" value="{{$o->id}}" disabled="disabled">
+                    @if ($message = Session::get('error'))
+                    <div class="alert alert-danger alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>    
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @endif
+                    @foreach($petugasadmin as $o)
+                    <form action="/petugasadmin/update/{{$o->id}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="">Nama Petugas Admin</label>
+                            <input type="text" name="name" class="form-control" value="{{ $o->name }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Email</label>
+                            <input type="text" name="email" class="form-control" value="{{ $o->email }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Password</label>
+                            <input type="text" name="password" class="form-control" value="{{ $o->password }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Kirim
+                        </button>
+                        <a href="/datapetugasadmin" class="btn btn-warning">Kembali</a>
+                    </form>
+                    @endforeach
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Nama petugasadmin</label>
-                    <input type="" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name" required="required" value="{{$o->name}}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input type="" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" required="required" value="{{$o->email}}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Password</label>
-                    <input type="" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="password" required="required" value="{{$o->password}}">
-                </div>
-              <button type="submit" class="btn btn-primary">submit</button>
-            </form>
-            @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @endsection

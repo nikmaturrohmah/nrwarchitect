@@ -7,7 +7,7 @@
             <div class="card shadow mb-4">
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Buat Data Petugas Admin</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Edit Portofolio</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -27,30 +27,20 @@
                     </div>
                     @endif
 
-                    <form action="/petugasadmin/simpan" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.portofolio.tags.update', $tag->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="">Nama Petugas Admin</label>
-                            <input type="text" name="name" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="">Email</label>
-                            <input type="text" name="email" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="">Password</label>
-                            <input type="text" name="password" class="form-control">
+                            <label for="">Tag</label>
+                            <input type="text" name="tag" class="form-control" value="{{ $tag->tag }}">
                         </div>
                         <button type="submit" class="btn btn-primary">
                             Kirim
                         </button>
-                        <a href="/datapetugasadmin" class="btn btn-warning">Kembali</a>
+                        <a href="{{ route('admin.portofolio.detail', $portofolio->id) }}" class="btn btn-warning">Kembali</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 @endsection

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class petugasadmin extends Model
+class PetugasAdmin extends Model
 {
     protected $table = "users";
     protected $primaryKey = "id";

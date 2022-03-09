@@ -79,6 +79,8 @@
                         <button type="submit" class="btn btn-primary">
                             Kirim
                         </button>
+                        <a href="{{ route('admin.portofolio.detail', $portofolio->id) }}" class="btn btn-warning">Kembali</a>
+                        
                     </form>
                 </div>
             </div>

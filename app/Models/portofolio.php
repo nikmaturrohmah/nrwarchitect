@@ -35,5 +35,10 @@ class Portofolio extends Model
         return $this->hasOne(PortofolioInterior::class, 'portofolio_id', 'id');
     }
 
+    public function tags()
+    {
+        return $this->hasMany(PortofolioTags::class, 'portofolio_id', 'id');
+    }
+
     protected $with = ['specificationBuilding', 'specificationInterior'];
 }

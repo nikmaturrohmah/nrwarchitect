@@ -35,7 +35,8 @@ class PortofolioImageController extends Controller
     public function edit($imageId)
     {
         $image = PortofolioImage::find($imageId);
-        return view('admin.portofolio.image.edit', ['image' => $image]);
+        $portofolio = Portofolio::where('id', $image->portofolio_id )->first();
+        return view('admin.portofolio.image.edit',  ['portofolio'=> $portofolio,'image' => $image]);
     }
 
     public function update($imageId, Request $request)
