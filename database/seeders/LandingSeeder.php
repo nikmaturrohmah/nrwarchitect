@@ -62,7 +62,7 @@ class LandingSeeder extends Seeder
             ],
             [
                 'landing_about_us_warding_text', 
-                "NRW Architect, biro arsitektur yang berbasis di Yogyakarta. Kami siap menjadi rekan terbaik Anda dalam desain arsitektur dan konstruksi khususnya untuk bangunan rumah tinggal, interior, rumah menengah hingga menengah atas. Bersama NRW Architect 'Your Stunning Architect', mari kita wujudkan karya terbaik bagi semua.",
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, non? Sunt est laboriosam consequuntur, incidunt, nulla error quisquam nisi totam veritatis, ipsum vitae iusto officiis at? Dolor sunt sint eos.", 
                 "string",
             ],
             [
@@ -82,17 +82,17 @@ class LandingSeeder extends Seeder
             ],
             [
                 'landing_contact_map',
-                "Kronggahan, Trihanggo, Gamping Sleman",
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, non? Sunt est laboriosam consequuntur, incidunt, nulla error quisquam nisi totam veritatis, ipsum vitae iusto officiis at? Dolor sunt sint eos.",
                 "string",
             ],
             [
                 'landing_contact_phone',
-                "0877216537065",
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, non? Sunt est laboriosam consequuntur, incidunt, nulla error quisquam nisi totam veritatis, ipsum vitae iusto officiis at? Dolor sunt sint eos.",
                 "string",
             ],
             [
                 'landing_contact_email',
-                "pedabayu@gmail.com",
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, non? Sunt est laboriosam consequuntur, incidunt, nulla error quisquam nisi totam veritatis, ipsum vitae iusto officiis at? Dolor sunt sint eos.",
                 "string",
             ],
             [
