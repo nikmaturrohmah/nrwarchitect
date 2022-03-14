@@ -196,7 +196,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     @if ($message = Session::get('success'))
-                    <div class="alert alert-success alert-block">
+                    <div class="alert2 alert-success2 alert-block2">
                         <button type="button" class="close" data-dismiss="alert">×</button>    
                         <strong>{{ $message }}</strong>
                     </div>
@@ -204,7 +204,7 @@
 
 
                     @if ($message = Session::get('error'))
-                    <div class="alert alert-danger alert-block">
+                    <div class="alert2 alert-danger2 alert-block2">
                         <button type="button" class="close" data-dismiss="alert">×</button>    
                         <strong>{{ $message }}</strong>
                     </div>

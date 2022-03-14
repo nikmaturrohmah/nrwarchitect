@@ -14,7 +14,7 @@ class CreateLandingsTable extends Migration
     public function up()
     {
         Schema::create('landings', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('meta_key');
             $table->text('meta_value')->nullable();
             $table->string('meta_type');

@@ -14,15 +14,15 @@ class CreatePortofolioBuildingSpecificationsTable extends Migration
     public function up()
     {
         Schema::create('portofolio_building_specifications', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('portofolio_id');
-            $table->decimal('land_length', '16', '2');
-            $table->decimal('land_width', '16', '2');
-            $table->decimal('building_length', '16', '2');
-            $table->decimal('building_width', '16', '2');
-            $table->integer('floor');
-            $table->integer('bedroom');
-            $table->integer('bathroom');
+            $table->increments('id');
+            $table->UnsignedInteger('portofolio_id');
+            $table->float('land_length', '16', '2');
+            $table->float('land_width', '16', '2');
+            $table->float('building_length', '16', '2');
+            $table->float('building_width', '16', '2');
+            $table->tinyInteger('floor');
+            $table->tinyInteger('bedroom');
+            $table->tinyInteger('bathroom');
             $table->timestamps();
             $table->foreign('portofolio_id')->references('id')->on('portofolios')->onUpdate('cascade')->onDelete('cascade');
         });

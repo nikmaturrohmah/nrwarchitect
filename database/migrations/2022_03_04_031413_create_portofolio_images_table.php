@@ -14,8 +14,8 @@ class CreatePortofolioImagesTable extends Migration
     public function up()
     {
         Schema::create('portofolio_images', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('portofolio_id');
+            $table->increments('id');
+            $table->UnsignedInteger('portofolio_id');
             $table->string('image');
             $table->timestamps();
             $table->foreign('portofolio_id')->references('id')->on('portofolios')->onUpdate('cascade')->onDelete('cascade');
