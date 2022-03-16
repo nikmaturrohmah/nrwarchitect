@@ -42,10 +42,11 @@
   <header id="header" style="background-color: #141414" class="d-flex align-items-center">
     <div class="container d-flex align-items-center">
 
-      <div class="logo me-auto text-white">
+      <div class="logo me-auto text-white d-inline-flex gap-3">
         <!-- <h1 class="text-white"><a href="index.html">{{ env('APP_NAME') }}</a></h1> -->
         <!-- Uncomment below if you prefer to use an image logo -->
         <a href="index.html"><img src="{{ asset('images/'.$landing['logo'][0]->meta_value) }}" alt="" class="img-fluid"></a>
+        <a href="index.html" class="mt-2"><h4 class="text-white"><strong>{{ env('APP_NAME') }}</strong></h4></a>
       </div>
 
       <nav id="navbar" class="navbar">
@@ -70,12 +71,12 @@
 
         <div class="carousel-inner" role="listbox">
 
-          @for($i = 0; $i < (sizeof($landing['slider'])/3); $i++)
-          <div class="carousel-item {{ ($i == 0 ? 'active' : '' ) }}" style="background-image: url('{{ asset('images/'.$landing['slider'][($i*3)+2]->meta_value) }}');">
+          @for($i = 0; $i < 3; $i++)
+          <div class="carousel-item {{ ($i == 0 ? 'active' : '' ) }}" style="background-image: url('{{ asset('images/'.$slider[$i]->image) }}');">
             <div class="carousel-container">
               <div class="carousel-content container">
-                <h2 class="animate__animated animate__fadeInDown">{{ $landing['slider'][($i*3)+0]->meta_value }}</h2>
-                <p class="animate__animated animate__fadeInUp">{{ $landing['slider'][($i*3)+1]->meta_value }}</p>
+                <h2 class="animate__animated animate__fadeInDown">{{ $slider[$i]->title }}</h2>
+                <p class="animate__animated animate__fadeInUp">{{ $slider[$i]->description }}</p>
               </div>
             </div>
           </div>
@@ -169,140 +170,30 @@
           <div class="col-lg-12">
             <ul id="portfolio-flters">
               <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">App</li>
-              <li data-filter=".filter-card">Card</li>
-              <li data-filter=".filter-web">Web</li>
+              @foreach($landing['category'] as $key=>$value)
+              <li data-filter=".filter-{{ $value->name }}">{{ $value->name }}</li>
+              @endforeach
             </ul>
           </div>
         </div>
 
         <div class="row portfolio-container">
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          @foreach($landing['portofolio'] as $key=>$value)
+          <div class="col-lg-4 col-md-6 portfolio-item filter-{{ $value->category->name }}">
             <div class="portfolio-wrap">
-              <img src="{{ asset('mamba/assets/img/portfolio/portfolio-1.jpg') }}" class="img-fluid" alt="">
+              <img src="{{ asset('images/' . $value->images[0]->image) }}" class="img-fluid" alt="">
               <div class="portfolio-info">
-                <h4>App 1</h4>
-                <p>App</p>
+                <h4>{{ $value->name }}</h4>
+                <p>Test</p>
                 <div class="portfolio-links">
-                  <a href="{{ asset('mamba/assets/img/portfolio/portfolio-1.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bi bi-plus"></i></a>
-                  <a href="{{ route('detail') }}" title="More Details"><i class="bi bi-link"></i></a>
+                  <a href="{{ asset('images/' . $value->images[0]->image) }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ $value->description }}"><i class="bi bi-plus"></i></a>
+                  <a href="{{ route('detail', $value->id) }}" title="More Details"><i class="bi bi-link"></i></a>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="{{ asset('mamba/assets/img/portfolio/portfolio-2.jpg') }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset('mamba/assets/img/portfolio/portfolio-2.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bi bi-plus"></i></a>
-                  <a href="{{ route('detail') }}" title="More Details"><i class="bi bi-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="{{ asset('mamba/assets/img/portfolio/portfolio-3.jpg') }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 2</h4>
-                <p>App</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset('mamba/assets/img/portfolio/portfolio-3.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 2"><i class="bi bi-plus"></i></a>
-                  <a href="{{ route('detail') }}" title="More Details"><i class="bi bi-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="{{ asset('mamba/assets/img/portfolio/portfolio-4.jpg') }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Card 2</h4>
-                <p>Card</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset('mamba/assets/img/portfolio/portfolio-4.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 2"><i class="bi bi-plus"></i></a>
-                  <a href="{{ route('detail') }}" title="More Details"><i class="bi bi-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="{{ asset('mamba/assets/img/portfolio/portfolio-5.jpg') }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Web 2</h4>
-                <p>Web</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset('mamba/assets/img/portfolio/portfolio-5.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"><i class="bi bi-plus"></i></a>
-                  <a href="{{ route('detail') }}" title="More Details"><i class="bi bi-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="{{ asset('mamba/assets/img/portfolio/portfolio-6.jpg') }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 3</h4>
-                <p>App</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset('mamba/assets/img/portfolio/portfolio-6.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 3"><i class="bi bi-plus"></i></a>
-                  <a href="{{ route('detail') }}" title="More Details"><i class="bi bi-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="{{ asset('mamba/assets/img/portfolio/portfolio-7.jpg') }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Card 1</h4>
-                <p>Card</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset('mamba/assets/img/portfolio/portfolio-7.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 1"><i class="bi bi-plus"></i></a>
-                  <a href="{{ route('detail') }}" title="More Details"><i class="bi bi-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="{{ asset('mamba/assets/img/portfolio/portfolio-8.jpg') }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Card 3</h4>
-                <p>Card</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset('mamba/assets/img/portfolio/portfolio-8.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bi bi-plus"></i></a>
-                  <a href="{{ route('detail') }}" title="More Details"><i class="bi bi-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="{{ asset('mamba/assets/img/portfolio/portfolio-9.jpg') }}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-                <div class="portfolio-links">
-                  <a href="{{ asset('mamba/assets/img/portfolio/portfolio-9.jpg') }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bi bi-plus"></i></a>
-                  <a href="{{ route('detail') }}" title="More Details"><i class="bi bi-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
+          @endforeach
 
         </div>
 
@@ -319,7 +210,22 @@
 
         <div class="row">
 
+          @foreach($landing['testimonial'] as $key=>$value)
           <div class="col-xl-4 col-lg-4 col-md-4" data-aos="fade-up">
+            <div class="card p-4 mb-3 border-0 shadow text-center">
+                <div class="mb-4">
+                    <img style="width: 100px; height: 100px; object-fit: cover" class="img-thumbnail rounded-circle" src="{{ asset('images/' . $value->photo) }}" alt="">
+                </div>
+                <h4 class="mb-4"><strong>{{ $value->name }}</strong></h4>
+                @if(strlen($value->content) < 300)
+                <p>{{ $value->content }}</p>
+                @else
+                <p>{{ Illuminate\Support\Str::limit($value->content, 300 ) }}</p>
+                @endif
+            </div>
+          </div>
+          @endforeach
+          <!-- <div class="col-xl-4 col-lg-4 col-md-4" data-aos="fade-up">
             <div class="card p-4 mb-3 border-0 shadow text-center">
                 <div class="mb-4">
                     <img width="100px" height="100px" class="img-thumbnail rounded-circle" src="{{ asset('mamba/assets/img/team/team-2.jpg') }}" alt="">
@@ -348,7 +254,7 @@
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, dolorum a. Enim, nostrum animi ipsum consequatur culpa facere itaque, hic molestiae odio rem accusantium delectus similique eligendi voluptas, dolore ducimus.</p>
             </div>
           </div>
-
+          -->
         </div>
 
       </div>

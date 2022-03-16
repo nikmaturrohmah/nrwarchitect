@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\DetailController;
 use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\AboutController;
@@ -14,9 +15,10 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PortofolioImageController;
 use App\Http\Controllers\PortofolioSpecificationController;
 use App\Http\Controllers\PortofolioTagsController;
+use App\Http\Controllers\SliderController;
 
 Route::get('/', [LandingController::class, 'index']);
-Route::get('/detail', [LandingController::class, 'detail'])->name('detail');
+Route::get('/detail/{id}', [DetailController::class, 'index'])->name('detail');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -33,6 +35,18 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::name('landing.')->prefix('landing')->group(function () {
         Route::get('slider', [LandingController::class, 'adminSlider'])->name('slider');
         Route::post('slider/{number}', [LandingController::class, 'adminSliderUpdate'])->name('slider.update');
+
+        Route::name('slider.')->prefix('slideradmin')->group(function () {
+            Route::get('/', [SliderController::class, 'index'])->name('index');
+            Route::get('create', [SliderController::class, 'create'])->name('create');
+            Route::get('edit/{id}', [SliderController::class, 'edit'])->name('edit');
+            Route::post('store', [SliderController::class, 'store'])->name('store');
+            Route::post('dropzone', [SliderController::class, 'dropzone'])->name('dropzone');
+            route::post('update/{id}',[SliderController::class, 'update'])->name('update');
+            Route::get('delete/{id}', [SliderController::class, 'delete'])->name('delete');
+            Route::get('publish/{id}', [SliderController::class, 'publish'])->name('publish');
+            Route::get('draft/{id}', [SliderController::class, 'draft'])->name('draft');
+        });
     
         Route::get('aboutus', [LandingController::class, 'adminAboutus'])->name('aboutus');
         Route::post('aboutus', [LandingController::class, 'adminAboutusUpdate'])->name('aboutus.update');
@@ -42,6 +56,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
     
         Route::get('socialmedia', [LandingController::class, 'adminSocialmedia'])->name('socialmedia');
         Route::post('socialmedia', [LandingController::class, 'adminSocialmediaUpdate'])->name('socialmedia.update');
+    
+        Route::get('logo', [LandingController::class, 'adminLogo'])->name('logo');
+        Route::post('logo', [LandingController::class, 'adminLogoUpdate'])->name('logo.update');
     });
 
     Route::name('testimonial.')->prefix('testimonial')->group(function () {
@@ -67,6 +84,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::name('image.')->prefix('image')->group(function () {
             Route::get('create/{id}', [PortofolioImageController::class, 'create'])->name('create');
             Route::post('store/{id}', [PortofolioImageController::class, 'store'])->name('store');
+            Route::post('dropzone/{id}', [PortofolioImageController::class, 'dropzone'])->name('dropzone');
             Route::get('edit/{imageId}', [PortofolioImageController::class, 'edit'])->name('edit');
             route::post('update/{imageId}',[PortofolioImageController::class, 'update'])->name('update');
             Route::get('delete/{imageId}', [PortofolioImageController::class, 'delete'])->name('delete');

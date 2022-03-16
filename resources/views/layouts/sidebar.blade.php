@@ -47,10 +47,11 @@
     <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Components Profile:</h6> -->
-            <a class="collapse-item" href="{{ route('admin.landing.slider') }}">Slider</a>
+            <a class="collapse-item" href="{{ route('admin.landing.slider.index') }}">Slider</a>
             <a class="collapse-item" href="{{ route('admin.landing.aboutus') }}">About Us</a>
             <a class="collapse-item" href="{{ route('admin.landing.contactus') }}">Contact Us</a>
             <a class="collapse-item" href="{{ route('admin.landing.socialmedia') }}">Social Media</a>
+            <a class="collapse-item" href="{{ route('admin.landing.logo') }}">Logo</a>
         </div>
     </div>
 </li>

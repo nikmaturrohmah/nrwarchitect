@@ -78,7 +78,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div>
-                                    lantai
+                                    Lantai
                                     <h4>{{ $portofolio->specificationBuilding->floor }}</h4>
                                     <br>
                                     Kamar tidur

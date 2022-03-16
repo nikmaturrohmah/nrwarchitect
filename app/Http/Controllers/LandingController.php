@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Landing;
+use App\Models\PortofolioCategory;
+use App\Models\Portofolio;
+use App\Models\Testimonial;
+use App\Models\Slider;
 
 class LandingController extends Controller
 {
@@ -17,8 +21,17 @@ class LandingController extends Controller
         $landing['aboutus'] = Landing::where('meta_key', 'like', 'landing_about_us_%')->get();
         $landing['contactus'] = Landing::where('meta_key', 'like', 'landing_contact_%')->get();
         $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
+        $landing['category'] = PortofolioCategory::get();
+        $landing['portofolio'] = Portofolio::with(['images', 'category'])->get();
+        $landing['testimonial'] = Testimonial::get();
+        $slider = Slider::get();
+
+        //return response()->json($slider[0]->title);
+
+        //return response()->json($landing['testimonial']);
+        //dd($landing['testimonial']);
         
-        return view('landing', ['landing' => $landing]);
+        return view('landing', ['landing' => $landing, 'slider' => $slider]);
     }
 
     public function detail()

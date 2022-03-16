@@ -58,7 +58,7 @@
                     </div>
                     @endif
 
-                    <form action="{{ route('admin.portofolio.image.store', $portofolio->id) }}" method="post" enctype="multipart/form-data">
+                    <!-- <form action="{{ route('admin.portofolio.image.store', $portofolio->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="">Gambar</label>
@@ -73,7 +73,14 @@
                         </button>
                         <a href="{{ route('admin.portofolio.detail', $portofolio->id) }}" class="btn btn-warning">Kembali</a>
 
+                    </form> -->
+
+                    <form action="{{ route('admin.portofolio.image.dropzone', $portofolio->id) }}" class="dropzone" method="post" enctype="multipart/form-data">
+                        @csrf
                     </form>
+                    <button id="uploadFile" class="btn btn-primary mt-3">
+                        Kirim
+                    </button>
                 </div>
             </div>
         </div>
@@ -84,12 +91,19 @@
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
     <script type="text/javascript">
-        Dropzone.options.imageUpload = {
-            maxFilesize : 2,
-            acceptedFiles : ".jpeg,.jpg,.png,.gif"
-        };
+        Dropzone.autoDiscover = false;
+
+        var myDropzone = new Dropzone(".dropzone", { 
+            autoProcessQueue: false,
+            maxFilesize: 1,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif"
+        });
+
+        $('#uploadFile').click(function(){
+            myDropzone.processQueue();
+        });
     </script>
-    <script>
+    <!-- <script>
     var imageLoader = document.getElementById('image');
     imageLoader.addEventListener('change', handleImage, false);
 
@@ -100,5 +114,5 @@
         }
         reader.readAsDataURL(e.target.files[0]);
     }
-</script>
+    </script> -->
 @endpush

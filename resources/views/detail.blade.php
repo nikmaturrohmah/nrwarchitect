@@ -69,38 +69,47 @@
 
         <div class="row">
           <div class="col-md-8">
-            <div class="hero-container">
+          <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+            <!-- Carousel indicators -->
+            <!-- <ol class="carousel-indicators">
+                <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
+                <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
+            </ol> -->
+            
+            <!-- Wrapper for carousel items -->
+            <div class="carousel-inner">
+              @for($i = 0; $i < sizeof($portofolio->images); $i++)
+                <div class="carousel-item {{ ($i == 0 ? 'active' : '' ) }}">
+                    <img src="{{ asset('images/'.$portofolio->images[$i]->image) }}" class="rounded d-block w-100" alt="Slide 1">
+                </div>
+              @endfor
+            </div>
+
+            <!-- Carousel controls -->
+            <!-- <a class="carousel-control-prev" href="#myCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a> -->
+          </div>
+            <!-- <div class="hero-container">
                 <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
 
                     <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
                     <div class="carousel-inner" role="listbox">
 
-                    <!-- Slide 1 -->
-                    <div class="carousel-item rounded active" style="background-image: url('{{ asset('mamba/assets/img/slide/slide-1.jpg') }}'); object-fit: contain">
-                        <div class="carousel-container" style="height: 550px">
-                            <div class="carousel-content container">
-                                
-                            </div>
+                    @for($i = 0; $i < sizeof($portofolio->images); $i++)
+                    <div class="carousel-item {{ ($i == 0 ? 'active' : '' ) }}" style="background-image: url('{{ asset('images/' . $portofolio->images[$i]->image) }}');">
+                      <div class="carousel-container">
+                        <div class="carousel-content container">
+                          <h2 class="animate__animated animate__fadeInDown">Test</h2>
+                          <p class="animate__animated animate__fadeInUp">GGwp</p>
                         </div>
+                      </div>
                     </div>
-
-                    <!-- Slide 2 -->
-                    <div class="carousel-item rounded" style="background-image: url('{{ asset('mamba/assets/img/slide/slide-2.jpg') }}'); object-fit: contain">
-                        <div class="carousel-container" style="height: 550px">
-                            <div class="carousel-content container">
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Slide 3 -->
-                    <div class="carousel-item rounded" style="background-image: url('{{ asset('mamba/assets/img/slide/slide-3.jpg') }}'); object-fit: contain">
-                        <div class="carousel-container" style="height: 550px">
-                            <div class="carousel-content container">
-                                
-                            </div>
-                        </div>
-                    </div>
+                    @endfor
 
                     </div>
 
@@ -112,49 +121,69 @@
                     </a>
 
                 </div>
-                </div>
+            </div> -->
           </div>
 
           <div class="col-md-4 d-flex flex-column justify-content-between">
 
             <div class="card rounded p-4 mb-4 border-0 shadow">
-                <h4><strong>Modern Private House</strong></h4>
-                <p style="color: #9A9A9A; font-size: 14px">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores modi ea dolorum, temporibus molestias consequuntur ut, dolor rem iste voluptates, laudantium eligendi! Fugiat aliquid distinctio harum impedit, aspernatur necessitatibus accusantium.</p>
+                <h4><strong>{{ $portofolio->name }}</strong></h4>
+                <p style="color: #9A9A9A; font-size: 14px">{{ $portofolio->description }}</p>
             </div>
 
             <div class="card rounded px-4 pt-4 pb-2 mb-3 border-0 shadow">
                 <h5 style="color: #9A9A9A"><strong>Specification</strong></h5>
                 <div class="mt-3 row">
+                    @if($portofolio->specificationBuilding != null)
                     <div class="col-md-4 text-center">
                         <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                        <p style="font-size: 12px; margin-bottom: 0;">Dimensi Lahan</p>
-                        <p>100</p>
+                        <p style="font-size: 12px; margin-bottom: 0;">Lebar lahan (m)</p>
+                        <p>{{ $portofolio->specificationBuilding->land_width }}</p>
                     </div>
                     <div class="col-md-4 text-center">
                         <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                        <p style="font-size: 12px; margin-bottom: 0;">Luas Lahan</p>
-                        <p>100</p>
+                        <p style="font-size: 12px; margin-bottom: 0;">Panjang lahan (m)</p>
+                        <p>{{ $portofolio->specificationBuilding->land_length }}</p>
                     </div>
                     <div class="col-md-4 text-center">
-                        <img src="{{ asset('logo/Logo-luas-banguan.png') }}" alt="">
-                        <p style="font-size: 12px; margin-bottom: 0;">Luas Bangunan</p>
-                        <p>100</p>
+                        <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Luas lahan (m2)</p>
+                        <p>{{ ($portofolio->specificationBuilding->land_width*$portofolio->specificationBuilding->land_length) }}</p>
                     </div>
                     <div class="col-md-4 text-center">
-                        <img src="{{ asset('logo/Logo-lantai.png') }}" alt="">
-                        <p style="font-size: 12px; margin-bottom: 0;">Jumlah Lantai</p>
-                        <p>100</p>
+                        <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Lebar bangunan (m)</p>
+                        <p>{{ $portofolio->specificationBuilding->building_width }}</p>
                     </div>
                     <div class="col-md-4 text-center">
-                        <img src="{{ asset('logo/Logo-kamar tidur.png') }}" alt="">
-                        <p style="font-size: 12px; margin-bottom: 0;">Kamar Tidur</p>
-                        <p>100</p>
+                        <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Panjang bangunan (m)</p>
+                        <p>{{ $portofolio->specificationBuilding->building_length }}</p>
                     </div>
                     <div class="col-md-4 text-center">
-                        <img src="{{ asset('logo/Logo-kamar-mandi.png') }}" alt="">
-                        <p style="font-size: 12px; margin-bottom: 0;">Kamar Mandi</p>
-                        <p>100</p>
+                        <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Luas bangunan (m2)</p>
+                        <p>{{ ($portofolio->specificationBuilding->building_width*$portofolio->specificationBuilding->building_length) }}</p>
                     </div>
+                    @endif
+
+                    @if($portofolio->specificationInterior != null)
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Lantai</p>
+                        <p>{{ $portofolio->specificationBuilding->floor }}</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Kamar tidur</p>
+                        <p>{{ $portofolio->specificationBuilding->bedroom }}</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Kamar mandi</p>
+                        <p>{{ $portofolio->specificationBuilding->bathroom }}</p>
+                    </div>
+                    @endif
                 </div>
             </div>
 
@@ -231,6 +260,9 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
+  <script src="{{ asset('template/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('template/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="https://unpkg.com/@popperjs/core@2') }}"></script>
   <script src="{{ asset('mamba/assets/vendor/purecounter/purecounter.js') }}"></script>
   <script src="{{ asset('mamba/assets/vendor/aos/aos.js') }}"></script>
   <script src="{{ asset('mamba/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
