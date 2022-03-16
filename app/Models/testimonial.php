@@ -11,7 +11,7 @@ class Testimonial extends Model
 
     protected $fillable = [
         'name',
-        'photo',
+        'image',
         'content',
         'posted',
     ];

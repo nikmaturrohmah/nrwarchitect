@@ -65,6 +65,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/', [TestimonialController::class, 'index'])->name('index');
         Route::get('create', [TestimonialController::class, 'create'])->name('create');
         Route::post('store', [TestimonialController::class, 'store'])->name('store');
+        Route::post('dropzone', [TestimonialController::class, 'dropzone'])->name('dropzone');
         Route::get('edit/{id}', [TestimonialController::class, 'edit'])->name('edit');
         route::post('update/{id}',[TestimonialController::class, 'update'])->name('update');
         Route::get('delete/{id}', [TestimonialController::class, 'delete'])->name('delete');

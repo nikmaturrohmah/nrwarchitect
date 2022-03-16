@@ -11,6 +11,7 @@ class TestimonialController extends Controller
 {
     public function index()
     {
+        
         $testimonial = Testimonial::get();
         return view('admin.testimonial.index', ['testimonial' => $testimonial]);
     }
@@ -22,24 +23,16 @@ class TestimonialController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required',
-            'content'   => 'required',
-            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        //return response()->json($request->file->getClientOriginalName());
+        $imageName = "testimonial-".time().'.'.$request->file->extension();
+        $request->file->move(public_path('images'), $imageName);
 
         $newData = [
-            'name'      => $request->name,
-            'content'   => $request->content,
-            'posted'    => 'published',
+            'name'         => $request->post('name'),
+            'content'   => $request->post('content'),
+            'image'   => $imageName,
+            'posted'  => false,
         ];
-
-        if ($request->hasFile('photo')) {
-            $imageName = "testimonial-".time().'.'.$request->photo->extension();
-            $request->photo->move(public_path('images'), $imageName);
-
-            $newData = array_merge($newData, ['photo' => $imageName]);
-        }
 
         Testimonial::create($newData);
 
@@ -54,30 +47,25 @@ class TestimonialController extends Controller
 
     public function update($id, Request $request)
     {
-        $request->validate([
-            'name'  => 'required',
-            'content'   => 'required',
-            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
         $dataUpdate = [
-            'name'      => $request->name,
-            'content'   => $request->content,
+            'name'         => $request->post('name'),
+            'content'      => $request->post('content'),
+            'posted'  => false,
         ];
 
         $old = Testimonial::find($id);
 
-        if ($request->hasFile('photo')) {
+        if ($request->hasFile('file')) {
 
-            $imagePath = public_path('images/').$old->photo;
+            $imagePath = public_path('images/').$old->image;
             if(File::exists($imagePath)) {
                 File::delete($imagePath);
             }
 
-            $imageName = "testimonial-".time().'.'.$request->photo->extension();
-            $request->photo->move(public_path('images'), $imageName);
+            $imageName = "testimonial-".time().'.'.$request->file->extension();
+            $request->file->move(public_path('images'), $imageName);
 
-            $dataUpdate = array_merge($dataUpdate, ['photo' => $imageName]);
+            $dataUpdate = array_merge($dataUpdate, ['image' => $imageName]);
         }
 
         Testimonial::where('id', $id)->update($dataUpdate);
@@ -86,29 +74,47 @@ class TestimonialController extends Controller
 
     public function delete($id)
     {
-        $testimonial = Testimonial::find($id);
-        $testimonial->delete();
+        $image = Testimonial::find($id);
+        $image->delete();
         
+        $imagePath = public_path('images/').$image->image;
+        if(File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
+
         return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil dihapus']);
     }
 
     public function publish($id, Request $request)
     {
+        $testimonial = Testimonial::where('posted', true)->get();
+
+        if (sizeof($testimonial) >= 3) {
+            return redirect()->route('admin.testimonial.index')->with(['error' => 'Jumlah testimonial untuk di publish sudah maksimal']);
+        }
+
         $dataUpdate = [
-            'posted'      => "published",
+            'posted'  => true,
         ];
 
         Testimonial::where('id', $id)->update($dataUpdate);
-        return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil dipublish']);
+        return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil di post']);
+
     }
 
     public function draft($id, Request $request)
     {
+        $testimonial = Testimonial::where('posted', false)->get();
+
+        if (sizeof($testimonial) <= 3) {
+            return redirect()->route('admin.testimonial.index', $id)->with(['error' => 'Jumlah testimonial untuk di ditampilkan kurang']);
+        }
+
         $dataUpdate = [
-            'posted'      => "drafted",
+            'posted'  => false,
         ];
 
-        Testimonial::where('id', $id)->update($dataUpdate);
-        return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil didraft']);
+        testimonial::where('id', $id)->update($dataUpdate);
+        return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil di post']);
     }
 }

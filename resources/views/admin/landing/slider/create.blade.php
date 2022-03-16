@@ -40,6 +40,7 @@
                         <div class="dropzone" style="border: none" id="my-dropzone" name="mainFileUploader">
                         </div>
                     </form>
+                    <a href="{{ route('admin.landing.slider.index') }}" class="btn btn-warning">Kembali</a>
                     <button class="btn btn-primary" type="submit">Submit data and files!</button>
                 </div>
             </div>

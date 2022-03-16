@@ -1,38 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-<style>
-  .uploader {
-        position:relative; 
-        overflow:hidden; 
-        width:500px; 
-        height:500px;
-        background:#f3f3f3; 
-        border:2px dashed #e8e8e8;
-    }
-
-    #photo{
-        position:absolute;
-        width:500px;
-        height:500px;
-        top:-50px;
-        left:0;
-        z-index:2;
-        opacity:0;
-        cursor:pointer;
-    }
-
-    .uploader img{
-        position:absolute;
-        width:500px;
-        height:500px;
-        top:-1px;
-        left:-1px;
-        z-index:1;
-        border:none;
-    }
-</style>
-
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-md-12">
@@ -59,29 +27,21 @@
                     </div>
                     @endif
 
-                    <form action="{{ route('admin.testimonial.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.testimonial.dropzone') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="">Nama</label>
+                            <label for="">Nama Pengguna Testimoni</label>
                             <input type="text" name="name" class="form-control">
                         </div>
                         <div class="mb-3">
-                            <label for="">Isi</label>
+                            <label for="">Komentar/Testimoni Pengguna</label>
                             <textarea name="content" class="form-control" cols="30" rows="10"></textarea>
                         </div>
-                        <div class="mb-3">
-                            <label for="">Photo</label>
-                            <div class="uploader" onclick="$('#photo').click()" style="margin-left: 15px">
-                                    click here or drag here your images for preview and set photo data
-                                    <img src=""/>
-                                    <input type="file" name="photo"  id="photo" />
-                            </div>
+                        <div class="dropzone" style="border: none" id="my-dropzone" name="mainFileUploader">
                         </div>
-                        <button type="submit" class="btn btn-primary">
-                            Kirim
-                        </button>
-                        <a href="{{ route('admin.testimonial.index') }}" class="btn btn-warning">Kembali</a>
                     </form>
+                    <a href="{{ route('admin.testimonial.index') }}" class="btn btn-warning">Kembali</a>
+                    <button class="btn btn-primary" type="submit">Submit data and files!</button>
                 </div>
             </div>
         </div>
@@ -92,21 +52,45 @@
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
     <script type="text/javascript">
-        Dropzone.options.imageUpload = {
-            maxFilesize : 2,
-            acceptedFiles : ".jpeg,.jpg,.png,.gif"
-        };
-    </script>
-    <script>
-    var imageLoader = document.getElementById('photo');
-    imageLoader.addEventListener('change', handleImage, false);
+        Dropzone.autoDiscover = false;
 
-    function handleImage(e) {
-        var reader = new FileReader();
-        reader.onload = function (event) {
-            $('.uploader img').attr('src',event.target.result);
-        }
-        reader.readAsDataURL(e.target.files[0]);
-    }
-</script>
+        var myDropzone = new Dropzone(".dropzone", { 
+            url: "{{ route('admin.testimonial.store') }}",
+            maxFiles: 1,
+            autoProcessQueue: false,
+            maxFilesize: 5,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            success: function(file, response){
+                window.location = "{{ route('admin.testimonial.index') }}";
+                //console.log(response);
+            },
+            init: function() {
+                // Get images
+                var myDropzone = this;
+
+                // First change the button to actually tell Dropzone to process the queue.
+                document.body.querySelector("button[type=submit]").addEventListener("click", function(e) {
+                // Make sure that the form isn't actually being sent.
+                    e.preventDefault();
+                    e.stopPropagation();
+                    myDropzone.processQueue();
+                });
+
+                this.on("sending", function(data, xhr, formData) {
+                    formData.append("_token", $('input[name="_token"]').val());
+                    formData.append("name", $('input[name="name"]').val());
+                    formData.append("content", $('textarea[name="content"]').val());
+        });
+            },
+            removedfile: function (file) {
+                var _ref;
+                    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+            },
+        });
+
+        $('#uploadFile').click(function(){
+            myDropzone.processQueue();
+        });
+    </script>
 @endpush
