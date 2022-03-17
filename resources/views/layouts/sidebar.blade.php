@@ -40,11 +40,11 @@
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-        aria-expanded="true" aria-controls="collapseTwo">
+        aria-expanded="false" aria-controls="collapseTwo">
         <i class="fas fa-solid fa-users"></i>
         <span>Landing Page</span>
     </a>
-    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Components Profile:</h6> -->
             <a class="collapse-item" href="{{ route('admin.landing.slider.index') }}">Slider</a>
@@ -59,11 +59,11 @@
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-        aria-expanded="true" aria-controls="collapseOne">
+        aria-expanded="false" aria-controls="collapseOne">
         <i class="fas fa-fw fa-cog"></i>
         <span>Testimonial</span>
     </a>
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Components Profile:</h6> -->
             <a class="collapse-item" href="{{ route('admin.testimonial.index') }}">Data Testimonial</a>
@@ -75,11 +75,11 @@
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-        aria-expanded="true" aria-controls="collapseOne">
+        aria-expanded="false" aria-controls="collapseOne">
         <i class="fas fa-fw fa-cog"></i>
         <span>Portofolio</span>
     </a>
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Components Profile:</h6> -->
             <a class="collapse-item" href="{{ route('admin.portofolio.index') }}">Data Portofolio</a>
@@ -91,11 +91,11 @@
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-        aria-expanded="true" aria-controls="collapseThree">
+        aria-expanded="false" aria-controls="collapseThree">
         <i class="fas fa-solid fa-user"></i>
         <span>Petugas Admin</span>
     </a>
-    <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Components Profile:</h6> -->
             <a class="collapse-item" href="/datapetugasadmin">Data Petugas Admin</a>

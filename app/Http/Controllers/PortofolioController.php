@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Portofolio;
 use App\Models\PortofolioCategory;
+use App\Models\PortofolioImage;
+use App\Models\PortofolioTags;
+use App\Models\PortofolioBuilding;
+use App\Models\PortofolioInterior;
 
 class PortofolioController extends Controller
 {
@@ -23,21 +27,68 @@ class PortofolioController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'portofolio_category_id'    => 'required',
-            'name'                      => 'required',
-            'description'               => 'required',
-        ]);
+        //return response()->json($request);
 
-        $newData = [
+        $portofolio = [
             'portofolio_category_id'    => $request->portofolio_category_id,
             'name'                      => $request->name,
             'description'               => $request->description,
         ];
 
-        Portofolio::create($newData);
+        $portofolio = Portofolio::create($portofolio);
 
-        return redirect()->route('admin.portofolio.index')->with(['success' => 'Data berhasil dibuat']);
+        if ($request->portofolio_category_id == 1) {
+            $building = [
+                'portofolio_id'     => $portofolio->id,
+                "bathroom"          => $request->bathroom,
+                "bedroom"           => $request->bedroom,
+                "building_length"   => $request->building_length,
+                "building_width"    => $request->building_width,
+                "land_length"       => $request->land_length,
+                "land_width"        => $request->land_width,
+                "floor"             => $request->floor,
+            ];
+
+            PortofolioBuilding::create($building);
+        }
+
+        if ($request->portofolio_category_id == 2) {
+            $interior = [
+                'portofolio_id' => $portofolio->id,
+                "room_length"   => $request->room_length,
+                "room_width"    => $request->room_width,
+                "style"         => $request->style,
+                "type"          => $request->type,
+            ];
+
+            PortofolioInterior::create($interior);
+        }
+
+        foreach ($request->file as $key => $value) {
+            $imageName = "portofolio-".rand(1000, 9999).time().'.'.$value->extension();
+            $value->move(public_path('images'), $imageName);
+
+            $image = [
+                'portofolio_id' => $portofolio->id,
+                'image'         => $imageName,
+            ];
+
+            PortofolioImage::create($image);
+            $image = [];
+        }
+
+        $tags = json_decode($request->tags);
+
+        foreach ($tags as $key => $value) {
+            $tag = [
+                'portofolio_id' => $portofolio->id,
+                'tag'           => $value->value,
+            ];
+    
+            PortofolioTags::create($tag);
+        }
+
+        return $portofolio;
     }
 
     public function edit($id)
