@@ -26,12 +26,20 @@ class DetailController extends Controller
             'specificationBuilding',
             'specificationInterior'
         ])->where('id', $id)->first();
+
+        $last = Portofolio::with('images')
+                            ->orderBy('id','DESC')
+                            ->skip(0)
+                            ->take(4)
+                            ->get();
+                        
         
-        //return response()->json($portofolio);
+        //return response()->json($last);
 
         return view('detail', [
             'landing'       => $landing,
             'portofolio'    => $portofolio,
+            'last'          => $last,
         ]);
     }
 }

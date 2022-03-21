@@ -58,27 +58,10 @@
                     </div>
                     @endif
 
-                    <!-- <form action="{{ route('admin.portofolio.image.store', $portofolio->id) }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="">Gambar</label>
-                            <div class="uploader" onclick="$('#image').click()" style="margin-left: 15px">
-                                    click here or drag here your images for preview and set image data
-                                    <img src=""/>
-                                    <input type="file" name="image"  id="image" />
-                            </div>
-                        </div>
-                        <button class="btn btn-primary">
-                            Kirim
-                        </button>
-                        <a href="{{ route('admin.portofolio.detail', $portofolio->id) }}" class="btn btn-warning">Kembali</a>
-
-                    </form> -->
-
-                    <form action="{{ route('admin.portofolio.image.dropzone', $portofolio->id) }}" class="dropzone" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.portofolio.image.store', $portofolio->id) }}" class="dropzone" method="post" enctype="multipart/form-data">
                         @csrf
                     </form>
-                    <button id="uploadFile" class="btn btn-primary mt-3">
+                    <button type="submit" id="uploadFile" class="btn btn-primary mt-3">
                         Kirim
                     </button>
                 </div>
@@ -93,26 +76,43 @@
     <script type="text/javascript">
         Dropzone.autoDiscover = false;
 
+        var uploadedDocumentMap = {}
         var myDropzone = new Dropzone(".dropzone", { 
+            url: "{{ route('admin.portofolio.image.store', $portofolio->id) }}",
             autoProcessQueue: false,
-            maxFilesize: 1,
-            acceptedFiles: ".jpeg,.jpg,.png,.gif"
-        });
+            maxFilesize: 5,
+            uploadMultiple: true,
+            parallelUploads: 100,
+            maxFiles: 100,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            init: function() {
+                var myDropzone = this;
 
-        $('#uploadFile').click(function(){
-            myDropzone.processQueue();
+                document.body.querySelector("button[type=submit]").addEventListener("click", function(e) {
+                    //e.preventDefault();
+                    e.stopPropagation();
+                    myDropzone.processQueue();
+                });
+
+                this.on("sending", function(data, xhr, formData) {
+                    formData.append("_token", $('input[name="_token"]').val());
+                    formData.append("file[]", $('input[name="file[]"]').val());
+                });
+
+                this.on("processing", function() {
+                    this.options.autoProcessQueue = true;
+                });
+
+                this.on("successmultiple", function(files, response) {
+                    window.location = "{{ route('admin.portofolio.detail', $portofolio->id) }}";
+                    //console.log(response);
+                })
+            },
+            removedfile: function (file) {
+                var _ref;
+                    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+            },
         });
     </script>
-    <!-- <script>
-    var imageLoader = document.getElementById('image');
-    imageLoader.addEventListener('change', handleImage, false);
-
-    function handleImage(e) {
-        var reader = new FileReader();
-        reader.onload = function (event) {
-            $('.uploader img').attr('src',event.target.result);
-        }
-        reader.readAsDataURL(e.target.files[0]);
-    }
-    </script> -->
 @endpush

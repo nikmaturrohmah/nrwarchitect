@@ -20,16 +20,16 @@ class PortofolioTagsController extends Controller
 
     public function store($id, Request $request)
     {
-        $request->validate([
-            'tag'                      => 'required',
-        ]);
+        $tags = json_decode($request->tags);
 
-        $newData = [
-            'portofolio_id'            => $id,
-            'tag'                      => $request->tag,
-        ];
-
-        PortofolioTags::create($newData);
+        foreach ($tags as $key => $value) {
+            $tag = [
+                'portofolio_id' => $id,
+                'tag'           => $value->value,
+            ];
+    
+            PortofolioTags::create($tag);
+        }
 
         return redirect()->route('admin.portofolio.detail', $id)->with(['success' => 'Data berhasil dibuat']);
     }
@@ -48,12 +48,12 @@ class PortofolioTagsController extends Controller
         ]);
 
         $dataUpdate = [
-            'portofolio_id'            => $id,
             'tag'                      => $request->tag,
         ];
 
         PortofolioTags::where('id', $tagId)->update($dataUpdate);
-        return redirect()->route('admin.portofolio.detail', $tagId)->with(['success' => 'Data berhasil diubah']);
+        $tag = PortofolioTags::find($tagId);
+        return redirect()->route('admin.portofolio.detail', $tag->portofolio_id)->with(['success' => 'Data berhasil diubah']);
     }
 
     public function delete($tagId)

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\Portofolio;
 use App\Models\PortofolioCategory;
 use App\Models\PortofolioImage;
+use Webp;
 
 class PortofolioImageController extends Controller
 {
@@ -19,15 +20,19 @@ class PortofolioImageController extends Controller
 
     public function store($id, Request $request)
     {
-        $imageName = "portofolio-".time().'.'.$request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
+        foreach ($request->file as $key => $value) {
+            $imageName = "portofolio-".rand(1000, 9999).time().'.'.$value->extension();
+            $webp = Webp::make($value);
 
-        $newData = [
-            'portofolio_id' => $id,
-            'image'         => $imageName,
-        ];
-
-        PortofolioImage::create($newData);
+            if ($webp->save(public_path('images/'.$imageName))) {
+                $image = [
+                    'portofolio_id' => $id,
+                    'image'         => $imageName,
+                ];
+    
+                PortofolioImage::create($image);
+            }
+        }
 
         return redirect()->route('admin.portofolio.detail', $id)->with(['success' => 'Data berhasil dibuat']);
     }
@@ -51,10 +56,13 @@ class PortofolioImageController extends Controller
                 File::delete($imagePath);
             }
 
-            $imageName = "portofolio-".time().'.'.$request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
+            $imageName = "slider-".rand(1000, 9999).time().'.'.$request->image->extension();
 
-            $dataUpdate = array_merge($dataUpdate, ['image' => $imageName]);
+            $webp = Webp::make($request->image);
+
+            if ($webp->save(public_path('images/'.$imageName))) {
+                $dataUpdate = array_merge($dataUpdate, ['image' => $imageName]);
+            }
         }
 
         PortofolioImage::where('id', $imageId)->update($dataUpdate);

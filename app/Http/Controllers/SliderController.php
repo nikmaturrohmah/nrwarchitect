@@ -9,7 +9,7 @@ use App\Models\Slider;
 use App\Models\Portofolio;
 use App\Models\PortofolioCategory;
 use App\Models\PortofolioImage;
-
+use Webp;
 
 class SliderController extends Controller
 {
@@ -27,17 +27,21 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         //return response()->json($request->file->getClientOriginalName());
-        $imageName = "slider-".time().'.'.$request->file->extension();
-        $request->file->move(public_path('images'), $imageName);
+        $imageName = "slider-".rand(1000, 9999).time().'.'.$request->file->extension();
+        // $value->move(public_path('images'), $imageName);
 
-        $newData = [
-            'title'         => $request->post('title'),
-            'description'   => $request->post('description'),
-            'image'   => $imageName,
-            'posted'  => false,
-        ];
+        $webp = Webp::make($request->file);
 
-        Slider::create($newData);
+        if ($webp->save(public_path('images/'.$imageName))) {
+            $newData = [
+                'title'         => $request->post('title'),
+                'description'   => $request->post('description'),
+                'image'   => $imageName,
+                'posted'  => false,
+            ];
+    
+            Slider::create($newData);
+        }
 
         return redirect()->route('admin.landing.slider.index')->with(['success' => 'Data berhasil dibuat']);
     }
@@ -59,16 +63,18 @@ class SliderController extends Controller
         $old = Slider::find($id);
 
         if ($request->hasFile('file')) {
-
             $imagePath = public_path('images/').$old->image;
             if(File::exists($imagePath)) {
                 File::delete($imagePath);
             }
 
-            $imageName = "slider-".time().'.'.$request->file->extension();
-            $request->file->move(public_path('images'), $imageName);
+            $imageName = "slider-".rand(1000, 9999).time().'.'.$request->file->extension();
 
-            $dataUpdate = array_merge($dataUpdate, ['image' => $imageName]);
+            $webp = Webp::make($request->file);
+
+            if ($webp->save(public_path('images/'.$imageName))) {
+                $dataUpdate = array_merge($dataUpdate, ['image' => $imageName]);
+            }
         }
 
         Slider::where('id', $id)->update($dataUpdate);
@@ -90,11 +96,11 @@ class SliderController extends Controller
 
     public function publish($id)
     {
-        $slider = Slider::where('posted', true)->get();
+        /* $slider = Slider::where('posted', true)->get();
 
         if (sizeof($slider) >= 3) {
             return redirect()->route('admin.landing.slider.index')->with(['error' => 'Jumlah slider untuk di publish sudah maksimal']);
-        }
+        } */
 
         $dataUpdate = [
             'posted'  => true,
@@ -106,11 +112,11 @@ class SliderController extends Controller
 
     public function draft($id)
     {
-        $slider = Slider::where('posted', false)->get();
+        /* $slider = Slider::where('posted', false)->get();
 
         if (sizeof($slider) <= 3) {
             return redirect()->route('admin.landing.slider.index', $id)->with(['error' => 'Jumlah slider untuk di ditampilkan kurang']);
-        }
+        } */
 
         $dataUpdate = [
             'posted'  => false,

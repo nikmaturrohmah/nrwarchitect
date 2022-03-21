@@ -2,6 +2,20 @@
 
 @section('content')
 <div class="container-fluid mt-3">
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>    
+        <strong>{{ $message }}</strong>
+    </div>
+    @endif
+
+
+    @if ($message = Session::get('error'))
+    <div class="alert alert-danger alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>    
+        <strong>{{ $message }}</strong>
+    </div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <div class="card shadow mb-4">
@@ -140,20 +154,6 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    @if ($message = Session::get('success'))
-                    <div class="alert alert-success alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button>    
-                        <strong>{{ $message }}</strong>
-                    </div>
-                    @endif
-
-
-                    @if ($message = Session::get('error'))
-                    <div class="alert alert-danger alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button>    
-                        <strong>{{ $message }}</strong>
-                    </div>
-                    @endif
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tableImage" width="100%" cellspacing="0">
                             <thead>
@@ -195,20 +195,6 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    @if ($message = Session::get('success'))
-                    <div class="alert alert-success alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button>    
-                        <strong>{{ $message }}</strong>
-                    </div>
-                    @endif
-
-
-                    @if ($message = Session::get('error'))
-                    <div class="alert alert-danger alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button>    
-                        <strong>{{ $message }}</strong>
-                    </div>
-                    @endif
                     <div class="table-responsive">
                         <table class="table table-bordered" id="tableTag" width="100%" cellspacing="0">
                             <thead>
@@ -227,7 +213,6 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('admin.portofolio.tags.edit', $value->id) }}"><button class="btn btn-success btn-sm">edit</button></a>
-                                        <a href="{{ asset('tags/'.$value->tags) }}"><button class="btn btn-info btn-sm">lihat</button></a>
                                         <a href="{{ route('admin.portofolio.tags.delete', $value->id) }}"><button class="btn btn-danger btn-sm">hapus</button></a>
                                     </td>
                                 </tr>

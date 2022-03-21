@@ -10,6 +10,7 @@ use App\Models\PortofolioImage;
 use App\Models\PortofolioTags;
 use App\Models\PortofolioBuilding;
 use App\Models\PortofolioInterior;
+use Webp;
 
 class PortofolioController extends Controller
 {
@@ -66,15 +67,17 @@ class PortofolioController extends Controller
 
         foreach ($request->file as $key => $value) {
             $imageName = "portofolio-".rand(1000, 9999).time().'.'.$value->extension();
-            $value->move(public_path('images'), $imageName);
 
-            $image = [
-                'portofolio_id' => $portofolio->id,
-                'image'         => $imageName,
-            ];
+            $webp = Webp::make($value);
 
-            PortofolioImage::create($image);
-            $image = [];
+            if ($webp->save(public_path('images/'.$imageName))) {
+                $image = [
+                    'portofolio_id' => $portofolio->id,
+                    'image'         => $imageName,
+                ];
+    
+                PortofolioImage::create($image);
+            }
         }
 
         $tags = json_decode($request->tags);

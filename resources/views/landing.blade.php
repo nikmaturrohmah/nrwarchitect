@@ -45,8 +45,8 @@
       <div class="logo me-auto text-white d-inline-flex gap-3">
         <!-- <h1 class="text-white"><a href="index.html">{{ env('APP_NAME') }}</a></h1> -->
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html"><img src="{{ asset('images/'.$landing['logo'][0]->meta_value) }}" alt="" class="img-fluid"></a>
-        <a href="index.html" class="mt-2"><h4 class="text-white"><strong>{{ env('APP_NAME') }}</strong></h4></a>
+        <a href="{{ url('/') }}"><img src="{{ asset('images/'.$landing['logo'][0]->meta_value) }}" alt="" class="img-fluid"></a>
+        <a href="{{ url('/') }}" class="mt-2"><h4 class="text-white"><strong>{{ env('APP_NAME') }}</strong></h4></a>
       </div>
 
       <nav id="navbar" class="navbar">
@@ -71,43 +71,16 @@
 
         <div class="carousel-inner" role="listbox">
 
-          @for($i = 0; $i < 3; $i++)
-          <div class="carousel-item {{ ($i == 0 ? 'active' : '' ) }}" style="background-image: url('{{ asset('images/'.$slider[$i]->image) }}');">
+          @foreach($slider as $key=>$value)
+          <div class="carousel-item {{ ($key == 0 ? 'active' : '' ) }}" style="background-image: url('{{ asset('images/'.$value->image) }}');">
             <div class="carousel-container">
               <div class="carousel-content container">
-                <h2 class="animate__animated animate__fadeInDown">{{ $slider[$i]->title }}</h2>
-                <p class="animate__animated animate__fadeInUp">{{ $slider[$i]->description }}</p>
+                <h2 class="animate__animated animate__fadeInDown">{{ $value->title }}</h2>
+                <p class="animate__animated animate__fadeInUp">{{ $value->description }}</p>
               </div>
             </div>
           </div>
-          @endfor
-
-          <!-- <div class="carousel-item active" style="background-image: url('{{ asset('mamba/assets/img/slide/slide-1.jpg') }}');">
-            <div class="carousel-container">
-              <div class="carousel-content container">
-                <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Mamba</span></h2>
-                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-item" style="background-image: url('{{ asset('mamba/assets/img/slide/slide-2.jpg') }}');">
-            <div class="carousel-container">
-              <div class="carousel-content container">
-                <h2 class="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
-                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-item" style="background-image: url('{{ asset('mamba/assets/img/slide/slide-3.jpg') }}');">
-            <div class="carousel-container">
-              <div class="carousel-content container">
-                <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
-                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-              </div>
-            </div>
-          </div> -->
+          @endforeach
 
         </div>
 
@@ -130,7 +103,7 @@
 
         <div class="row no-gutters">
           <div class="col-lg-6 video-box">
-            <img src="{{ asset('images/'.$landing['aboutus'][1]->meta_value) }}" class="img-fluid" alt="">
+            <img style="width: 100%; height: 100%; object-fit: cover" src="{{ asset('images/'.$landing['aboutus'][1]->meta_value) }}" class="img-fluid" alt="">
           </div>
 
           <div class="col-lg-6 d-flex flex-column justify-content-center about-content">
@@ -214,7 +187,7 @@
           <div class="col-xl-4 col-lg-4 col-md-4" data-aos="fade-up">
             <div class="card p-4 mb-3 border-0 shadow text-center">
                 <div class="mb-4">
-                    <img style="width: 100px; height: 100px; object-fit: cover" class="img-thumbnail rounded-circle" src="{{ asset('images/' . $value->image) }}" alt="">
+                    <img style="width: 100px; height: 100px; object-fit: cover" class="img-thumbnail rounded-circle" src="{{ asset('images/' . $value->photo) }}" alt="">
                 </div>
                 <h4 class="mb-4"><strong>{{ $value->name }}</strong></h4>
                 @if(strlen($value->content) < 300)
@@ -260,64 +233,6 @@
       </div>
     </section><!-- End Our Team Section -->
 
-    <!-- ======= Frequently Asked Questions Section ======= -->
-    <!-- <section id="faq" class="faq section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Frequently Asked Questions</h2>
-        </div>
-
-        <div class="row  d-flex align-items-stretch">
-
-          <div class="col-lg-6 faq-item" data-aos="fade-up">
-            <h4>Non consectetur a erat nam at lectus urna duis?</h4>
-            <p>
-              Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-            </p>
-          </div>
-
-          <div class="col-lg-6 faq-item" data-aos="fade-up" data-aos-delay="100">
-            <h4>Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?</h4>
-            <p>
-              Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim.
-            </p>
-          </div>
-
-          <div class="col-lg-6 faq-item" data-aos="fade-up" data-aos-delay="200">
-            <h4>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi?</h4>
-            <p>
-              Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus.
-            </p>
-          </div>
-
-          <div class="col-lg-6 faq-item" data-aos="fade-up" data-aos-delay="300">
-            <h4>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</h4>
-            <p>
-              Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim.
-            </p>
-          </div>
-
-          <div class="col-lg-6 faq-item" data-aos="fade-up" data-aos-delay="400">
-            <h4>Tempus quam pellentesque nec nam aliquam sem et tortor consequat?</h4>
-            <p>
-              Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
-            </p>
-          </div>
-
-          <div class="col-lg-6 faq-item" data-aos="fade-up" data-aos-delay="500">
-            <h4>Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor?</h4>
-            <p>
-              Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-    </section> -->
-    <!-- End Frequently Asked Questions Section -->
-
     <!-- ======= Contact Us Section ======= -->
     <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
@@ -327,61 +242,63 @@
         </div>
 
         <div class="row">
-
-          <div class="col-lg-6 d-flex" data-aos="fade-up">
-            <div class="info-box">
-              <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
-                <i class="bx bx-map"></i>
-              </a>
-              <h3>Our Address</h3>
-              <p>{{ $landing['contactus'][0]->meta_value }}</p>
+          <div class="col-md-6">
+            <div class="col-md-12 d-flex" data-aos="fade-up">
+              <div class="info-box">
+                <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
+                  <i class="bx bx-map"></i>
+                </a>
+                <h3>Our Address</h3>
+                <p>{{ $landing['contactus'][0]->meta_value }}</p>
+              </div>
             </div>
-          </div>
 
-          <div class="col-lg-3 d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="info-box">
-              <a href="mailto:{{ $landing['contactus'][2]->meta_value }}">
-                <i class="bx bx-envelope"></i>
-              </a>
-              <h3>Email Us</h3>
-              <p>{{ $landing['contactus'][2]->meta_value }}</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="info-box ">
-              <a href="https://wa.me/{{ $landing['contactus'][1]->meta_value }}">
-                <i class="bx bx-phone-call"></i>
-              </a>
-              <h3>Call Us</h3>
-              <p>{{ $landing['contactus'][1]->meta_value }}</p>
-            </div>
-          </div>
-
-          <!-- <div class="col-lg-12" data-aos="fade-up" data-aos-delay="300">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <div class="col-md-12">
               <div class="row">
-                <div class="col-lg-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                <div class="col-md-6 d-flex" data-aos="fade-up">
+                  <div class="info-box">
+                    <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
+                      <i class="bx bx-map"></i>
+                    </a>
+                    <h3>Our Address</h3>
+                    <p>{{ $landing['contactus'][0]->meta_value }}</p>
+                  </div>
                 </div>
-                <div class="col-lg-6 form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+
+                <div class="col-md-6 d-flex" data-aos="fade-up">
+                  <div class="info-box">
+                    <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
+                      <i class="bx bx-map"></i>
+                    </a>
+                    <h3>Our Address</h3>
+                    <p>{{ $landing['contactus'][0]->meta_value }}</p>
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="col-lg-12 d-flex" data-aos="fade-up">
+              <div class="info-box">
+                <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
+                  <i class="bx bx-map"></i>
+                </a>
+                <h3>Our Address</h3>
+                <p>{{ $landing['contactus'][0]->meta_value }}</p>
               </div>
-              <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+            </div>
+
+            <div class="col-lg-12 d-flex" data-aos="fade-up">
+              <div class="info-box">
+                <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
+                  <i class="bx bx-map"></i>
+                </a>
+                <h3>Our Address</h3>
+                <p>{{ $landing['contactus'][0]->meta_value }}</p>
               </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
-          </div> -->
+            </div>
+          </div>
 
         </div>
 

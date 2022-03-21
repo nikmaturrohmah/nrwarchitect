@@ -183,28 +183,6 @@
 
         var uploadedDocumentMap = {}
         var myDropzone = new Dropzone(".dropzone", { 
-            /*url: "{{ route('admin.portofolio.store') }}",
-            maxFilesize: 10, // MB
-            addRemoveLinks: true,
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            success: function(file, response) {
-                $('form').append('<input type="hidden" name="photo[]" value="' + response.name + '">')
-                uploadedDocumentMap[file.name] = response.name
-                console.log(response);
-            },
-            removedfile: function(file) {
-                file.previewElement.remove()
-                var name = ''
-                if (typeof file.file_name !== 'undefined') {
-                name = file.file_name
-                } else {
-                name = uploadedDocumentMap[file.name]
-                }
-                $('form').find('input[name="photo[]"][value="' + name + '"]').remove()
-            } */
             url: "{{ route('admin.portofolio.store') }}",
             autoProcessQueue: false,
             maxFilesize: 5,
@@ -213,11 +191,11 @@
             maxFiles: 100,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
-            /* success: function(file, response){
-                //window.location = "{{ route('admin.landing.slider.index') }}";
+            success: function(file, response){
+                window.location = "{{ route('admin.landing.slider.index') }}";
 
                 console.log(response);
-            }, */
+            },
             init: function() {
                 var myDropzone = this;
 
@@ -230,21 +208,6 @@
                 this.on("sending", function(data, xhr, formData) {
                     formData.append("_token", $('input[name="_token"]').val());
                     formData.append("file[]", $('input[name="file[]"]').val());
-                    formData.append("name", $('input[name="name"]').val());
-                    formData.append("portofolio_category_id", $('select[name="portofolio_category_id"]').val());
-                    formData.append("land_length", $('input[name="land_length"]').val());
-                    formData.append("land_width", $('input[name="land_width"]').val());
-                    formData.append("building_length", $('input[name="building_length"]').val());
-                    formData.append("building_width", $('input[name="building_width"]').val());
-                    formData.append("floor", $('input[name="floor"]').val());
-                    formData.append("bedroom", $('input[name="bedroom"]').val());
-                    formData.append("bathroom", $('input[name="bathroom"]').val());
-                    formData.append("type", $('input[name="type"]').val());
-                    formData.append("style", $('input[name="style"]').val());
-                    formData.append("room_length", $('input[name="room_length"]').val());
-                    formData.append("room_width", $('input[name="room_width"]').val());
-                    formData.append("tags", $('input[id="tags"]').val());
-                    formData.append("description", $('textarea[name="description"]').val());
                 });
 
                 this.on("processing", function() {
@@ -255,19 +218,6 @@
                     window.location = "{{ route('admin.portofolio.index') }}";
                     //console.log(response);
                 })
-
-
-                /* this.on("sendingmultiple", function(files, response) {
-                    console.log(response);
-                })
-
-                this.on("successmultiple", function(files, response) {
-                    console.log(response.response);
-                })
-
-                this.on("errormultiple", function(files, response) {
-                    console.log(response);
-                }) */
             },
             removedfile: function (file) {
                 var _ref;

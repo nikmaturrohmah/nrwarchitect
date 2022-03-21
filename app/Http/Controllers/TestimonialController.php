@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\Models\Testimonial;
+use Webp;
 
 class TestimonialController extends Controller
 {
     public function index()
     {
-        
         $testimonial = Testimonial::get();
         return view('admin.testimonial.index', ['testimonial' => $testimonial]);
     }
@@ -23,18 +23,20 @@ class TestimonialController extends Controller
 
     public function store(Request $request)
     {
-        //return response()->json($request->file->getClientOriginalName());
-        $imageName = "testimonial-".time().'.'.$request->file->extension();
-        $request->file->move(public_path('images'), $imageName);
+        $imageName = "testimonial-".rand(1000, 9999).time().'.'.$request->file->extension();
 
-        $newData = [
-            'name'         => $request->post('name'),
-            'content'   => $request->post('content'),
-            'image'   => $imageName,
-            'posted'  => false,
-        ];
+        $webp = Webp::make($request->file);
 
-        Testimonial::create($newData);
+        if ($webp->save(public_path('images/'.$imageName))) {
+            $newData = [
+                'name'         => $request->post('name'),
+                'content'   => $request->post('content'),
+                'photo'   => $imageName,
+                'posted'  => 'drafted',
+            ];
+    
+            Testimonial::create($newData);    
+        }
 
         return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil dibuat']);
     }
@@ -49,8 +51,7 @@ class TestimonialController extends Controller
     {
         $dataUpdate = [
             'name'         => $request->post('name'),
-            'content'      => $request->post('content'),
-            'posted'  => false,
+            'content'      => $request->post('content')
         ];
 
         $old = Testimonial::find($id);
@@ -62,10 +63,12 @@ class TestimonialController extends Controller
                 File::delete($imagePath);
             }
 
-            $imageName = "testimonial-".time().'.'.$request->file->extension();
-            $request->file->move(public_path('images'), $imageName);
+            $imageName = "testimonial-".rand(1000, 9999).time().'.'.$request->file->extension();
+            $webp = Webp::make($request->file);
 
-            $dataUpdate = array_merge($dataUpdate, ['image' => $imageName]);
+            if ($webp->save(public_path('images/'.$imageName))) {
+                $dataUpdate = array_merge($dataUpdate, ['photo' => $imageName]);
+            }
         }
 
         Testimonial::where('id', $id)->update($dataUpdate);
@@ -87,14 +90,14 @@ class TestimonialController extends Controller
 
     public function publish($id, Request $request)
     {
-        $testimonial = Testimonial::where('posted', true)->get();
+        /* $testimonial = Testimonial::where('posted', 'published')->get();
 
         if (sizeof($testimonial) >= 3) {
             return redirect()->route('admin.testimonial.index')->with(['error' => 'Jumlah testimonial untuk di publish sudah maksimal']);
-        }
+        } */
 
         $dataUpdate = [
-            'posted'  => true,
+            'posted'  => 'published',
         ];
 
         Testimonial::where('id', $id)->update($dataUpdate);
@@ -104,14 +107,14 @@ class TestimonialController extends Controller
 
     public function draft($id, Request $request)
     {
-        $testimonial = Testimonial::where('posted', false)->get();
+        /* $testimonial = Testimonial::where('posted', 'drafted')->get();
 
         if (sizeof($testimonial) <= 3) {
             return redirect()->route('admin.testimonial.index', $id)->with(['error' => 'Jumlah testimonial untuk di ditampilkan kurang']);
-        }
+        } */
 
         $dataUpdate = [
-            'posted'  => false,
+            'posted'  => 'drafted',
         ];
 
         testimonial::where('id', $id)->update($dataUpdate);

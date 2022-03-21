@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Buglinjo\LaravelWebp\WebpServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -229,7 +230,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Webp' => Buglinjo\LaravelWebp\Facades\Webp::class,
     ],
 
 ];

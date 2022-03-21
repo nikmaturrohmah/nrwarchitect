@@ -30,8 +30,8 @@
                     <form action="{{ route('admin.portofolio.tags.store', $portofolio->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="">Tag</label>
-                            <input type="text" name="tag" class="form-control">
+                            <label for="">Tags</label>
+                            <input id=tags name="tags" type="text" required />
                         </div>
                         <button class="btn btn-primary">
                             Kirim
@@ -46,12 +46,15 @@
 </div>
 @endsection
 
+@section('custom-css')
+    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+@endsection
+
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
-    <script type="text/javascript">
-        Dropzone.options.imageUpload = {
-            maxFilesize : 2,
-            acceptedFiles : ".jpeg,.jpg,.png,.gif"
-        };
+    <script src="https://unpkg.com/@yaireo/tagify"></script>
+    <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+    <script>
+        var input = document.querySelector('input[id=tags]');
+        new Tagify(input)
     </script>
 @endpush

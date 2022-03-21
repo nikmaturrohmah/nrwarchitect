@@ -16,22 +16,30 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $landing['logo'] = Landing::where('meta_key', 'like', 'landing_logo%')->get();
-        $landing['slider'] = Landing::where('meta_key', 'like', 'landing_slider_%')->get();
-        $landing['aboutus'] = Landing::where('meta_key', 'like', 'landing_about_us_%')->get();
-        $landing['contactus'] = Landing::where('meta_key', 'like', 'landing_contact_%')->get();
+        $landing['logo']        = Landing::where('meta_key', 'like', 'landing_logo%')->get();
+        $landing['slider']      = Landing::where('meta_key', 'like', 'landing_slider_%')->get();
+        $landing['aboutus']     = Landing::where('meta_key', 'like', 'landing_about_us_%')->get();
+        $landing['contactus']   = Landing::where('meta_key', 'like', 'landing_contact_%')->get();
         $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
-        $landing['category'] = PortofolioCategory::get();
-        $landing['portofolio'] = Portofolio::with(['images', 'category'])->get();
-        $landing['testimonial'] = Testimonial::get();
-        $slider = Slider::get();
-
-        //return response()->json($slider[0]->title);
-
-        //return response()->json($landing['testimonial']);
-        //dd($landing['testimonial']);
+        $landing['category']    = PortofolioCategory::get();
+        $landing['portofolio']  = Portofolio::with(['images', 'category'])->get();
+        $landing['testimonial'] = Testimonial::where('posted', 'published')
+                                    ->orderBy('id','DESC')
+                                    ->skip(0)
+                                    ->take(3)
+                                    ->get();
+        $slider = Slider::where('posted', true)
+                    ->orderBy('id','DESC')
+                    ->skip(0)
+                    ->take(3)
+                    ->get();
         
         return view('landing', ['landing' => $landing, 'slider' => $slider]);
+    }
+
+    public function gg()
+    {
+        return view('landing2');
     }
 
     public function detail()
