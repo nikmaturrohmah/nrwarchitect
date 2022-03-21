@@ -21,12 +21,12 @@ class PortofolioTagsController extends Controller
     public function store($id, Request $request)
     {
         $request->validate([
-            'tag'                      => 'required',
+            'tags'                      => 'required',
         ]);
 
         $newData = [
             'portofolio_id'            => $id,
-            'tag'                      => $request->tag,
+            'tags'                      => $request->tags,
         ];
 
         PortofolioTags::create($newData);
@@ -36,20 +36,20 @@ class PortofolioTagsController extends Controller
 
     public function edit($tagId)
     {
-        $tag = PortofolioTags::find($tagId);
-        $portofolio = Portofolio::where('id', $tag->portofolio_id )->first();
-        return view('admin.portofolio.tags.edit', ['portofolio'=> $portofolio, 'tag' => $tag]);
+        $tags = PortofolioTags::find($tagId);
+        $portofolio = Portofolio::where('id', $tags->portofolio_id )->first();
+        return view('admin.portofolio.tags.edit', ['portofolio'=> $portofolio, 'tags' => $tags]);
     }
 
     public function update($tagId, Request $request)
     {
         $request->validate([
-            'tag'                      => 'required',
+            'tags'                      => 'required',
         ]);
 
         $dataUpdate = [
             'portofolio_id'            => $id,
-            'tag'                      => $request->tag,
+            'tags'                      => $request->tag,
         ];
 
         PortofolioTags::where('id', $tagId)->update($dataUpdate);
@@ -58,9 +58,9 @@ class PortofolioTagsController extends Controller
 
     public function delete($tagId)
     {
-        $tag = PortofolioTags::find($tagId);
-        $tag->delete();
+        $tags = PortofolioTags::find($tagId);
+        $tags->delete();
         
-        return redirect()->route('admin.portofolio.detail', $tag->portofolio_id)->with(['success' => 'Data berhasil dihapus']);
+        return redirect()->route('admin.portofolio.detail', $tags->portofolio_id)->with(['success' => 'Data berhasil dihapus']);
     }
 }

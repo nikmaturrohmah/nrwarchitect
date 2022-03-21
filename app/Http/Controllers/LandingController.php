@@ -103,7 +103,7 @@ class LandingController extends Controller
     }
 
     public function adminAboutus()
-    {
+    {   
         $about = Landing::where('meta_key', 'like', 'landing_about_us_%')->get();
         return view('admin.landing.about_us', ['about' => $about]);
     }

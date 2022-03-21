@@ -31,7 +31,7 @@
                         @csrf
                         <div class="mb-3">
                             <label for="">Tag</label>
-                            <input type="text" name="tag" class="form-control">
+                            <input type="text" name="tags" class="form-control">
                         </div>
                         <button class="btn btn-primary">
                             Kirim
