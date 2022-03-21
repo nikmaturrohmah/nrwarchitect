@@ -7,7 +7,7 @@
             <div class="card shadow mb-4">
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Portofolio</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Testimonial</h6>
                     <a href="{{ route('admin.testimonial.create') }}">
                         <button class="btn btn-primary">Buat Testimonial</button>
                     </a>

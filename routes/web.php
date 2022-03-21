@@ -51,6 +51,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
     
         Route::get('aboutus', [LandingController::class, 'adminAboutus'])->name('aboutus');
         Route::post('aboutus', [LandingController::class, 'adminAboutusUpdate'])->name('aboutus.update');
+        Route::post('dropzone', [LandingController::class, 'dropzone'])->name('dropzone');
     
         Route::get('contactus', [LandingController::class, 'adminContactus'])->name('contactus');
         Route::post('contactus', [LandingController::class, 'adminContactusUpdate'])->name('contactus.update');
