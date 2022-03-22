@@ -102,19 +102,22 @@
           </div>
 
           <div class="w-100 d-inline-flex justify-content-end">
-            <div class="d-flex align-items-center flex-row gap-4 p-2 card rounded border-0 shadow">
-              <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" data-toggle="tooltip" title="Bagikan ke Facebook">
-                <img src="{{ asset('logo/share/fb.png') }}" alt="copy">
-              </a>
-              <a href="https://twitter.com/share?url={{ url()->current() }}" data-toggle="tooltip" title="Bagikan ke Twitter">
-                <img src="{{ asset('logo/share/twitter.png') }}" alt="copy">
-              </a>
-              <a href="https://api.whatsapp.com/send?text={{ url()->current() }}" data-toggle="tooltip" title="Bagikan ke Whatsapp">
-                <img src="{{ asset('logo/share/wa.png') }}" alt="copy">
-              </a>
-              <button style="all: unset; cursor: pointer;" onclick="copyText()" data-toggle="popover" title="Url disalin">
-                <img src="{{ asset('logo/share/copy.png') }}" alt="copy">
-              </button>
+            <div class="card rounded border-0 shadow">
+              <div class="p-4">
+                <h5 class="mb-4" style="color: #9A9A9A"><strong>Share this link via</strong></h5>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" data-toggle="tooltip" title="Bagikan ke Facebook">
+                  <img src="{{ asset('logo/share/fb.png') }}" alt="copy">
+                </a>
+                <a href="https://twitter.com/share?url={{ url()->current() }}" data-toggle="tooltip" title="Bagikan ke Twitter">
+                  <img src="{{ asset('logo/share/twitter.png') }}" alt="copy">
+                </a>
+                <a href="https://api.whatsapp.com/send?text={{ url()->current() }}" data-toggle="tooltip" title="Bagikan ke Whatsapp">
+                  <img src="{{ asset('logo/share/wa.png') }}" alt="copy">
+                </a>
+                <button style="all: unset; cursor: pointer;" onclick="copyText()" data-toggle="popover" title="Url disalin">
+                  <img src="{{ asset('logo/share/copy.png') }}" alt="copy">
+                </button>
+              </div>
             </div>
           </div>
         </div>
