@@ -22,7 +22,11 @@ class LandingController extends Controller
         $landing['contactus']   = Landing::where('meta_key', 'like', 'landing_contact_%')->get();
         $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
         $landing['category']    = PortofolioCategory::get();
-        $landing['portofolio']  = Portofolio::with(['images', 'category'])->get();
+        $portofolio = Portofolio::with(['images', 'category'])
+                                ->paginate(9);
+        $landing['portofolio']  = $portofolio;
+
+        //dd($landing['portofolio']);
         $landing['testimonial'] = Testimonial::where('posted', 'published')
                                     ->orderBy('id','DESC')
                                     ->skip(0)

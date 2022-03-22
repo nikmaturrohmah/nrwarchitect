@@ -155,7 +155,7 @@
           @foreach($landing['portofolio'] as $key=>$value)
           <div class="col-lg-4 col-md-6 portfolio-item filter-{{ $value->category->name }}">
             <div class="portfolio-wrap">
-              <img src="{{ asset('images/' . $value->images[0]->image) }}" class="img-fluid" alt="">
+              <img style="height: 250px; object-fit: cover" src="{{ asset('images/' . $value->images[0]->image) }}" class="img-fluid" alt="">
               <div class="portfolio-info">
                 <h4>{{ $value->name }}</h4>
                 <p>Test</p>
@@ -167,9 +167,12 @@
             </div>
           </div>
           @endforeach
-
+        
         </div>
 
+        <div class="d-flex justify-content-center">
+          {{ $landing['portofolio']->links('pagination::bootstrap-4') }}
+        </div>
       </div>
     </section><!-- End Our Portfolio Section -->
 
@@ -244,7 +247,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="col-md-12 d-flex" data-aos="fade-up">
-              <div class="info-box px-2">
+              <div class="info-box px-2 h-100">
                 <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
                   <i class="bx bx-time"></i>
                 </a>
@@ -258,7 +261,7 @@
             <div class="col-md-12">
               <div class="row">
                 <div class="col-md-6 d-flex" data-aos="fade-up">
-                  <div class="info-box">
+                  <div class="info-box h-100">
                     <i class="bx bx-envelope"></i>
                     <h3>Email</h3>
                     <p>{{ $landing['contactus'][2]->meta_value }}</p>
@@ -267,7 +270,7 @@
                 </div>
 
                 <div class="col-md-6 d-flex" data-aos="fade-up">
-                  <div class="info-box">
+                  <div class="info-box h-100">
                     <i class="bx bx-phone"></i>
                     <h3>Phone Number</h3>
                     <p>{{ $landing['contactus'][1]->meta_value }}</p>
@@ -280,7 +283,7 @@
 
           <div class="col-md-6">
             <div class="col-lg-12 d-flex" data-aos="fade-up">
-              <div class="info-box">
+              <div class="info-box h-100">
                 <h3>Our Address</h3>
                 <p>{{ $landing['contactus'][0]->meta_value }}</p>
               </div>

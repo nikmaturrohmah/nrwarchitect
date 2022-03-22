@@ -191,11 +191,6 @@
             maxFiles: 100,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
-            success: function(file, response){
-                window.location = "{{ route('admin.landing.slider.index') }}";
-
-                console.log(response);
-            },
             init: function() {
                 var myDropzone = this;
 
@@ -208,6 +203,21 @@
                 this.on("sending", function(data, xhr, formData) {
                     formData.append("_token", $('input[name="_token"]').val());
                     formData.append("file[]", $('input[name="file[]"]').val());
+                    formData.append("name", $('input[name="name"]').val());
+                    formData.append("portofolio_category_id", $('select[name="portofolio_category_id"]').val());
+                    formData.append("land_length", $('input[name="land_length"]').val());
+                    formData.append("land_width", $('input[name="land_width"]').val());
+                    formData.append("building_length", $('input[name="building_length"]').val());
+                    formData.append("building_width", $('input[name="building_width"]').val());
+                    formData.append("floor", $('input[name="floor"]').val());
+                    formData.append("bedroom", $('input[name="bedroom"]').val());
+                    formData.append("bathroom", $('input[name="bathroom"]').val());
+                    formData.append("type", $('input[name="type"]').val());
+                    formData.append("style", $('input[name="style"]').val());
+                    formData.append("room_length", $('input[name="room_length"]').val());
+                    formData.append("room_width", $('input[name="room_width"]').val());
+                    formData.append("tags", $('input[id="tags"]').val());
+                    formData.append("description", $('textarea[name="description"]').val());
                 });
 
                 this.on("processing", function() {
