@@ -185,7 +185,7 @@
 
           @foreach($landing['testimonial'] as $key=>$value)
           <div class="col-xl-4 col-lg-4 col-md-4" data-aos="fade-up">
-            <div class="card p-4 mb-3 border-0 shadow text-center">
+            <div class="card h-100 p-4 mb-3 border-0 shadow text-center">
                 <div class="mb-4">
                     <img style="width: 100px; height: 100px; object-fit: cover" class="img-thumbnail rounded-circle" src="{{ asset('images/' . $value->photo) }}" alt="">
                 </div>
@@ -244,12 +244,14 @@
         <div class="row">
           <div class="col-md-6">
             <div class="col-md-12 d-flex" data-aos="fade-up">
-              <div class="info-box">
+              <div class="info-box px-2">
                 <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
-                  <i class="bx bx-map"></i>
+                  <i class="bx bx-time"></i>
                 </a>
-                <h3>Our Address</h3>
-                <p>{{ $landing['contactus'][0]->meta_value }}</p>
+                <h3>Jam Buka</h3>
+                <p>Senin - Jumat</p>
+                <p>Pukul 08.00 - 16.00 WIB</p>
+                <p>Untuk pemesanan layanan dapat menghungi kontak berikut atau datang langsung ke alamat studio NRW Architect</p>
               </div>
             </div>
 
@@ -257,21 +259,19 @@
               <div class="row">
                 <div class="col-md-6 d-flex" data-aos="fade-up">
                   <div class="info-box">
-                    <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
-                      <i class="bx bx-map"></i>
-                    </a>
-                    <h3>Our Address</h3>
-                    <p>{{ $landing['contactus'][0]->meta_value }}</p>
+                    <i class="bx bx-envelope"></i>
+                    <h3>Email</h3>
+                    <p>{{ $landing['contactus'][2]->meta_value }}</p>
+                    <a href="mailto:{{ $landing['contactus'][2]->meta_value }}">Email us</a>
                   </div>
                 </div>
 
                 <div class="col-md-6 d-flex" data-aos="fade-up">
                   <div class="info-box">
-                    <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
-                      <i class="bx bx-map"></i>
-                    </a>
-                    <h3>Our Address</h3>
-                    <p>{{ $landing['contactus'][0]->meta_value }}</p>
+                    <i class="bx bx-phone"></i>
+                    <h3>Phone Number</h3>
+                    <p>{{ $landing['contactus'][1]->meta_value }}</p>
+                    <a href="https://wa.me/{{ $landing['contactus'][1]->meta_value }}">Whatsapp Us</a>
                   </div>
                 </div>
               </div>
@@ -281,22 +281,13 @@
           <div class="col-md-6">
             <div class="col-lg-12 d-flex" data-aos="fade-up">
               <div class="info-box">
-                <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
-                  <i class="bx bx-map"></i>
-                </a>
                 <h3>Our Address</h3>
                 <p>{{ $landing['contactus'][0]->meta_value }}</p>
               </div>
             </div>
 
             <div class="col-lg-12 d-flex" data-aos="fade-up">
-              <div class="info-box">
-                <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
-                  <i class="bx bx-map"></i>
-                </a>
-                <h3>Our Address</h3>
-                <p>{{ $landing['contactus'][0]->meta_value }}</p>
-              </div>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15812.931708593733!2d110.366855!3d-7.7651054!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xa4e1a3a99628573!2sPT.%20Baracipta%20Esa%20Engineering!5e0!3m2!1sid!2sid!4v1647921456655!5m2!1sid!2sid" width="100%" height="300px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
           </div>
 
