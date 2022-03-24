@@ -18,6 +18,7 @@ use App\Http\Controllers\PortofolioTagsController;
 use App\Http\Controllers\SliderController;
 
 Route::get('/', [LandingController::class, 'index']);
+Route::get('/list', [LandingController::class, 'list'])->name('list');
 Route::get('/gg', [LandingController::class, 'gg']);
 Route::get('/detail/{id}', [DetailController::class, 'index'])->name('detail');
 

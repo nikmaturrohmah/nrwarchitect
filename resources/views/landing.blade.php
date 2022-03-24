@@ -155,13 +155,12 @@
           @foreach($landing['portofolio'] as $key=>$value)
           <div class="col-lg-4 col-md-6 portfolio-item filter-{{ $value->category->name }}">
             <div class="portfolio-wrap">
-              <img style="height: 250px; object-fit: cover" src="{{ asset('images/' . $value->images[0]->image) }}" class="img-fluid" alt="">
+              <img style="height: 250px; width:100%; object-fit: cover" src="{{ asset('images/' . $value->images[0]->image) }}" class="img-fluid" alt="">
               <div class="portfolio-info">
                 <h4>{{ $value->name }}</h4>
-                <p>Test</p>
+                <!-- <p>Test</p> -->
                 <div class="portfolio-links">
-                  <a href="{{ asset('images/' . $value->images[0]->image) }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ $value->description }}"><i class="bi bi-plus"></i></a>
-                  <a href="{{ route('detail', $value->id) }}" title="More Details"><i class="bi bi-link"></i></a>
+                  <a href="{{ route('detail', $value->id) }}" title="More Details"><i class="bi bi-search"></i></a>
                 </div>
               </div>
             </div>
@@ -172,6 +171,11 @@
 
         <div class="d-flex justify-content-center">
           {{ $landing['portofolio']->links('pagination::bootstrap-4') }}
+          <a href="{{ route('list') }}#portofolio">
+            <button class="btn btn-primary">
+              Lihat lainnya
+            </button>
+          </a>
         </div>
       </div>
     </section><!-- End Our Portfolio Section -->

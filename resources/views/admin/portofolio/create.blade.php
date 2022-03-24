@@ -35,7 +35,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Isi</label>
-                            <textarea name="description" class="form-control" cols="30" rows="10" required></textarea>
+                            <textarea id="editor" class="form-control" name="description" rows="10" cols="50"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="">Category</label>
@@ -153,6 +153,7 @@
 
 @section('custom-css')
     <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
 @endsection
 
 @push('scripts')
@@ -160,6 +161,21 @@
     <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
     <script type="text/javascript">
+        let theEditor;
+
+        ClassicEditor
+            .create( document.querySelector('#editor') )
+            .then( editor => {
+                theEditor = editor; // Save for later use.
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+
+        function getDataFromTheEditor() {
+            return theEditor.getData();
+        }
+
         $( document ).ready(function() {
             $( ".spesificationBuilding" ).prop( "disabled", false );
             $( ".spesificationInterior" ).prop( "disabled", true );
@@ -185,7 +201,7 @@
         var myDropzone = new Dropzone(".dropzone", { 
             url: "{{ route('admin.portofolio.store') }}",
             autoProcessQueue: false,
-            maxFilesize: 5,
+            maxFilesize: 10,
             uploadMultiple: true,
             parallelUploads: 100,
             maxFiles: 100,
@@ -198,6 +214,8 @@
                     //e.preventDefault();
                     e.stopPropagation();
                     myDropzone.processQueue();
+                    //console.log(myQuill);
+                    //console.log(getDataFromTheEditor());
                 });
 
                 this.on("sending", function(data, xhr, formData) {
@@ -217,7 +235,7 @@
                     formData.append("room_length", $('input[name="room_length"]').val());
                     formData.append("room_width", $('input[name="room_width"]').val());
                     formData.append("tags", $('input[id="tags"]').val());
-                    formData.append("description", $('textarea[name="description"]').val());
+                    formData.append("description", getDataFromTheEditor() );
                 });
 
                 this.on("processing", function() {
@@ -226,17 +244,12 @@
 
                 this.on("successmultiple", function(files, response) {
                     window.location = "{{ route('admin.portofolio.index') }}";
-                    //console.log(response);
                 })
             },
             removedfile: function (file) {
                 var _ref;
                     return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
             },
-        });
-
-        $('#uploadFile').click(function(){
-            myDropzone.processQueue();
         });
     </script>
 

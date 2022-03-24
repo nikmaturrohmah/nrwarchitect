@@ -27,7 +27,53 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('mamba/assets/css/style.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('lightgallery/css/lightgallery.css') }}">
 
+  <style>
+    /* .imagePortofolio:hover {
+      opacity: 0.8;
+      transition: all .1s ease-in-out;
+    } */
+    .canvasPortofolio {
+      position: relative;
+      width: 100%;
+    }
+
+    .imagePortofolio {
+      opacity: 1;
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: .5s ease;
+      backface-visibility: hidden;
+    }
+
+    .middle {
+      transition: .5s ease;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .canvasPortofolio:hover .imagePortofolio {
+      opacity: 0.8;
+    }
+
+    .canvasPortofolio:hover .middle {
+      opacity: 0.5;
+    }
+
+    .text {
+      background-color: #04AA6D;
+      color: white;
+      font-size: 16px;
+      padding: 16px 32px;
+    }
+  </style>
   <!-- =======================================================
   * Template Name: Mamba - v4.7.0
   * Template URL: https://bootstrapmade.com/mamba-one-page-bootstrap-template-free/
@@ -76,10 +122,13 @@
           </ol> -->
           
           <!-- Wrapper for carousel items -->
-          <div class="carousel-inner">
+          <div id="lightgallery" class="carousel-inner">
             @for($i = 0; $i < sizeof($portofolio->images); $i++)
-              <div class="carousel-item {{ ($i == 0 ? 'active' : '' ) }}">
-                  <img style="width: 100%; height: 500px; object-fit: cover" src="{{ asset('images/'.$portofolio->images[$i]->image) }}" class="rounded d-block" alt="Slide 1">
+              <div  class="canvasPortofolio carousel-item {{ ($i == 0 ? 'active' : '' ) }}" data-src="{{ asset('images/'.$portofolio->images[$i]->image) }}" onclick="openGallery()">
+                  <img style="width: 100%; height: 500px; object-fit: cover" src="{{ asset('images/'.$portofolio->images[$i]->image) }}" class="rounded d-block imagePortofolio" alt="Slide 1">
+                  <div class="middle">
+                    <p>click for detail</p>
+                  </div>
               </div>
             @endfor
           </div>
@@ -96,9 +145,9 @@
 
       <div class="row">
         <div class="col-md-8">
-          <div class="card rounded p-4 mb-4 border-0 shadow">
+          <div class="card rounded p-4 mb-4 border-0 shadow" style="color: #9A9A9A; font-size: 14px">
               <h4><strong>{{ $portofolio->name }}</strong></h4>
-              <p style="color: #9A9A9A; font-size: 14px">{{ $portofolio->description }}</p>
+              {!! $portofolio->description !!}
           </div>
 
           <div class="w-100 d-inline-flex justify-content-end">
@@ -129,13 +178,8 @@
                   @if($portofolio->specificationBuilding != null)
                   <div class="col-md-4 text-center">
                       <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Lebar lahan (m)</p>
-                      <p>{{ $portofolio->specificationBuilding->land_width }}</p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Panjang lahan (m)</p>
-                      <p>{{ $portofolio->specificationBuilding->land_length }}</p>
+                      <p style="font-size: 12px; margin-bottom: 0;">Dimensi lahan (m2)</p>
+                      <p>{{ $portofolio->specificationBuilding->land_width }} m x {{ $portofolio->specificationBuilding->land_length }} m</p>
                   </div>
                   <div class="col-md-4 text-center">
                       <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
@@ -144,51 +188,51 @@
                   </div>
                   <div class="col-md-4 text-center">
                       <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Lebar bangunan (m)</p>
-                      <p>{{ $portofolio->specificationBuilding->building_width }}</p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Panjang bangunan (m)</p>
-                      <p>{{ $portofolio->specificationBuilding->building_length }}</p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
                       <p style="font-size: 12px; margin-bottom: 0;">Luas bangunan (m2)</p>
                       <p>{{ ($portofolio->specificationBuilding->building_width*$portofolio->specificationBuilding->building_length) }}</p>
+                  </div>
+                  <div class="col-md-4 text-center">
+                      <img src="{{ asset('logo/Logo-lantai.png') }}" alt="">
+                      <p style="font-size: 12px; margin-bottom: 0;">Type</p>
+                      <p>{{ $portofolio->specificationBuilding->floor }}</p>
+                  </div>
+                  <div class="col-md-4 text-center">
+                      <img src="{{ asset('logo/Logo-kamar-tidur.png') }}" alt="">
+                      <p style="font-size: 12px; margin-bottom: 0;">Kamar tidur</p>
+                      <p>{{ $portofolio->specificationBuilding->bedroom }}</p>
+                  </div>
+                  <div class="col-md-4 text-center">
+                      <img src="{{ asset('logo/Logo-kamar-mandi.png') }}" alt="">
+                      <p style="font-size: 12px; margin-bottom: 0;">Kamar mandi</p>
+                      <p>{{ $portofolio->specificationBuilding->bathroom }}</p>
                   </div>
                   @endif
 
                   @if($portofolio->specificationInterior != null)
                   <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Style</p>
-                      <p>{{ $portofolio->specificationInterior->style }}</p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Type</p>
+                      <img src="{{ asset('logo/Logo-jenis-interior.png') }}" alt="">
+                      <p style="font-size: 12px; margin-bottom: 0;">Jenis Ruang</p>
                       <p>{{ $portofolio->specificationInterior->type }}</p>
                   </div>
                   <div class="col-md-4 text-center">
                       <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Kamar tidur</p>
-                      <p>{{ $portofolio->specificationInterior->bedroom }}</p>
+                      <p style="font-size: 12px; margin-bottom: 0;">Style Interior</p>
+                      <p>{{ $portofolio->specificationInterior->style }}</p>
                   </div>
                   <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Kamar mandi</p>
-                      <p>{{ $portofolio->specificationInterior->bathroom }}</p>
+                      <img src="{{ asset('logo/Logo-luas-lahan.png') }}" alt="">
+                      <p style="font-size: 12px; margin-bottom: 0;">Luas Ruangan</p>
+                      <p>{{ $portofolio->specificationInterior->room_length*$portofolio->specificationInterior->room_width }}</p>
                   </div>
                   @endif
               </div>
 
               <hr>
               <h5 style="color: #9A9A9A"><strong>Tags</strong></h5>
-              <div>
-              @foreach($portofolio->tags as $key=>$value)
-              <span class="badge rounded-pill bg-secondary">{{ $value->tag }}</span>
-              @endforeach
+              <div class="mb-3">
+                @foreach($portofolio->tags as $key=>$value)
+                <span class="badge rounded-pill bg-secondary">{{ $value->tag }}</span>
+                @endforeach
               </div>
           </div>
         </div>
@@ -201,13 +245,13 @@
             <div class="row">
               @foreach($last as $key=>$value)
                 <div class="col-md-3">
-                    <div class="card rounded mb-3 border-0 shadow">
+                    <div class="card rounded mb-3 border-0 shadow h-100">
                         <img height="200px" style="object-fit: cover" src="{{ asset('images/'.$value->images[0]->image) }}" alt="">
                         <div class="p-2 px-4">
                           <a href="{{ route('detail', $value->id) }}">
                             <h4 class="mt-2"><strong>{{ $value->name }}</strong></h4>
                           </a>
-                          <p>{{ $value->description }}</p>
+                          <!-- <p>{{ $value->description }}</p> -->
                         </div>
                     </div>
                 </div>
@@ -262,6 +306,16 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('mamba/assets/js/main.js') }}"></script>
+  <script src="{{ asset('lightgallery/js/lightgallery.min.js') }}"></script>
+
+  <!-- lightgallery plugins -->
+  <script src="{{ asset('lightgallery/js/lg-thumbnail.min.js') }}"></script>
+  <script src="{{ asset('lightgallery/js/lg-fullscreen.min.js') }}"></script>
+  <script src="{{ asset('lightgallery/js/lg-share.min.js') }}"></script>
+  <script src="{{ asset('lightgallery/js/lg-zoom.min.js') }}"></script>
+  <script src="{{ asset('lightgallery/js/lg-video.min.js') }}"></script>
+  <script src="{{ asset('lightgallery/js/lg-utils.min.js') }}"></script>
+  <script src="{{ asset('lightgallery/js/lg-autoplay.min.js') }}"></script>
 
   <script>
     $(document).ready(function(){
@@ -278,6 +332,15 @@
       navigator.clipboard.writeText
           ("{{ url()->current() }}");
     }
+
+    function openGallery(params) {
+      console.log("anjay gurinjay");
+    }
+  </script>
+  <script>
+    lightGallery(document.getElementById('lightgallery'), {
+      //plugins: [lgAutoplay]
+    });
   </script>
 </body>
 

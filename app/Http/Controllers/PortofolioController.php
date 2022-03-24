@@ -28,7 +28,7 @@ class PortofolioController extends Controller
 
     public function store(Request $request)
     {
-        //return response()->json($request);
+        //return response()->json($request->description);
 
         $portofolio = [
             'portofolio_category_id'    => $request->portofolio_category_id,
