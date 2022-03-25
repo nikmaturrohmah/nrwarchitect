@@ -28,9 +28,9 @@
                         <div class="mb-3">
                             <label for="">Image</label>
                             <img src="{{ asset('images/'.$about[1]->meta_value) }}" style="width: 100%; height: 250px; object-fit: cover" class="rounded mb-2 shadow border-0" alt="">
-                            <div class="dropzone" style="border: none" id="my-dropzone" name="mainFileUploader">
-                            <!-- <input name="landing_about_us_image" type="file" class="form-control"> -->
-                        </div>
+                            <div class="dropzone" style="" id="my-dropzone" name="mainFileUploader">
+                                <input name="file" type="file" hidden required />
+                            </div>
                         <button type="submit" class="btn btn-primary">
                             Simpan
                         </button>
@@ -51,7 +51,7 @@
             url: "{{ route('admin.landing.aboutus') }}",
             maxFiles: 1,
             autoProcessQueue: false,
-            maxFilesize: 5,
+            maxFilesize: 20,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
             success: function(file, response){
@@ -75,7 +75,7 @@
                     formData.append("landing_about_us_warding_text", $('input[name="landing_about_us_warding_text"]').val());
                     formData.append("landing_about_us_point_1", $('input[name="landing_about_us_point_1"]').val());
                     formData.append("landing_about_us_point_2", $('input[name="landing_about_us_point_2"]').val());
-        });
+                });
             },
             removedfile: function (file) {
                 var _ref;

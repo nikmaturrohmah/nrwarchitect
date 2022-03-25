@@ -93,9 +93,10 @@ class LandingController extends Controller
             $metaKey = $value->meta_key;
 
             if ($value->meta_type == "image") {
-                if ($request->hasfile($metaKey)) {
+                if ($request->hasfile('file')) {
                     $request->validate([
-                        $metaKey => 'image|mimes:jpeg,png,jpg,gif,svg',
+                        //$metaKey => 'image|mimes:jpeg,png,jpg,gif,svg',
+                        'file' => 'image|mimes:jpeg,png,jpg,gif,svg',
                     ]);
 
                     $imageOld = public_path('images/').$value->meta_value;
@@ -103,7 +104,7 @@ class LandingController extends Controller
                         File::delete($imageOld);
                     }
 
-                    $image = $request->file($metaKey);
+                    $image = $request->file('file');
                     $extension = $image->getClientOriginalExtension();
                     $name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                     $imageName = $customImageName . "-" . Str::slug(date('Y-m-d-h-i-s') . Str::random(8)) . '.' . $extension;
@@ -153,7 +154,7 @@ class LandingController extends Controller
 
         $this->updateData($request, $about, "about");
 
-        return redirect()->route('admin.landing.aboutus')->with(['success' => 'Data berhasil diubah']);
+        //return redirect()->route('admin.landing.aboutus')->with(['success' => 'Data berhasil diubah']);
     }
 
     public function adminContactus()
