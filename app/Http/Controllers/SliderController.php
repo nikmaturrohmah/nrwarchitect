@@ -123,6 +123,6 @@ class SliderController extends Controller
         ];
 
         Slider::where('id', $id)->update($dataUpdate);
-        return redirect()->route('admin.landing.slider.index')->with(['success' => 'Data berhasil di draft']);
+        return redirect()->route('admin.landing.slider.index')->with(['success' => 'Data berhasil di post']);
     }
 }
