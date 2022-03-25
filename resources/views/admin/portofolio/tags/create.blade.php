@@ -31,13 +31,12 @@
                         @csrf
                         <div class="mb-3">
                             <label for="">Tags</label>
-                            <input id=tags name="tags" type="text" required />
+                            <input id=tags name="tag" type="text" required />
                         </div>
                         <button class="btn btn-primary">
                             Kirim
                         </button>
                         <a href="{{ route('admin.portofolio.detail', $portofolio->id) }}" class="btn btn-warning">Kembali</a>
-
                     </form>
                 </div>
             </div>

@@ -31,8 +31,8 @@ class TestimonialController extends Controller
             $newData = [
                 'name'         => $request->post('name'),
                 'content'   => $request->post('content'),
-                'photo'   => $imageName,
-                'posted'  => 'drafted',
+                'image'   => $imageName,
+                'posted'  => true,
             ];
     
             Testimonial::create($newData);    
@@ -51,7 +51,8 @@ class TestimonialController extends Controller
     {
         $dataUpdate = [
             'name'         => $request->post('name'),
-            'content'      => $request->post('content')
+            'content'      => $request->post('content'),
+            'posted'  => false,
         ];
 
         $old = Testimonial::find($id);
@@ -67,7 +68,7 @@ class TestimonialController extends Controller
             $webp = Webp::make($request->file);
 
             if ($webp->save(public_path('images/'.$imageName))) {
-                $dataUpdate = array_merge($dataUpdate, ['photo' => $imageName]);
+                $dataUpdate = array_merge($dataUpdate, ['image' => $imageName]);
             }
         }
 
@@ -97,11 +98,11 @@ class TestimonialController extends Controller
         } */
 
         $dataUpdate = [
-            'posted'  => 'published',
+            'posted'  => true,
         ];
 
         Testimonial::where('id', $id)->update($dataUpdate);
-        return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil di post']);
+        return redirect()->route('admin.testimonial.index')->with(['success' => 'Data berhasil di draft']);
 
     }
 
@@ -114,7 +115,7 @@ class TestimonialController extends Controller
         } */
 
         $dataUpdate = [
-            'posted'  => 'drafted',
+            'posted'  => false,
         ];
 
         testimonial::where('id', $id)->update($dataUpdate);

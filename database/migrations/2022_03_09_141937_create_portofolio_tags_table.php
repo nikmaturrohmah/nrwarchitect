@@ -15,7 +15,7 @@ class CreatePortofolioTagsTable extends Migration
     {
         Schema::create('portofolio_tags', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('portofolio_id');
+            $table->unsignedBigInteger('portofolio_id');
             $table->string('tag');
             $table->timestamps();
             $table->foreign('portofolio_id')->references('id')->on('portofolios')->onUpdate('cascade')->onDelete('cascade');
