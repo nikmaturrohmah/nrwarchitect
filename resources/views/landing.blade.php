@@ -194,7 +194,7 @@
           <div class="col-xl-4 col-lg-4 col-md-4" data-aos="fade-up">
             <div class="card h-100 p-4 mb-3 border-0 shadow text-center">
                 <div class="mb-4">
-                    <img style="width: 100px; height: 100px; object-fit: cover" class="img-thumbnail rounded-circle" src="{{ asset('images/' . $value->photo) }}" alt="">
+                    <img style="width: 100px; height: 100px; object-fit: cover" class="img-thumbnail rounded-circle" src="{{ asset('images/' . $value->image) }}" alt="">
                 </div>
                 <h4 class="mb-4"><strong>{{ $value->name }}</strong></h4>
                 @if(strlen($value->content) < 300)

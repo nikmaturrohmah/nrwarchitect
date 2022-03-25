@@ -44,7 +44,7 @@
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $value->name }}</td>
                                     <td>
-                                        @if($value->posted == "drafted")
+                                        @if($value->posted)
                                         <span class="badge badge-warning">drafted</span>
                                         @else
                                         <span class="badge badge-success">published</span>
@@ -52,7 +52,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('admin.testimonial.edit', $value->id) }}"><button class="btn btn-success btn-sm">edit</button></a>
-                                        @if($value->posted == "drafted")
+                                        @if(!$value->posted)
                                         <a href="{{ route('admin.testimonial.publish', $value->id) }}"><button class="btn btn-info btn-sm">publish</button></a>
                                         @else
                                         <a href="{{ route('admin.testimonial.draft', $value->id) }}"><button class="btn btn-warning btn-sm">draft</button></a>
