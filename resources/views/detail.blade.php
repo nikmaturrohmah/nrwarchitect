@@ -184,12 +184,12 @@
                   <div class="col-md-4 text-center">
                       <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
                       <p style="font-size: 12px; margin-bottom: 0;">Luas lahan (m2)</p>
-                      <p>{{ ($portofolio->specificationBuilding->land_width*$portofolio->specificationBuilding->land_length) }}</p>
+                      <p>{{ ($portofolio->specificationBuilding->page_area) }}</p>
                   </div>
                   <div class="col-md-4 text-center">
                       <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
                       <p style="font-size: 12px; margin-bottom: 0;">Luas bangunan (m2)</p>
-                      <p>{{ ($portofolio->specificationBuilding->building_width*$portofolio->specificationBuilding->building_length) }}</p>
+                      <p>{{ ($portofolio->specificationBuilding->building_area) }}</p>
                   </div>
                   <div class="col-md-4 text-center">
                       <img src="{{ asset('logo/Logo-lantai.png') }}" alt="">
@@ -222,7 +222,7 @@
                   <div class="col-md-4 text-center">
                       <img src="{{ asset('logo/Logo-luas-lahan.png') }}" alt="">
                       <p style="font-size: 12px; margin-bottom: 0;">Luas Ruangan</p>
-                      <p>{{ $portofolio->specificationInterior->room_length*$portofolio->specificationInterior->room_width }}</p>
+                      <p>{{ $portofolio->specificationInterior->room_area }}</p>
                   </div>
                   @endif
               </div>

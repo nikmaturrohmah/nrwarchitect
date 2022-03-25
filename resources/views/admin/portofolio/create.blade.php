@@ -48,30 +48,42 @@
                         <div id="">
                             <hr>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="">Panjang lahan (m)</label>
                                         <input type="number" name="land_length" class="form-control spesificationBuilding">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="">Lebar lahan (m)</label>
                                         <input type="number" name="land_width" class="form-control spesificationBuilding">
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="">Luas lahan (m2)</label>
+                                        <input type="number" name="page_area" class="form-control spesificationBuilding">
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="">Panjang bangunan (m)</label>
                                         <input type="number" name="building_length" class="form-control spesificationBuilding">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="">Lebar bangunan (m)</label>
                                         <input type="number" name="building_width" class="form-control spesificationBuilding">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="">Luas bangunan (m)</label>
+                                        <input type="number" name="building_area" class="form-control spesificationBuilding">
                                     </div>
                                 </div>
                             </div>
@@ -115,16 +127,22 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="">Ruangan bangunan (m)</label>
+                                        <label for="">Panjang ruangan (m)</label>
                                         <input type="number" name="room_length" class="form-control spesificationInterior">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="">Ruangan bangunan (m)</label>
+                                        <label for="">Lebar ruangan (m)</label>
                                         <input type="number" name="room_width" class="form-control spesificationInterior">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="">Luas ruangan (m)</label>
+                                        <input type="number" name="room_area" class="form-control spesificationInterior">
                                     </div>
                                 </div>
                             </div>

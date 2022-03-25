@@ -22,6 +22,9 @@
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Detail Portofolio</h6>
+                    <a href="{{ route('admin.portofolio.edit', $portofolio->id) }}">
+                        <button class="btn btn-primary">Edit deskripsi</button>
+                    </a>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -30,7 +33,9 @@
                         <h4>{{ $portofolio->name }}</h4>
                         <br>
                         Deskripsi
-                        <h5>{{ $portofolio->description }}</h5>
+                        <div class="rounded border p-4">
+                            {!! $portofolio->description !!}
+                        </div>
                         <br>
                         Kategori
                         <h5>{{ $portofolio->category->name }}</h5>
@@ -77,7 +82,7 @@
                                     <h5>{{ $portofolio->specificationBuilding->land_length }} m</h5>
                                     <br>
                                     Luas lahan (m2)
-                                    <h5>{{ ($portofolio->specificationBuilding->land_width*$portofolio->specificationBuilding->land_length) }} m2</h5>
+                                    <h5>{{ ($portofolio->specificationBuilding->page_area) }} m2</h5>
                                     <br>
                                     Lebar bangunan (m)
                                     <h4>{{ $portofolio->specificationBuilding->building_width }} m</h4>
@@ -86,7 +91,7 @@
                                     <h5>{{ $portofolio->specificationBuilding->building_length }} m</h5>
                                     <br>
                                     Luas bangunan (m2)
-                                    <h5>{{ ($portofolio->specificationBuilding->building_width*$portofolio->specificationBuilding->building_length) }} m2</h5>
+                                    <h5>{{ ($portofolio->specificationBuilding->building_area) }} m2</h5>
                                     <br>
                                 </div>
                             </div>
@@ -133,6 +138,9 @@
                                     <br>
                                     Lebar ruangan
                                     <h5>{{ $portofolio->specificationInterior->room_width }} m</h5>
+                                    <br>
+                                    Luas ruangan
+                                    <h5>{{ $portofolio->specificationInterior->room_area }} m</h5>
                                     <br>
                                 </div>
                             </div>

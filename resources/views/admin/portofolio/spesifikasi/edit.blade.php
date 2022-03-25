@@ -39,12 +39,20 @@
                             <input type="number" name="land_width" class="form-control" value="{{ $portofolio->specificationBuilding->land_width }}">
                         </div>
                         <div class="mb-3">
+                            <label for="">Luas lahan (m)</label>
+                            <input type="number" name="page_area" class="form-control" value="{{ $portofolio->specificationBuilding->page_area }}">
+                        </div>
+                        <div class="mb-3">
                             <label for="">Panjang bangunan (m)</label>
                             <input type="number" name="building_length" class="form-control" value="{{ $portofolio->specificationBuilding->building_length }}">
                         </div>
                         <div class="mb-3">
                             <label for="">Lebar bangunan (m)</label>
                             <input type="number" name="building_width" class="form-control" value="{{ $portofolio->specificationBuilding->building_width }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Luas bangunan (m)</label>
+                            <input type="number" name="building_area" class="form-control" value="{{ $portofolio->specificationBuilding->building_area }}">
                         </div>
                         <div class="mb-3">
                             <label for="">Lantai</label>
@@ -68,12 +76,16 @@
                             <input type="text" name="style" class="form-control" value="{{ $portofolio->specificationInterior->style }}">
                         </div>
                         <div class="mb-3">
-                            <label for="">Ruangan bangunan (m)</label>
+                            <label for="">Panjang ruangan (m)</label>
                             <input type="number" name="room_length" class="form-control" value="{{ $portofolio->specificationInterior->room_length }}">
                         </div>
                         <div class="mb-3">
-                            <label for="">Ruangan bangunan (m)</label>
+                            <label for="">Lebar ruangan (m)</label>
                             <input type="number" name="room_width" class="form-control" value="{{ $portofolio->specificationInterior->room_width }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Luas ruangan (m)</label>
+                            <input type="number" name="room_area" class="form-control" value="{{ $portofolio->specificationInterior->room_area }}">
                         </div>
                         @endif
                         <button type="submit" class="btn btn-primary">

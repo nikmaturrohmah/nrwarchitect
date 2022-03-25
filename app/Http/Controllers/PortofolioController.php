@@ -48,6 +48,8 @@ class PortofolioController extends Controller
                 "land_length"       => $request->land_length,
                 "land_width"        => $request->land_width,
                 "floor"             => $request->floor,
+                'page_area'         => $request->page_area,
+                'building_area'     => $request->building_area,
             ];
 
             PortofolioBuilding::create($building);
@@ -60,6 +62,7 @@ class PortofolioController extends Controller
                 "room_width"    => $request->room_width,
                 "style"         => $request->style,
                 "type"          => $request->type,
+                "room_area"     => $request->room_area,
             ];
 
             PortofolioInterior::create($interior);

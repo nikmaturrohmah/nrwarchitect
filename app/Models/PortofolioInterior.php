@@ -17,5 +17,6 @@ class PortofolioInterior extends Model
         'style',
         'room_length',
         'room_width',
+        'room_area',
     ];
 }

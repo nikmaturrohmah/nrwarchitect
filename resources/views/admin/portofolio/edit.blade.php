@@ -35,7 +35,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Isi</label>
-                            <textarea name="description" class="form-control" cols="30" rows="10" >{{ $portofolio->description }}</textarea>
+                            <textarea id="editor" name="description" class="form-control" cols="30" rows="10" >{!! $portofolio->description !!}</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="">Category</label>
@@ -57,6 +57,26 @@
 </div>
 @endsection
 
-@push('scripts')
+@section('custom-css')
+    <script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
+@endsection
 
+
+@push('scripts')
+    <script>
+        let theEditor;
+
+        ClassicEditor
+            .create( document.querySelector('#editor') )
+            .then( editor => {
+                theEditor = editor; // Save for later use.
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+
+        function getDataFromTheEditor() {
+            return theEditor.getData();
+        }
+    </script>
 @endpush

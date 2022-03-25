@@ -20,5 +20,7 @@ class PortofolioBuilding extends Model
         'floor',
         'bedroom',
         'bathroom',
+        'page_area',
+        'building_area',
     ];
 }

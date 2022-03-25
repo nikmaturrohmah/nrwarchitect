@@ -29,6 +29,8 @@ class PortofolioSpecificationController extends Controller
                 'floor'             => 'required',
                 'bedroom'           => 'required',
                 'bathroom'          => 'required',
+                'page_area'         => 'required',
+                'building_area'     => 'required',
             ]);
     
             $newData = [
@@ -40,6 +42,8 @@ class PortofolioSpecificationController extends Controller
                 'floor'             => $request->floor,
                 'bedroom'           => $request->bedroom,
                 'bathroom'          => $request->bathroom,
+                'page_area'         => $request->page_area,
+                'building_area'     => $request->building_area,
             ];
 
             PortofolioBuilding::create($newData);
@@ -49,6 +53,7 @@ class PortofolioSpecificationController extends Controller
                 'style'         => 'required',
                 'room_length'   => 'required',
                 'room_width'    => 'required',
+                'room_area'     => 'required',
             ]);
     
             $newData = [
@@ -57,6 +62,7 @@ class PortofolioSpecificationController extends Controller
                 'style'         => $request->style,
                 'room_length'   => $request->room_length,
                 'room_width'    => $request->room_width,
+                'room_area'     => $request->room_area,
             ];
 
             PortofolioInterior::create($newData);
@@ -89,6 +95,8 @@ class PortofolioSpecificationController extends Controller
                 'floor'             => 'required',
                 'bedroom'           => 'required',
                 'bathroom'          => 'required',
+                'page_area'         => 'required',
+                'building_area'     => 'required',
             ]);
     
             $dataUpdate = [
@@ -99,6 +107,8 @@ class PortofolioSpecificationController extends Controller
                 'floor'             => $request->floor,
                 'bedroom'           => $request->bedroom,
                 'bathroom'          => $request->bathroom,
+                'page_area'         => $request->page_area,
+                'building_area'     => $request->building_area,
             ];
 
             PortofolioBuilding::where('id', $portofolio->specificationBuilding->id)->update($dataUpdate);
@@ -108,6 +118,7 @@ class PortofolioSpecificationController extends Controller
                 'style'         => 'required',
                 'room_length'   => 'required',
                 'room_width'    => 'required',
+                'room_area'     => 'required',
             ]);
     
             $dataUpdate = [
@@ -115,6 +126,7 @@ class PortofolioSpecificationController extends Controller
                 'style'         => $request->style,
                 'room_length'   => $request->room_length,
                 'room_width'    => $request->room_width,
+                'room_area'     => $request->room_area,
             ];
 
             PortofolioInterior::where('id', $portofolio->specificationInterior->id)->update($dataUpdate);
