@@ -26,27 +26,31 @@
                         <strong>{{ $message }}</strong>
                     </div>
                     @endif
-                    @foreach($petugasadmin as $o)
-                    <form action="/petugasadmin/update/{{$o->id}}" method="post" enctype="multipart/form-data">
+                   
+                    <form action="{{ route('admin.petugasadmin.update', $petugasadmin->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="">Nama Petugas Admin</label>
-                            <input type="text" name="name" class="form-control" value="{{ $o->name }}">
+                            <input type="text" name="name" class="form-control" value="{{ $petugasadmin->name }}">
                         </div>
                         <div class="mb-3">
                             <label for="">Email</label>
-                            <input type="text" name="email" class="form-control" value="{{ $o->email }}">
+                            <input type="text" name="email" class="form-control" value="{{ $petugasadmin->email }}">
+                        </div>
+                        <div class="mb-3" hidden>
+                            <label for="">Password</label>
+                            <input type="password" name="password" class="form-control" disabled="disabled">
                         </div>
                         <div class="mb-3">
-                            <label for="">Password</label>
-                            <input type="password" name="password" class="form-control">
+                            <label for="">Update Password</label>
+                            <input type="password" name="password" class="form-control" dissable>
                         </div>
                         <button type="submit" class="btn btn-primary">
                             Kirim
                         </button>
-                        <a href="/datapetugasadmin" class="btn btn-warning">Kembali</a>
+                        <a href="{{ route('admin.petugasadmin.index') }}" class="btn btn-warning">Kembali</a>
                     </form>
-                    @endforeach
+                   
                 </div>
             </div>
         </div>

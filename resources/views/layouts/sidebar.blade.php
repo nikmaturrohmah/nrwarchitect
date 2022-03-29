@@ -98,7 +98,7 @@
     <div id="collapseFour" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Components Profile:</h6> -->
-            <a class="collapse-item" href="/datapetugasadmin">Data Petugas Admin</a>
+            <a class="collapse-item" href="{{ route('admin.petugasadmin.index') }}">Data Petugas Admin</a>
         </div>
     </div>
 </li>

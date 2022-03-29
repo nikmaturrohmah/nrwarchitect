@@ -27,7 +27,7 @@
                     </div>
                     @endif
 
-                    <form action="/petugasadmin/simpan" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.petugasadmin.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="">Nama Petugas Admin</label>
@@ -44,7 +44,7 @@
                         <button type="submit" class="btn btn-primary">
                             Kirim
                         </button>
-                        <a href="/datapetugasadmin" class="btn btn-warning">Kembali</a>
+                        <a href="{{ route('admin.petugasadmin.index') }}" class="btn btn-warning">Kembali</a>
                     </form>
                 </div>
             </div>

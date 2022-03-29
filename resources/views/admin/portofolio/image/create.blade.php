@@ -80,7 +80,7 @@
         var myDropzone = new Dropzone(".dropzone", { 
             url: "{{ route('admin.portofolio.image.store', $portofolio->id) }}",
             autoProcessQueue: false,
-            maxFilesize: 5,
+            maxFilesize: 10,
             uploadMultiple: true,
             parallelUploads: 100,
             maxFiles: 100,

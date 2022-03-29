@@ -8,7 +8,7 @@
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Data Petugas Admin</h6>
-                    <a href="/petugasadmin/tambahpetugasadmin">
+                    <a href="{{ route('admin.petugasadmin.create') }}">
                         <button class="btn btn-primary">Tambah Data Petugas Admin</button>
                     </a>
                 </div>
@@ -39,14 +39,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($petugasadmin as $r)
+                                @foreach($petugasadmin as $key=>$value)
                                 <tr>
                                     <td>{{ $loop -> iteration }}</td>
-                                    <td>{{ $r->name }}</td>
-                                    <td>{{ $r->email }}</td>
+                                    <td>{{ $value->name }}</td>
+                                    <td>{{ $value->email }}</td>
                                     <td>
-                                        <a href="/petugasadmin/edit/{{ $r->id }}"><button class="btn btn-success btn-sm">edit</button></a>
-                                        <a href="/petugasadmin/softdel/{{ $r->id }}"><button class="btn btn-danger btn-sm">hapus</button></a>
+                                        <a href="{{ route('admin.petugasadmin.edit', $value->id) }}"><button class="btn btn-success btn-sm">edit</button></a>
+                                        <a href="{{ route('admin.portofolio.delete', $value->id) }"><button class="btn btn-danger btn-sm">hapus</button></a>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -76,6 +76,16 @@ Route::middleware('auth')->name('admin.')->prefix('admin')->group(function () {
         Route::get('draft/{id}', [TestimonialController::class, 'draft'])->name('draft');
     });
 
+    Route::name('petugasadmin.')->prefix('petugasadmin')->group(function () {
+        Route::get('/', [PetugasadminController::class, 'index'])->name('index');
+        Route::get('create', [PetugasadminController::class, 'create'])->name('create');
+        Route::post('store', [PetugasadminController::class, 'store'])->name('store');
+        Route::get('edit/{id}', [PetugasadminController::class, 'edit'])->name('edit');
+        route::post('update/{id}',[PetugasadminController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [PetugasadminController::class, 'delete'])->name('delete');
+
+    });
+
     Route::name('portofolio.')->prefix('portofolio')->group(function () {
         Route::get('/', [PortofolioController::class, 'index'])->name('index');
         Route::get('create', [PortofolioController::class, 'create'])->name('create');
@@ -108,14 +118,8 @@ Route::middleware('auth')->name('admin.')->prefix('admin')->group(function () {
             route::post('update/{tagId}',[PortofolioTagsController::class, 'update'])->name('update');
             Route::get('delete/{tagId}', [PortofolioTagsController::class, 'delete'])->name('delete');
         });
+
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     });
 });
 
-Route::get('datapetugasadmin', [PetugasadminController::class, 'petugasadmin']);
-Route::get('/petugasadmin/cari', [PetugasadminController::class, 'petugasadmin']);
-Route::get('petugasadmin/tambahpetugasadmin', [PetugasadminController::class, 'tambahpetugasadmin']);
-Route::get('/petugasadmin/simpan', [PetugasadminController::class, 'simpan']);
-Route::get('petugasadmin/edit/{id}', [PetugasadminController::class, 'edit']);
-route::get('petugasadmin/update/{id}',[PetugasadminController::class, 'update']);
-Route::get('petugasadmin/softdel/{id}', [PetugasadminController::class, 'softdel']);

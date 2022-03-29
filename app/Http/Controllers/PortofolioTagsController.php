@@ -20,7 +20,7 @@ class PortofolioTagsController extends Controller
 
     public function store($id, Request $request)
     {
-        $tags = json_decode($request->tags);
+        $tags = json_decode($request->tag);
 
         foreach ($tags as $key => $value) {
             $tag = [
