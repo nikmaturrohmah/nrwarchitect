@@ -39,7 +39,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Password</label>
-                            <input type="text" name="password" class="form-control" value="{{ $o->password }}">
+                            <input type="password" name="password" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-primary">
                             Kirim

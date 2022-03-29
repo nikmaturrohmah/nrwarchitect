@@ -176,54 +176,78 @@
               <h5 style="color: #9A9A9A"><strong>Specification</strong></h5>
               <div class="mt-3 row">
                   @if($portofolio->specificationBuilding != null)
-                  <div class="col-md-4 text-center">
+
+                    @if($portofolio->specificationBuilding->land_width != 0 && $portofolio->specificationBuilding->land_length != 0)
+                    <div class="col-md-4 text-center">
                       <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
                       <p style="font-size: 12px; margin-bottom: 0;">Dimensi lahan (m2)</p>
                       <p>{{ $portofolio->specificationBuilding->land_width }} m x {{ $portofolio->specificationBuilding->land_length }} m</p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Luas lahan (m2)</p>
-                      <p>{{ ($portofolio->specificationBuilding->page_area) }}</p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Luas bangunan (m2)</p>
-                      <p>{{ ($portofolio->specificationBuilding->building_area) }}</p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-lantai.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Type</p>
-                      <p>{{ $portofolio->specificationBuilding->floor }}</p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-kamar-tidur.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Kamar tidur</p>
-                      <p>{{ $portofolio->specificationBuilding->bedroom }}</p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-kamar-mandi.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Kamar mandi</p>
-                      <p>{{ $portofolio->specificationBuilding->bathroom }}</p>
-                  </div>
+                    </div>
+                    @endif
+                    
+                    @if($portofolio->specificationBuilding->page_area != 0)
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Luas lahan (m2)</p>
+                        <p>{{ ($portofolio->specificationBuilding->page_area) }}</p>
+                    </div>
+                    @endif
+
+                    @if($portofolio->specificationBuilding->building_area != 0)
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Luas bangunan (m2)</p>
+                        <p>{{ ($portofolio->specificationBuilding->building_area) }}</p>
+                    </div>
+                    @endif
+
+                    @if($portofolio->specificationBuilding->floor != 0)
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('logo/Logo-lantai.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Type</p>
+                        <p>{{ $portofolio->specificationBuilding->floor }}</p>
+                    </div>
+                    @endif
+
+                    @if($portofolio->specificationBuilding->bedroom != 0)
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('logo/Logo-kamar-tidur.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Kamar tidur</p>
+                        <p>{{ $portofolio->specificationBuilding->bedroom }}</p>
+                    </div>
+                    @endif
+
+                    @if($portofolio->specificationBuilding->bathroom != 0)
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('logo/Logo-kamar-mandi.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Kamar mandi</p>
+                        <p>{{ $portofolio->specificationBuilding->bathroom }}</p>
+                    </div>
+                    @endif
                   @endif
 
                   @if($portofolio->specificationInterior != null)
-                  <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-jenis-interior.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Jenis Ruang</p>
-                      <p>{{ $portofolio->specificationInterior->type }}</p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Style Interior</p>
-                      <p>{{ $portofolio->specificationInterior->style }}</p>
-                  </div>
-                  <div class="col-md-4 text-center">
-                      <img src="{{ asset('logo/Logo-luas-lahan.png') }}" alt="">
-                      <p style="font-size: 12px; margin-bottom: 0;">Luas Ruangan</p>
-                      <p>{{ $portofolio->specificationInterior->room_area }}</p>
-                  </div>
+                    @if($portofolio->specificationInterior->type != "")
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('logo/Logo-jenis-interior.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Jenis Ruang</p>
+                        <p>{{ $portofolio->specificationInterior->type }}</p>
+                    </div>
+                    @endif
+                    @if($portofolio->specificationInterior->style != "")
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Style Interior</p>
+                        <p>{{ $portofolio->specificationInterior->style }}</p>
+                    </div>
+                    @endif
+                    @if($portofolio->specificationInterior->room_area != 0)
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset('logo/Logo-luas-lahan.png') }}" alt="">
+                        <p style="font-size: 12px; margin-bottom: 0;">Luas Ruangan</p>
+                        <p>{{ $portofolio->specificationInterior->room_area }}</p>
+                    </div>
+                    @endif
                   @endif
               </div>
 
