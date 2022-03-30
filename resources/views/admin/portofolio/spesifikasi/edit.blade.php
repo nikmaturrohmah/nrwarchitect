@@ -66,6 +66,14 @@
                             <label for="">Kamar mandi</label>
                             <input type="number" name="bathroom" class="form-control" value="{{ $portofolio->specificationBuilding->bathroom }}">
                         </div>
+                        <div class="mb-3">
+                            <label for="">Luas Lahan</label>
+                            <input type="number" name="page_area" class="form-control" value="{{ $portofolio->specificationBuilding->page_area }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Luas Bangunan</label>
+                            <input type="number" name="building_area" class="form-control" value="{{ $portofolio->specificationBuilding->building_area }}">
+                        </div>
                         @else
                         <div class="mb-3">
                             <label for="">Type</label>

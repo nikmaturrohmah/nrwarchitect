@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\PetugasAdmin;
+use Illuminate\Support\Facades\Hash;
 use App\Models\user;
 
 class PetugasadminController extends Controller
@@ -25,7 +26,7 @@ class PetugasadminController extends Controller
             $newData = [
                 'name'    => $request->post('name'),
                 'email'   => $request->post('email'),
-                'password'   => $request->post('password'),
+                'password'   => Hash::make($request->post('password')),
                 
             ];
     
@@ -46,15 +47,21 @@ class PetugasadminController extends Controller
         $request->validate([
             'name'                      => 'required',
             'email'                      => 'required',
-            'password'                      => 'required',
         ]);
 
-        $dataUpdate = [
-            'name'         => $request->post('name'),
-            'email'   => $request->post('email'),
-            'password'   => $request->post('password'),
-            
-        ];
+        if ($request->post('password') == null) {
+            $dataUpdate = [
+                'name' => $request->name,
+                'email' => $request->email
+            ];
+        } else {
+            $dataUpdate = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ];
+
+        }
 
         PetugasAdmin::where('id', $id)->update($dataUpdate);
         $petugasadmin = PetugasAdmin::find($id);

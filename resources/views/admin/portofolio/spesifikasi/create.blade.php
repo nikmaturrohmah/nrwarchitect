@@ -58,6 +58,14 @@
                             <label for="">Kamar mandi</label>
                             <input type="number" name="bathroom" class="form-control">
                         </div>
+                        <div class="mb-3">
+                            <label for="">Luas Halaman</label>
+                            <input type="number" name="page_area" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Luas Bangunan</label>
+                            <input type="number" name="building_area" class="form-control">
+                        </div>
                         @else
                         <div class="mb-3">
                             <label for="">Type</label>
@@ -74,6 +82,10 @@
                         <div class="mb-3">
                             <label for="">Ruangan bangunan (m)</label>
                             <input type="number" name="room_width" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Luas Ruangan (m)</label>
+                            <input type="number" name="room_area" class="form-control">
                         </div>
                         @endif
                         <button type="submit" class="btn btn-primary">

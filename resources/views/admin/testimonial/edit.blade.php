@@ -2,38 +2,6 @@
 
 @section('content')
 
-<style>
-  .uploader {
-        position:relative; 
-        overflow:hidden; 
-        width:500px; 
-        height:500px;
-        background:#f3f3f3; 
-        border:2px dashed #e8e8e8;
-    }
-
-    #image{
-        position:absolute;
-        width:500px;
-        height:500px;
-        top:-50px;
-        left:0;
-        z-index:2;
-        opacity:0;
-        cursor:pointer;
-    }
-
-    .uploader img{
-        position:absolute;
-        width:500px;
-        height:500px;
-        top:-1px;
-        left:-1px;
-        z-index:1;
-        border:none;
-    }
-</style>
-
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-md-12">
@@ -60,7 +28,7 @@
                     </div>
                     @endif
 
-                    <form method="post" enctype="multipart/form-data">
+                    <form id="form1" action="{{ route('admin.testimonial.update', $testimonial->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="">Nama Pengguna Testimoni</label>
@@ -80,7 +48,7 @@
                         </div>
                     </form>
                     <a href="{{ route('admin.testimonial.index') }}" class="btn btn-warning">Kembali</a>
-                    <button class="btn btn-primary" type="submit">Submit data and files!</button>
+                    <button class="btn btn-primary" type="submit" form="form1" value="Submit" >Submit data and files!</button>
                 </div>
             </div>
         </div>
@@ -97,7 +65,7 @@
             url: "{{ route('admin.testimonial.update', $testimonial->id) }}",
             maxFiles: 1,
             autoProcessQueue: false,
-            maxFilesize: 5,
+            maxFilesize: 100,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
             success: function(file, response){
@@ -111,7 +79,7 @@
                 // First change the button to actually tell Dropzone to process the queue.
                 document.body.querySelector("button[type=submit]").addEventListener("click", function(e) {
                 // Make sure that the form isn't actually being sent.
-                    e.preventDefault();
+                    // e.preventDefault();
                     e.stopPropagation();
                     myDropzone.processQueue();
                 });

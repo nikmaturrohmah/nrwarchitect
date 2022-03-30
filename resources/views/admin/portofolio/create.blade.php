@@ -254,6 +254,9 @@
                     formData.append("style", $('input[name="style"]').val());
                     formData.append("room_length", $('input[name="room_length"]').val());
                     formData.append("room_width", $('input[name="room_width"]').val());
+                    formData.append("page_area", $('input[name="page_area"]').val());
+                    formData.append("building_area", $('input[name="building_area"]').val());
+                    formData.append("room_area", $('input[name="room_area"]').val());
                     formData.append("tags", $('input[id="tags"]').val());
                     formData.append("description", getDataFromTheEditor() );
                 });

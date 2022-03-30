@@ -124,9 +124,10 @@ class PortofolioController extends Controller
 
     public function detail($id)
     {
-        $portofolio = Portofolio::with(['category', 'images'])->find($id);
+        $portofolio = Portofolio::with(['category', 'images', 'tags'])->find($id);
         $category = PortofolioCategory::get();
-        return view('admin.portofolio.detail', ['portofolio' => $portofolio, 'category' => $category,]);
+        // return response()->json($portofolio);
+        return view('admin.portofolio.detail', ['portofolio' => $portofolio, 'category' => $category, ]);
     }
 
     public function delete($id)
