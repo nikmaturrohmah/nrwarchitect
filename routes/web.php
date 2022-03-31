@@ -16,6 +16,10 @@ use App\Http\Controllers\PortofolioImageController;
 use App\Http\Controllers\PortofolioSpecificationController;
 use App\Http\Controllers\PortofolioTagsController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleImageController;
+use App\Http\Controllers\ArticleTagsController;
+
 
 Route::get('/', [LandingController::class, 'index']);
 Route::get('/list', [LandingController::class, 'list'])->name('list');
@@ -118,8 +122,35 @@ Route::middleware('auth')->name('admin.')->prefix('admin')->group(function () {
             route::post('update/{tagId}',[PortofolioTagsController::class, 'update'])->name('update');
             Route::get('delete/{tagId}', [PortofolioTagsController::class, 'delete'])->name('delete');
         });
+    });
+
+        Route::name('article.')->prefix('article')->group(function () {
+            Route::get('/', [ArticleController::class, 'index'])->name('index');
+            Route::get('create', [ArticleController::class, 'create'])->name('create');
+            Route::post('store', [ArticleController::class, 'store'])->name('store');
+            Route::get('edit/{id}', [ArticleController::class, 'edit'])->name('edit');
+            route::post('update/{id}',[ArticleController::class, 'update'])->name('update');
+            route::get('detail/{id}',[ArticleController::class, 'detail'])->name('detail');
+            Route::get('delete/{id}', [ArticleController::class, 'delete'])->name('delete');
+    
+            Route::name('image.')->prefix('image')->group(function () {
+                Route::get('create/{id}', [ArticleImageController::class, 'create'])->name('create');
+                Route::post('store/{id}', [ArticleImageController::class, 'store'])->name('store');
+                Route::post('dropzone/{id}', [ArticleImageController::class, 'dropzone'])->name('dropzone');
+                Route::get('edit/{imageId}', [ArticleImageController::class, 'edit'])->name('edit');
+                route::post('update/{imageId}',[ArticleImageController::class, 'update'])->name('update');
+                Route::get('delete/{imageId}', [ArticleImageController::class, 'delete'])->name('delete');
+            });
+    
+            Route::name('tags.')->prefix('tags')->group(function () {
+                Route::get('create/{id}', [ArticleTagsController::class, 'create'])->name('create');
+                Route::post('store/{id}', [ArticleTagsController::class, 'store'])->name('store');
+                Route::get('edit/{tagId}', [ArticleTagsController::class, 'edit'])->name('edit');
+                route::post('update/{tagId}',[ArticleTagsController::class, 'update'])->name('update');
+                Route::get('delete/{tagId}', [ArticleTagsController::class, 'delete'])->name('delete');
+            });
+        });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     });
-});
 

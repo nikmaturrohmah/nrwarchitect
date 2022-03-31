@@ -92,6 +92,22 @@
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
         aria-expanded="false" aria-controls="collapseFour">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Article</span>
+    </a>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <!-- <h6 class="collapse-header">Components Profile:</h6> -->
+            <a class="collapse-item" href="{{ route('admin.article.index') }}">Data Article</a>
+            <a class="collapse-item" href="{{ route('admin.article.create') }}">Buat Article</a>
+        </div>
+    </div>
+</li>
+
+<!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+        aria-expanded="false" aria-controls="collapseFour">
         <i class="fas fa-solid fa-user"></i>
         <span>Petugas Admin</span>
     </a>
