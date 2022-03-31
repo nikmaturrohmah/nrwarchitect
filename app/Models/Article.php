@@ -10,20 +10,18 @@ class Article extends Model
     use HasFactory;
 
     protected $fillable = [
+        'title',
         'slug_title',
-        'slug_judul',
-        'sub_judul',
-        'penulis',
+        'sub_title',
+        'topic',
+        'author',
+        'cover_image',
+        'posted',
         'description',
     ];
 
     public function tags()
     {
         return $this->hasMany(ArticleTags::class, 'article_id', 'id');
-    }
-
-    public function images()
-    {
-        return $this->hasMany(ArticleImage::class, 'article_id', 'id');
     }
 }

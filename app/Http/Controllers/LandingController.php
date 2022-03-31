@@ -11,6 +11,7 @@ use App\Models\PortofolioCategory;
 use App\Models\Portofolio;
 use App\Models\Testimonial;
 use App\Models\Slider;
+use App\Models\Article;
 
 class LandingController extends Controller
 {
@@ -79,6 +80,24 @@ class LandingController extends Controller
         $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
         
         return view('detail', ['landing' => $landing]);
+    }
+
+    public function article()
+    {
+        $landing['logo'] = Landing::where('meta_key', 'like', 'landing_logo%')->get();
+        $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
+        $landing['article'] = Article::get();
+        
+        return view('article', ['landing' => $landing]);
+    }
+
+    public function articleDetail($slug)
+    {
+        $landing['logo'] = Landing::where('meta_key', 'like', 'landing_logo%')->get();
+        $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
+        $article = Article::with('tags')->where('slug_title', $slug)->first();
+        
+        return view('articledetail', ['landing' => $landing, 'article' => $article]);
     }
 
     public function adminIndex()

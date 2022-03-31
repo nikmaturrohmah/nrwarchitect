@@ -23,7 +23,7 @@
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Detail article</h6>
                     <a href="{{ route('admin.article.edit', $article->id) }}">
-                        <button class="btn btn-primary">Edit deskripsi</button>
+                        <button class="btn btn-primary">Edit article</button>
                     </a>
                 </div>
                 <!-- Card Body -->
@@ -32,11 +32,11 @@
                         Title
                         <h4>{{ $article->slug_title }}</h4>
                         <br>
-                        Judul
-                        <h4>{{ $article->slug_judul }}</h4>
-                        <br>
                         Sub Judul
                         <h4>{{ $article->sub_judul }}</h4>
+                        <br>
+                        Topik
+                        <h4>{{ $article->topic }}</h4>
                         <br>
                         Penulis
                         <h4>{{ $article->penulis }}</h4>
@@ -46,47 +46,8 @@
                             {!! $article->description !!}
                         </div>
                         <br>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="card shadow mb-4">
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Gambar article</h6>
-                    <a href="{{ route('admin.article.image.create', $article->id) }}">
-                        <button class="btn btn-primary">Tambah Gambar</button>
-                    </a>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="tableImage" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Gambar</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($article->images as $key=>$value)
-                                <tr>
-                                    <td>{{ $key+1 }}</td>
-                                    <td>
-                                        <img src="{{ asset('images/'.$value->image) }}" style="width:50px; height: 50px" alt="">
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.article.image.edit', $value->id) }}"><button class="btn btn-success btn-sm">edit</button></a>
-                                        <a href="{{ asset('images/'.$value->image) }}"><button class="btn btn-info btn-sm">lihat</button></a>
-                                        <a href="{{ route('admin.article.image.delete', $value->id) }}"><button class="btn btn-danger btn-sm">hapus</button></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        Cover image
+                        <img src="{{ asset('images/'.$article->cover_image) }}" style="width: 100%; height: 300px; object-fit: contain" alt="">
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use App\Models\Article;
 use App\Models\ArticleImage;
 use App\Models\ArticleTags;
@@ -24,42 +25,32 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        //return response()->json($request->description);
-
-        $article = [
-            'slug_title'      => $request->slug_title,
-            'slug_judul'      => $request->slug_judul,
-            'sub_judul'       => $request->sub_judul,
-            'penulis'         => $request->penulis,
-            'description'     => $request->description,
+        $newData = [
+            'title' => $request->post('title'),
+            'slug_title'    => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->post('title')), '-')),
+            'sub_title' => $request->post('sub_title'),
+            'topic' => $request->post('topic'),
+            'author'    => $request->post('author'),
+            'description'    => $request->post('description'),
+            'posted'    => true,
         ];
 
-        $article = Article::create($article);
+        $imageName = "article-".rand(1000, 9999).time().'.'.$request->file->extension();
+        $webp = Webp::make($request->file);
 
-        foreach ($request->file as $key => $value) {
-            $imageName = "article-".rand(1000, 9999).time().'.'.$value->extension();
+        if ($webp->save(public_path('images/'.$imageName))) {
+            $newData = array_merge($newData, ['cover_image' => $imageName]);
+            $article = Article::create($newData);
+            $tags = json_decode($request->tags);
 
-            $webp = Webp::make($value);
-
-            if ($webp->save(public_path('images/'.$imageName))) {
-                $image = [
-                    'article_id' => $article->id,
-                    'image'         => $imageName,
+            foreach ($tags as $key => $value) {
+                $tag = [
+                    'article_id'    => $article->id,
+                    'tag'           => $value->value,
                 ];
-    
-                ArticleImage::create($image);
+        
+                ArticleTags::create($tag);
             }
-        }
-
-        $tags = json_decode($request->tags);
-
-        foreach ($tags as $key => $value) {
-            $tag = [
-                'article_id' => $article->id,
-                'tag'           => $value->value,
-            ];
-    
-            ArticleTags::create($tag);
         }
 
         return redirect()->route('admin.article.index')->with(['success' => 'Data berhasil diubah']);
@@ -73,21 +64,31 @@ class ArticleController extends Controller
 
     public function update($id, Request $request)
     {
-        $request->validate([
-            'slug_title'       => 'required',
-            'slug_judul'       => 'required',
-            'sub_judul'        => 'required',
-            'penulis'          => 'required',
-            'description'      => 'required',
-        ]);
-
         $dataUpdate = [
-            'slug_title'    => $request->slug_title,
-            'slug_judul'    => $request->slug_judul,
-            'sub_judul'     => $request->sub_judul,
-            'penulis'       => $request->penulis,
-            'description'   => $request->description,
+            'title' => $request->post('title'),
+            'slug_title'    => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->post('title')), '-')),
+            'sub_title' => $request->post('sub_title'),
+            'topic' => $request->post('topic'),
+            'author'    => $request->post('author'),
+            'description'    => $request->post('description'),
         ];
+
+        $old = Article::find($id);
+
+        if ($request->hasFile('file')) {
+
+            $imagePath = public_path('images/').$old->cover_image;
+            if(File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+
+            $imageName = "testimonial-".rand(1000, 9999).time().'.'.$request->file->extension();
+            $webp = Webp::make($request->file);
+
+            if ($webp->save(public_path('images/'.$imageName))) {
+                $dataUpdate = array_merge($dataUpdate, ['cover_image' => $imageName]);
+            }
+        }
 
         Article::where('id', $id)->update($dataUpdate);
         return redirect()->route('admin.article.index')->with(['success' => 'Data berhasil diubah']);
@@ -95,7 +96,7 @@ class ArticleController extends Controller
 
     public function detail($id)
     {
-        $article = Article::with(['images', 'tags'])->find($id);
+        $article = Article::with(['tags'])->find($id);
         // return response()->json($article);
         return view('admin.article.detail', ['article' => $article]);
     }

@@ -31,19 +31,19 @@
                         @csrf
                         <div class="mb-3">
                             <label for="">Title </label>
-                            <input type="text" name="slug_title" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="">Judul </label>
-                            <input type="text" name="slug_judul" class="form-control" required>
+                            <input type="text" name="title" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label for="">Sub Judul</label>
-                            <input type="text" name="sub_judul" class="form-control" required>
+                            <input type="text" name="sub_title" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Topik</label>
+                            <input type="text" name="topic" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label for="">Penulis</label>
-                            <input type="text" name="penulis" class="form-control"  required>
+                            <input type="text" name="author" class="form-control"  required>
                         </div>
                         <div class="mb-3">
                             <label for="">Deskripsi</label>
@@ -51,8 +51,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Gambar Article</label>
-                            <div class="dropzone" style="" id="my-dropzone" name="mainFileUploader">
-                                <input name="file" type="file" multiple hidden required />
+                            <div class="dropzone" style="" id="my-dropzone">
+                                <input name="file" type="file" hidden required />
                             </div>
                         </div>
                         <div class="mb-3">
@@ -105,11 +105,14 @@
             url: "{{ route('admin.article.store') }}",
             autoProcessQueue: false,
             maxFilesize: 10,
-            uploadMultiple: true,
-            parallelUploads: 100,
-            maxFiles: 100,
+            maxFiles: 1,
+            uploadMultiple: false,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
+            success: function(file, response){
+                window.location = "{{ route('admin.article.index') }}";
+                //console.log(response);
+            },
             init: function() {
                 var myDropzone = this;
 
@@ -117,17 +120,15 @@
                     //e.preventDefault();
                     e.stopPropagation();
                     myDropzone.processQueue();
-                    //console.log(myQuill);
-                    //console.log(getDataFromTheEditor());
                 });
 
                 this.on("sending", function(data, xhr, formData) {
                     formData.append("_token", $('input[name="_token"]').val());
-                    formData.append("file[]", $('input[name="file[]"]').val());
-                    formData.append("slug_title", $('input[name="slug_title"]').val());
-                    formData.append("slug_judul", $('input[name="slug_judul"]').val());
-                    formData.append("sub_judul", $('input[name="sub_judul"]').val());
-                    formData.append("penulis", $('input[name="penulis"]').val());
+                    formData.append("file", $('input[name="file"]').val());
+                    formData.append("title", $('input[name="title"]').val());
+                    formData.append("sub_title", $('input[name="sub_title"]').val());
+                    formData.append("topic", $('input[name="topic"]').val());
+                    formData.append("author", $('input[name="author"]').val());
                     formData.append("tags", $('input[id="tags"]').val());
                     formData.append("description", getDataFromTheEditor() );
                 });
@@ -135,10 +136,6 @@
                 this.on("processing", function() {
                     this.options.autoProcessQueue = true;
                 });
-
-                this.on("successmultiple", function(files, response) {
-                    window.location = "{{ route('admin.article.index') }}";
-                })
             },
             removedfile: function (file) {
                 var _ref;
