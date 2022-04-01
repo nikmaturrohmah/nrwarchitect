@@ -46,7 +46,7 @@
         <!-- <h1 class="text-white"><a href="index.html">{{ env('APP_NAME') }}</a></h1> -->
         <!-- Uncomment below if you prefer to use an image logo -->
         <a href="{{ url('/') }}"><img src="{{ asset('images/'.$landing['logo'][0]->meta_value) }}" alt="" class="img-fluid"></a>
-        <a href="{{ url('/') }}" class="mt-2"><h4 class="text-white"><strong>{{ env('APP_NAME') }}</strong></h4></a>
+        <a href="{{ url('/') }}" class="mt-2"><logo class="text-white">{{ env('APP_NAME') }}</logo></a>
       </div>
 
       <nav id="navbar" class="navbar">
@@ -198,9 +198,9 @@
                 </div>
                 <h4 class="mb-4"><strong>{{ $value->name }}</strong></h4>
                 @if(strlen($value->content) < 300)
-                <p>{{ $value->content }}</p>
+                <B>{{ $value->content }}</B>
                 @else
-                <p>{{ Illuminate\Support\Str::limit($value->content, 300 ) }}</p>
+                <B>{{ Illuminate\Support\Str::limit($value->content, 300 ) }}</B>
                 @endif
             </div>
           </div>

@@ -146,14 +146,14 @@
       <div class="row">
         <div class="col-md-8">
           <div class="card rounded p-4 mb-4 border-0 shadow" style="color: #9A9A9A; font-size: 14px">
-              <h4><strong>{{ $portofolio->name }}</strong></h4>
+              <s>{{ $portofolio->name }}</s>
               {!! $portofolio->description !!}
           </div>
 
           <div class="w-100 d-inline-flex justify-content-end">
             <div class="card rounded border-0 shadow">
               <div class="p-4">
-                <h5 class="mb-4" style="color: #9A9A9A"><strong>Share this link via</strong></h5>
+                <h5 class="mb-4" style="#000000;"><strong>Share this link via</strong></h5>
                 <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" data-toggle="tooltip" title="Bagikan ke Facebook">
                   <img src="{{ asset('logo/share/fb.png') }}" alt="copy">
                 </a>
@@ -181,7 +181,7 @@
                     <div class="col-md-4 text-center">
                       <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
                       <p style="font-size: 12px; margin-bottom: 0;">Dimensi lahan (m2)</p>
-                      <p>{{ $portofolio->specificationBuilding->land_width }} m x {{ $portofolio->specificationBuilding->land_length }} m</p>
+                      <m>{{ $portofolio->specificationBuilding->land_width }} m x {{ $portofolio->specificationBuilding->land_length }} m</m>
                     </div>
                     @endif
                     
@@ -189,7 +189,7 @@
                     <div class="col-md-4 text-center">
                         <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
                         <p style="font-size: 12px; margin-bottom: 0;">Luas lahan (m2)</p>
-                        <p>{{ ($portofolio->specificationBuilding->page_area) }}</p>
+                        <m >{{ ($portofolio->specificationBuilding->page_area) }}</m>
                     </div>
                     @endif
 
@@ -197,7 +197,7 @@
                     <div class="col-md-4 text-center">
                         <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
                         <p style="font-size: 12px; margin-bottom: 0;">Luas bangunan (m2)</p>
-                        <p>{{ ($portofolio->specificationBuilding->building_area) }}</p>
+                        <m>{{ ($portofolio->specificationBuilding->building_area) }}</m>
                     </div>
                     @endif
 
@@ -205,7 +205,7 @@
                     <div class="col-md-4 text-center">
                         <img src="{{ asset('logo/Logo-lantai.png') }}" alt="">
                         <p style="font-size: 12px; margin-bottom: 0;">Type</p>
-                        <p>{{ $portofolio->specificationBuilding->floor }}</p>
+                        <m>{{ $portofolio->specificationBuilding->floor }}</m>
                     </div>
                     @endif
 
@@ -213,7 +213,7 @@
                     <div class="col-md-4 text-center">
                         <img src="{{ asset('logo/Logo-kamar-tidur.png') }}" alt="">
                         <p style="font-size: 12px; margin-bottom: 0;">Kamar tidur</p>
-                        <p>{{ $portofolio->specificationBuilding->bedroom }}</p>
+                        <m>{{ $portofolio->specificationBuilding->bedroom }}</m>
                     </div>
                     @endif
 
@@ -221,7 +221,7 @@
                     <div class="col-md-4 text-center">
                         <img src="{{ asset('logo/Logo-kamar-mandi.png') }}" alt="">
                         <p style="font-size: 12px; margin-bottom: 0;">Kamar mandi</p>
-                        <p>{{ $portofolio->specificationBuilding->bathroom }}</p>
+                        <m>{{ $portofolio->specificationBuilding->bathroom }}</m>
                     </div>
                     @endif
                   @endif
@@ -231,21 +231,21 @@
                     <div class="col-md-4 text-center">
                         <img src="{{ asset('logo/Logo-jenis-interior.png') }}" alt="">
                         <p style="font-size: 12px; margin-bottom: 0;">Jenis Ruang</p>
-                        <p>{{ $portofolio->specificationInterior->type }}</p>
+                        <m>{{ $portofolio->specificationInterior->type }}</m>
                     </div>
                     @endif
                     @if($portofolio->specificationInterior->style != "")
                     <div class="col-md-4 text-center">
                         <img src="{{ asset('logo/Logo-dimensi-lahan.png') }}" alt="">
                         <p style="font-size: 12px; margin-bottom: 0;">Style Interior</p>
-                        <p>{{ $portofolio->specificationInterior->style }}</p>
+                        <m>{{ $portofolio->specificationInterior->style }}</m>
                     </div>
                     @endif
                     @if($portofolio->specificationInterior->room_area != 0)
                     <div class="col-md-4 text-center">
                         <img src="{{ asset('logo/Logo-luas-lahan.png') }}" alt="">
                         <p style="font-size: 12px; margin-bottom: 0;">Luas Ruangan</p>
-                        <p>{{ $portofolio->specificationInterior->room_area }}</p>
+                        <m>{{ $portofolio->specificationInterior->room_area }}</m>
                     </div>
                     @endif
                   @endif
@@ -255,7 +255,7 @@
               <h5 style="color: #9A9A9A"><strong>Tags</strong></h5>
               <div class="mb-3">
                 @foreach($portofolio->tags as $key=>$value)
-                <span class="badge rounded-pill bg-secondary">{{ $value->tag }}</span>
+                <span class="badge rounded-pill text-white bg-dark">{{ $value->tag }}</span>
                 @endforeach
               </div>
           </div>
@@ -273,7 +273,7 @@
                         <img height="200px" style="object-fit: cover" src="{{ asset('images/'.$value->images[0]->image) }}" alt="">
                         <div class="p-2 px-4">
                           <a href="{{ route('detail', $value->id) }}">
-                            <h4 class="mt-2"><strong>{{ $value->name }}</strong></h4>
+                            <h4 class="mt-2" style="color: #000000"><strong>{{ $value->name }}</strong></h4>
                           </a>
                           <!-- <p>{{ $value->description }}</p> -->
                         </div>
