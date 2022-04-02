@@ -108,4 +108,25 @@ class ArticleController extends Controller
         
         return redirect()->route('admin.article.index')->with(['success' => 'Data berhasil dihapus']);
     }
+
+    public function publish($id, Request $request)
+    {
+        $dataUpdate = [
+            'posted'  => true,
+        ];
+
+        Article::where('id', $id)->update($dataUpdate);
+        return redirect()->route('admin.article.index')->with(['success' => 'Data berhasil di draft']);
+
+    }
+
+    public function draft($id, Request $request)
+    {
+        $dataUpdate = [
+            'posted'  => false,
+        ];
+
+        Article::where('id', $id)->update($dataUpdate);
+        return redirect()->route('admin.article.index')->with(['success' => 'Data berhasil di post']);
+    }
 }

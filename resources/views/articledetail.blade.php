@@ -51,10 +51,11 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="text-white nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="text-white nav-link scrollto" href="#about">About</a></li>
-          <li><a class="text-white nav-link scrollto" href="#portfolio">Portfolio</a></li>
-          <li><a class="text-white nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="text-white nav-link scrollto active" href="{{ url('/') }}#hero">Home</a></li>
+          <li><a class="text-white nav-link scrollto" href="{{ url('/') }}#about">About</a></li>
+          <li><a class="text-white nav-link scrollto" href="{{ url('/') }}#portfolio">Portfolio</a></li>
+          <li><a class="text-white nav-link scrollto" href="{{ url('/') }}#contact">Contact</a></li>
+          <li><a class="text-white nav-link" href="{{ route('article') }}">Article</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -77,7 +78,7 @@
   </div>
 
   <div class="container mb-3">
-    <div class="row">
+    <div class="row px-5">
       <div class="col-md-10">{!! $article->description !!}</div>
       <div class="col-md-2">
         <div class="d-flex align-items-end flex-column gap-1">

@@ -33,8 +33,8 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Title</th>
                                     <th>Judul</th>
+                                    <th>Topik</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -42,11 +42,16 @@
                                 @foreach($article as $key=>$value)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
-                                    <td>{{ $value->slug_title }}</td>
-                                    <td>{{ $value->slug_judul }}</td>
+                                    <td>{{ $value->title }}</td>
+                                    <td>{{ $value->topic }}</td>
                                     <td>
                                         <a href="{{ route('admin.article.edit', $value->id) }}"><button class="btn btn-success btn-sm">edit</button></a>
                                         <a href="{{ route('admin.article.detail', $value->id) }}"><button class="btn btn-info btn-sm">detail</button></a>
+                                        @if(!$value->posted)
+                                        <a href="{{ route('admin.article.publish', $value->id) }}"><button class="btn btn-info btn-sm">publish</button></a>
+                                        @else
+                                        <a href="{{ route('admin.article.draft', $value->id) }}"><button class="btn btn-warning btn-sm">draft</button></a>
+                                        @endif
                                         <a href="{{ route('admin.article.delete', $value->id) }}"><button class="btn btn-danger btn-sm">hapus</button></a>
                                     </td>
                                 </tr>

@@ -117,6 +117,7 @@
                 var myDropzone = this;
 
                 document.body.querySelector("button[type=submit]").addEventListener("click", function(e) {
+                    document.getElementById("overlay").style.display = "block";
                     //e.preventDefault();
                     e.stopPropagation();
                     myDropzone.processQueue();

@@ -16,7 +16,11 @@
 </head>
 
 <body id="page-top">
-
+    <div id="overlay">
+        <div id="text">
+            <div class="loader"></div>
+        </div>
+    </div>
     <!-- Page Wrapper -->
     <div id="wrapper">
 

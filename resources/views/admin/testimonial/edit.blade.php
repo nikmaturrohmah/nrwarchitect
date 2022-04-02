@@ -78,7 +78,7 @@
 
                 // First change the button to actually tell Dropzone to process the queue.
                 document.body.querySelector("button[type=submit]").addEventListener("click", function(e) {
-                // Make sure that the form isn't actually being sent.
+                    document.getElementById("overlay").style.display = "block";
                     // e.preventDefault();
                     e.stopPropagation();
                     myDropzone.processQueue();

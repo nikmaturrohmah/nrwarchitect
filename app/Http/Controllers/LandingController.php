@@ -27,8 +27,7 @@ class LandingController extends Controller
                                 ->paginate(9);
         $landing['portofolio']  = $portofolio;
 
-        //dd($landing['portofolio']);
-        $landing['testimonial'] = Testimonial::where('posted', 'published')
+        $landing['testimonial'] = Testimonial::where('posted', 1)
                                     ->orderBy('id','DESC')
                                     ->skip(0)
                                     ->take(3)
@@ -86,7 +85,7 @@ class LandingController extends Controller
     {
         $landing['logo'] = Landing::where('meta_key', 'like', 'landing_logo%')->get();
         $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
-        $landing['article'] = Article::get();
+        $landing['article'] = Article::where('posted', true)->paginate(9);
         
         return view('article', ['landing' => $landing]);
     }
@@ -98,6 +97,22 @@ class LandingController extends Controller
         $article = Article::with('tags')->where('slug_title', $slug)->first();
         
         return view('articledetail', ['landing' => $landing, 'article' => $article]);
+    }
+
+    public function articleSearch(Request $request)
+    {
+        $landing['logo'] = Landing::where('meta_key', 'like', 'landing_logo%')->get();
+        $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
+        $article = Article::where('posted', true)
+                            ->where('title', 'like', '%'.$request->get('q').'%')
+                            ->paginate(9)
+                            ->appends(request()->query());
+
+        //return $article;
+        $landing['article'] = $article;
+        $landing['q'] = $request->get('q');
+
+        return view('searcharticle', ['landing' => $landing]);
     }
 
     public function adminIndex()

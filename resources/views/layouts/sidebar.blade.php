@@ -90,12 +90,12 @@
 
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
-        aria-expanded="false" aria-controls="collapseFour">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
+        aria-expanded="false" aria-controls="collapseFive">
         <i class="fas fa-fw fa-cog"></i>
         <span>Article</span>
     </a>
-    <div id="collapseFour" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+    <div id="collapseFive" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Components Profile:</h6> -->
             <a class="collapse-item" href="{{ route('admin.article.index') }}">Data Article</a>

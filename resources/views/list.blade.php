@@ -55,6 +55,7 @@
           <li><a class="text-white nav-link scrollto" href="#about">About</a></li>
           <li><a class="text-white nav-link scrollto" href="#portfolio">Portfolio</a></li>
           <li><a class="text-white nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="text-white nav-link" href="{{ route('article') }}">Article</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

@@ -55,6 +55,7 @@
           <li><a class="text-white nav-link scrollto" href="#about">About</a></li>
           <li><a class="text-white nav-link scrollto" href="#portfolio">Portfolio</a></li>
           <li><a class="text-white nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="text-white nav-link" href="{{ route('article') }}">Article</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -251,8 +252,8 @@
         <div class="row">
           <div class="col-md-6">
             <div class="col-md-12 d-flex" data-aos="fade-up">
-              <div class="info-box px-2 h-100">
-                <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}">
+              <div class="info-box px-2 h-100" onmouseover="cardOver.call(this)" onmouseout="cardOut.call(this)">
+                <a href="https://www.google.com/maps/search/{{ $landing['contactus'][0]->meta_value }}" class="stretched-link">
                   <i class="bx bx-time"></i>
                 </a>
                 <h3>Jam Buka</h3>
@@ -265,20 +266,20 @@
             <div class="col-md-12">
               <div class="row">
                 <div class="col-md-6 d-flex" data-aos="fade-up">
-                  <div class="info-box h-100">
+                  <div class="info-box h-100" onmouseover="cardOver.call(this)" onmouseout="cardOut.call(this)">
                     <i class="bx bx-envelope"></i>
                     <h3>Email</h3>
                     <p>{{ $landing['contactus'][2]->meta_value }}</p>
-                    <a href="mailto:{{ $landing['contactus'][2]->meta_value }}">Email us</a>
+                    <a href="mailto:{{ $landing['contactus'][2]->meta_value }}" class="stretched-link">Email us</a>
                   </div>
                 </div>
 
                 <div class="col-md-6 d-flex" data-aos="fade-up">
-                  <div class="info-box h-100">
+                  <div class="info-box h-100" onmouseover="cardOver.call(this)" onmouseout="cardOut.call(this)">
                     <i class="bx bx-phone"></i>
                     <h3>Phone Number</h3>
                     <p>{{ $landing['contactus'][1]->meta_value }}</p>
-                    <a href="https://wa.me/{{ $landing['contactus'][1]->meta_value }}">Whatsapp Us</a>
+                    <a href="https://wa.me/{{ $landing['contactus'][1]->meta_value }}" class="stretched-link">Whatsapp Us</a>
                   </div>
                 </div>
               </div>
@@ -287,14 +288,14 @@
 
           <div class="col-md-6">
             <div class="col-lg-12 d-flex" data-aos="fade-up">
-              <div class="info-box h-100">
+              <div class="info-box h-100" onmouseover="cardOver.call(this)" onmouseout="cardOut.call(this)">
                 <h3>Our Address</h3>
                 <p>{{ $landing['contactus'][0]->meta_value }}</p>
               </div>
             </div>
 
             <div class="col-lg-12 d-flex" data-aos="fade-up">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15812.931708593733!2d110.366855!3d-7.7651054!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xa4e1a3a99628573!2sPT.%20Baracipta%20Esa%20Engineering!5e0!3m2!1sid!2sid!4v1647921456655!5m2!1sid!2sid" width="100%" height="300px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15812.931708593733!2d110.366855!3d-7.7651054!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xa4e1a3a99628573!2sPT.%20Baracipta%20Esa%20Engineering!5e0!3m2!1sid!2sid!4v1647921456655!5m2!1sid!2sid" width="100%" height="300px" style="border:0;" allowfullscreen="" loading="lazy" onmouseover="cardOver.call(this)" onmouseout="cardOut.call(this)"></iframe>
             </div>
           </div>
 
@@ -345,6 +346,18 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('mamba/assets/js/main.js') }}"></script>
+
+  <script>
+  function cardOver() {
+    this.classList.add("shadow-lg");
+    this.style.cursor = "pointer";
+  }
+
+  function cardOut() {
+    this.classList.remove("shadow-lg");
+    this.style.cursor = "none";
+  }
+  </script>
 
 </body>
 

@@ -101,6 +101,7 @@
           <li><a class="text-white nav-link scrollto" href="{{ url('/') }}#about">About</a></li>
           <li><a class="text-white nav-link scrollto" href="{{ url('/') }}#portfolio">Portfolio</a></li>
           <li><a class="text-white nav-link scrollto" href="{{ url('/') }}#contact">Contact</a></li>
+          <li><a class="text-white nav-link scrollto" href="{{ route('article') }}">Article</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

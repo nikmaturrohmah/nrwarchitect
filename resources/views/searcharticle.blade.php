@@ -82,6 +82,10 @@
     </div>
   </div>
 
+  <div class="container mb-5">
+    <h2>Hasil pencarian "{{ $landing['q'] }}"</h2>
+  </div>
+
     <div class="container">
         <div class="row">
           @foreach($landing['article'] as $key=>$value)

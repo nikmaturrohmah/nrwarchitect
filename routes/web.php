@@ -24,8 +24,9 @@ use App\Http\Controllers\ArticleTagsController;
 Route::get('/', [LandingController::class, 'index']);
 Route::get('/list', [LandingController::class, 'list'])->name('list');
 Route::get('/gg', [LandingController::class, 'gg']);
-Route::get('/article', [LandingController::class, 'article']);
+Route::get('/article', [LandingController::class, 'article'])->name('article');
 Route::get('/article/{slug}', [LandingController::class, 'articleDetail'])->name('article.detail');
+Route::get('/article_search', [LandingController::class, 'articleSearch'])->name('article.search');
 Route::get('/detail/{id}', [DetailController::class, 'index'])->name('detail');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -134,6 +135,8 @@ Route::middleware('auth')->name('admin.')->prefix('admin')->group(function () {
             route::post('update/{id}',[ArticleController::class, 'update'])->name('update');
             route::get('detail/{id}',[ArticleController::class, 'detail'])->name('detail');
             Route::get('delete/{id}', [ArticleController::class, 'delete'])->name('delete');
+            route::get('publish/{id}',[ArticleController::class, 'publish'])->name('publish');
+            route::get('draft/{id}',[ArticleController::class, 'draft'])->name('draft');
     
             Route::name('image.')->prefix('image')->group(function () {
                 Route::get('create/{id}', [ArticleImageController::class, 'create'])->name('create');
