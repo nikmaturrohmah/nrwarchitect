@@ -29,6 +29,7 @@ Route::name('auth.')->prefix('auth')->group(function () {
     Route::middleware('auth')->post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
+Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::middleware('auth')->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::post('dropzone', [LandingController::class, 'dropzoneHandler'])->name('dropzone.handler');
