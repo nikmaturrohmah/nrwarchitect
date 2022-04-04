@@ -14,7 +14,11 @@
   <link href="{{ asset('mamba/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@700&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"> 
 
   <!-- Vendor CSS Files -->
   <link href="{{ asset('mamba/assets/vendor/animate.css/animate.min.css') }}" rel="stylesheet">
@@ -27,6 +31,15 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('mamba/assets/css/style.css') }}" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ asset('owlcarousel/dist/assets/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('owlcarousel/dist/assets/owl.theme.default.min.css') }}">
+  <style>
+    body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  </style>
 
   <!-- =======================================================
   * Template Name: Mamba - v4.7.0
@@ -53,7 +66,7 @@
         <ul>
           <li><a class="text-white nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="text-white nav-link scrollto" href="#about">About</a></li>
-          <li><a class="text-white nav-link scrollto" href="#portfolio">Portfolio</a></li>
+          <li><a class="text-white nav-link" href="{{ route('portofolio') }}">Portfolio</a></li>
           <li><a class="text-white nav-link scrollto" href="#contact">Contact</a></li>
           <li><a class="text-white nav-link" href="{{ route('article') }}">Article</a></li>
         </ul>
@@ -110,19 +123,27 @@
           <div class="col-lg-6 d-flex flex-column justify-content-center about-content">
 
             <div class="section-title">
-              <h2>About Us</h2>
-              <p>{{ $landing['aboutus'][0]->meta_value }}</p>
+              <h2 style="text-align: left; color: #000000">About Us</h2>
+              <p style="
+                font-style: normal !important;
+                ">{{ $landing['aboutus'][0]->meta_value }}</p>
             </div>
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              <div class="icon"><i class="bx bx-fingerprint"></i></div>
-              <h4 class="title"><a href="">Point 1</a></h4>
+              <div class="icon">
+                <img src="{{ asset('logo/a1.svg') }}" alt="" style="color: white">
+              </div>
+              <h4 style="
+                text-transform: capitalize" class="title">Pilihan Utama</h4>
               <p class="description">{{ $landing['aboutus'][2]->meta_value }}</p>
             </div>
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              <div class="icon"><i class="bx bx-gift"></i></div>
-              <h4 class="title"><a href="">Point 2</a></h4>
+              <div class="icon">
+                <img src="{{ asset('logo/a2.svg') }}" alt="">
+              </div>
+              <h4 style="
+                text-transform: capitalize" class="title">Pelayanan Terbaik</h4>
               <p class="description">{{ $landing['aboutus'][3]->meta_value }}</p>
             </div>
 
@@ -133,11 +154,12 @@
     </section><!-- End About Us Section -->
 
     <!-- ======= Our Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio section-bg">
+    <section id="portfolio" class="portfolio" style="margin-bottom: -70px !important">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="section-title">
-          <h2>Portfolio</h2>
+          <h2 style="
+            color: #000">Portfolio</h2>
         </div>
 
         <div class="row">
@@ -161,7 +183,7 @@
                 <h4>{{ $value->name }}</h4>
                 <!-- <p>Test</p> -->
                 <div class="portfolio-links">
-                  <a href="{{ route('detail', $value->id) }}" title="More Details"><i class="bi bi-search"></i></a>
+                  <a href="{{ route('portofolio.detail', $value->id) }}" title="More Details"><i class="bi bi-search"></i></a>
                 </div>
               </div>
             </div>
@@ -169,77 +191,131 @@
           @endforeach
         
         </div>
-
-        <div class="d-flex justify-content-center">
-          {{ $landing['portofolio']->links('pagination::bootstrap-4') }}
-          <a href="{{ route('list') }}#portofolio">
-            <button class="btn btn-primary">
-              Lihat lainnya
-            </button>
-          </a>
-        </div>
       </div>
     </section><!-- End Our Portfolio Section -->
+
+    <section>
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <p style="
+          margin-left: auto;
+          margin-right: auto;
+          margin-bottom: 50px;
+          width: 50%;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 19px;
+          text-align: center;"
+        >
+        Kami juga menyediakan video untuk melihat lebih detail dari portofolio  pada channel Youtube NRW Architect </p>
+
+        <div class="row mt-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-md-6">
+            <iframe class="rounded" style="
+              width: 100%;
+              height: 300px;
+            " src="https://www.youtube.com/embed/8CdcCD5V-d8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+
+          <div class="col-md-6">
+            <iframe class="rounded" style="
+              width: 100%;
+              height: 300px;
+            " src="https://www.youtube.com/embed/8CdcCD5V-d8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
 
     <!-- ======= Our Team Section ======= -->
     <section id="team" class="team">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Testimonials</h2>
+          <h2 style="
+            color: #000">Testimonials</h2>
         </div>
 
-        <div class="row">
+        <div class="owl-carousel owl-theme owl-loaded">
+          <div class="owl-stage-outer">
+            <div class="owl-stage">
+            @foreach($landing['testimonial'] as $key=>$value)
+              <div class="card h-100 p-4 mb-3 border-0 shadow text-center owl-item"
+                style="
+                  margin:auto
+                ">
+                  <img style="
+                    width: 100px; 
+                    height: 100px; 
+                    object-fit: cover;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-bottom: 20px;
+                  " class="img-thumbnail rounded-circle" src="{{ asset('images/' . $value->image) }}" alt="">
 
-          @foreach($landing['testimonial'] as $key=>$value)
-          <div class="col-xl-4 col-lg-4 col-md-4" data-aos="fade-up">
-            <div class="card h-100 p-4 mb-3 border-0 shadow text-center">
-                <div class="mb-4">
-                    <img style="width: 100px; height: 100px; object-fit: cover" class="img-thumbnail rounded-circle" src="{{ asset('images/' . $value->image) }}" alt="">
-                </div>
-                <h4 class="mb-4"><strong>{{ $value->name }}</strong></h4>
-                @if(strlen($value->content) < 300)
-                <B>{{ $value->content }}</B>
-                @else
-                <B>{{ Illuminate\Support\Str::limit($value->content, 300 ) }}</B>
-                @endif
+                  <h4 class="mb-4"><strong>{{ $value->name }}</strong></h4>
+                  @if(strlen($value->content) < 300)
+                  <B style="
+                    color: #878588">"{{ $value->content }}"</B>
+                  @else
+                  <B style="
+                    color: #878588">"{{ Illuminate\Support\Str::limit($value->content, 300 ) }}"</B>
+                  @endif
+              </div>
+            @endforeach
             </div>
           </div>
-          @endforeach
-          <!-- <div class="col-xl-4 col-lg-4 col-md-4" data-aos="fade-up">
-            <div class="card p-4 mb-3 border-0 shadow text-center">
-                <div class="mb-4">
-                    <img width="100px" height="100px" class="img-thumbnail rounded-circle" src="{{ asset('mamba/assets/img/team/team-2.jpg') }}" alt="">
-                </div>
-                <h4 class="mb-4"><strong>Sarah Jhonson</strong></h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, dolorum a. Enim, nostrum animi ipsum consequatur culpa facere itaque, hic molestiae odio rem accusantium delectus similique eligendi voluptas, dolore ducimus.</p>
-            </div>
-          </div>
-          
-          <div class="col-xl-4 col-lg-4 col-md-4" data-aos="fade-up">
-            <div class="card p-4 mb-3 border-0 shadow text-center">
-                <div class="mb-4">
-                    <img width="100px" height="100px" class="img-thumbnail rounded-circle" src="{{ asset('mamba/assets/img/team/team-2.jpg') }}" alt="">
-                </div>
-                <h4 class="mb-4"><strong>Sarah Jhonson</strong></h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, dolorum a. Enim, nostrum animi ipsum consequatur culpa facere itaque, hic molestiae odio rem accusantium delectus similique eligendi voluptas, dolore ducimus.</p>
-            </div>
-          </div>
-
-          <div class="col-xl-4 col-lg-4 col-md-4" data-aos="fade-up">
-            <div class="card p-4 mb-3 border-0 shadow text-center">
-                <div class="mb-4">
-                    <img width="100px" height="100px" class="img-thumbnail rounded-circle" src="{{ asset('mamba/assets/img/team/team-2.jpg') }}" alt="">
-                </div>
-                <h4 class="mb-4"><strong>Sarah Jhonson</strong></h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, dolorum a. Enim, nostrum animi ipsum consequatur culpa facere itaque, hic molestiae odio rem accusantium delectus similique eligendi voluptas, dolore ducimus.</p>
-            </div>
-          </div>
-          -->
         </div>
 
       </div>
     </section><!-- End Our Team Section -->
+
+    <section>
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <div class="d-flex justify-content-between">
+            <h2 style="color: #000">Article</h2>
+            <a href="{{ route('article') }}">
+              <button style="
+                background-color: #000;
+                color: #fff
+              " class="btn">
+                More
+              </button>
+            </a>
+          </div>
+        </div>
+        <div class="row" data-aos="fade-up">
+          @foreach($landing['article'] as $key=>$value)
+          <div class="col-md-4">
+            <div class="card shadow" style="
+              border: none">
+              <img class="card-img-top rounded" src="{{ asset('images/'.$value->cover_image) }}" alt="Card image cap">
+              <div class="card-body">
+                <p>{{ $value->created_at }}</p>
+                <h5 style="
+                  font-style: normal;
+                  font-weight: 600;
+                  font-size: 20px;
+                  line-height: 25px;
+                ">{{ $value->title }}</h5>
+                <p style="
+                  font-stretch: expanded;
+                  font-weight: 500;
+                  font-size: 12px;
+                  color: #878588;
+                ">{!! substr(strip_tags($value->description), 0, 50) !!}</p>
+                <a href="{{ route('article.detail', $value->slug_title) }}">Baca Selengkapnya</a>
+              </div>
+            </div>
+          </div>
+          @endforeach
+        </div>
+      </div>
+    </section>
 
     <!-- ======= Contact Us Section ======= -->
     <section id="contact" class="contact">
@@ -342,21 +418,38 @@
   <script src="{{ asset('mamba/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
   <script src="{{ asset('mamba/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
   <script src="{{ asset('mamba/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-  <script src="{{ asset('mamba/assets/vendor/php-email-form/validate.js') }}"></script>
 
   <!-- Template Main JS File -->
   <script src="{{ asset('mamba/assets/js/main.js') }}"></script>
+  <script src="{{ asset('jquery-3.6.0.min.js') }}"></script>
+  <script src="{{ asset('owlcarousel//dist/owl.carousel.min.js') }}"></script>
 
   <script>
-  function cardOver() {
-    this.classList.add("shadow-lg");
-    this.style.cursor = "pointer";
-  }
+    function cardOver() {
+      this.classList.add("shadow-lg");
+      this.style.cursor = "pointer";
+    }
 
-  function cardOut() {
-    this.classList.remove("shadow-lg");
-    this.style.cursor = "none";
-  }
+    function cardOut() {
+      this.classList.remove("shadow-lg");
+      this.style.cursor = "none";
+    }
+  </script>
+
+  <script>
+    $('.owl-carousel').owlCarousel({
+      loop:false,
+      margin:20,
+      nav:true,
+      responsive:{
+          0:{
+              items:1
+          },
+          600:{
+              items:3
+          }
+      }
+    })
   </script>
 
 </body>

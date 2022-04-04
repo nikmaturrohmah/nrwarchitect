@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use App\Models\Portofolio;
 use App\Models\PortofolioCategory;
 use App\Models\PortofolioImage;
@@ -28,8 +29,6 @@ class PortofolioController extends Controller
 
     public function store(Request $request)
     {
-        //return response()->json($request->description);
-
         $portofolio = [
             'portofolio_category_id'    => $request->portofolio_category_id,
             'name'                      => $request->name,
@@ -68,19 +67,15 @@ class PortofolioController extends Controller
             PortofolioInterior::create($interior);
         }
 
-        foreach ($request->file as $key => $value) {
-            $imageName = "portofolio-".rand(1000, 9999).time().'.'.$value->extension();
+        foreach ($request->input('file', []) as $imageName) {
+            File::move( storage_path('tmp/uploads/'.$imageName), public_path('images/'.$imageName) );
 
-            $webp = Webp::make($value);
+            $image = [
+                'portofolio_id' => $portofolio->id,
+                'image'         => $imageName,
+            ];
 
-            if ($webp->save(public_path('images/'.$imageName))) {
-                $image = [
-                    'portofolio_id' => $portofolio->id,
-                    'image'         => $imageName,
-                ];
-    
-                PortofolioImage::create($image);
-            }
+            PortofolioImage::create($image);
         }
 
         $tags = json_decode($request->tags);
@@ -126,7 +121,7 @@ class PortofolioController extends Controller
     {
         $portofolio = Portofolio::with(['category', 'images', 'tags'])->find($id);
         $category = PortofolioCategory::get();
-        // return response()->json($portofolio);
+        
         return view('admin.portofolio.detail', ['portofolio' => $portofolio, 'category' => $category, ]);
     }
 

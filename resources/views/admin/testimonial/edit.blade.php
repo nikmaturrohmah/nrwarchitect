@@ -43,12 +43,13 @@
                             <img src="{{ asset('images/'.$testimonial->image) }}" style="width: 100%; height: 250px; object-fit: cover" class="rounded mb-2 shadow border-0" alt="">
                         </div>
                         <div class="mb-3">
-                            <label for="">Upload Foto Pengguna Testimoni baru</label>
-                            <div class="dropzone mb-3" style="" id="my-dropzone" name="mainFileUploader"></div>
+                            <div class="needsclick dropzone" id="document-dropzone">
+
+                            </div>
                         </div>
+                        <button class="btn btn-primary" type="submit" form="form1" value="Submit" >Submit data and files!</button>
+                        <a href="{{ route('admin.testimonial.index') }}" class="btn btn-warning">Kembali</a>
                     </form>
-                    <a href="{{ route('admin.testimonial.index') }}" class="btn btn-warning">Kembali</a>
-                    <button class="btn btn-primary" type="submit" form="form1" value="Submit" >Submit data and files!</button>
                 </div>
             </div>
         </div>
@@ -57,47 +58,43 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
-    <script type="text/javascript">
-        Dropzone.autoDiscover = false;
-
-        var myDropzone = new Dropzone(".dropzone", { 
-            url: "{{ route('admin.testimonial.update', $testimonial->id) }}",
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+    <script>
+        var uploadedDocumentMap = {}
+        Dropzone.options.documentDropzone = {
+            url: "{{ route('admin.dropzone.handler') }}",
             maxFiles: 1,
-            autoProcessQueue: false,
-            maxFilesize: 100,
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            maxFilesize: 20,
             addRemoveLinks: true,
-            success: function(file, response){
-                window.location = "{{ route('admin.testimonial.index') }}";
-                //console.log(response);
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
             },
-            init: function() {
-                // Get images
-                var myDropzone = this;
+            success: function(file, response) {
+                $('form').append('<input type="hidden" name="image" value="' + response.name + '">');
+                uploadedDocumentMap[file.name] = response.name;
+                console.log(response);
+            },
+            removedfile: function(file) {
+                file.previewElement.remove();
+                var name = '';
+                if (typeof file.file_name !== 'undefined') {
+                    name = file.file_name;
+                } else {
+                    name = uploadedDocumentMap[file.name];
+                }
 
-                // First change the button to actually tell Dropzone to process the queue.
-                document.body.querySelector("button[type=submit]").addEventListener("click", function(e) {
-                    document.getElementById("overlay").style.display = "block";
-                    // e.preventDefault();
-                    e.stopPropagation();
-                    myDropzone.processQueue();
+                $('form').find('input[name="image"][value="' + name + '"]').remove();
+                
+                $.post("{{ route('admin.dropzone.handler') }}", {
+                    '_token': "{{ csrf_token() }}",
+                    'actionDz': "remove",
+                    'name': name
+                },
+                function(data, status){
+                    console.log(data);
                 });
-
-                this.on("sending", function(data, xhr, formData) {
-                    formData.append("_token", $('input[name="_token"]').val());
-                    formData.append("name", $('input[name="name"]').val());
-                    formData.append("content", $('input[name="content"]').val());
-        });
-            },
-            removedfile: function (file) {
-                var _ref;
-                    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-            },
-        });
-
-        $('#uploadFile').click(function(){
-            myDropzone.processQueue();
-        });
+            }
+        }
     </script>
 @endpush

@@ -26,22 +26,16 @@ class SliderController extends Controller
 
     public function store(Request $request)
     {
-        //return response()->json($request->file->getClientOriginalName());
-        $imageName = "slider-".rand(1000, 9999).time().'.'.$request->file->extension();
-        // $value->move(public_path('images'), $imageName);
+        File::move( storage_path('tmp/uploads/'.$request->post('file')), public_path('images/'.$request->post('file')) );
 
-        $webp = Webp::make($request->file);
+        $newData = [
+            'title'         => $request->post('title'),
+            'description'   => $request->post('description'),
+            'image'   => $request->post('file'),
+            'posted'  => false,
+        ];
 
-        if ($webp->save(public_path('images/'.$imageName))) {
-            $newData = [
-                'title'         => $request->post('title'),
-                'description'   => $request->post('description'),
-                'image'   => $imageName,
-                'posted'  => false,
-            ];
-    
-            Slider::create($newData);
-        }
+        Slider::create($newData);
 
         return redirect()->route('admin.landing.slider.index')->with(['success' => 'Data berhasil dibuat']);
     }
@@ -62,19 +56,14 @@ class SliderController extends Controller
 
         $old = Slider::find($id);
 
-        if ($request->hasFile('file')) {
-            $imagePath = public_path('images/').$old->image;
-            if(File::exists($imagePath)) {
-                File::delete($imagePath);
+        if ($request->post('file') !== null) {
+            $imageOld = public_path('images/').$old->image;
+            if(File::exists($imageOld)) {
+                File::delete($imageOld);
             }
-
-            $imageName = "slider-".rand(1000, 9999).time().'.'.$request->file->extension();
-
-            $webp = Webp::make($request->file);
-
-            if ($webp->save(public_path('images/'.$imageName))) {
-                $dataUpdate = array_merge($dataUpdate, ['image' => $imageName]);
-            }
+    
+            File::move( storage_path('tmp/uploads/'.$request->post('file')), public_path('images/'.$request->post('file')) );
+            $dataUpdate = array_merge($dataUpdate, ['image' => $request->post('file')]);
         }
 
         Slider::where('id', $id)->update($dataUpdate);
@@ -96,12 +85,6 @@ class SliderController extends Controller
 
     public function publish($id)
     {
-        /* $slider = Slider::where('posted', true)->get();
-
-        if (sizeof($slider) >= 3) {
-            return redirect()->route('admin.landing.slider.index')->with(['error' => 'Jumlah slider untuk di publish sudah maksimal']);
-        } */
-
         $dataUpdate = [
             'posted'  => true,
         ];
@@ -112,12 +95,6 @@ class SliderController extends Controller
 
     public function draft($id)
     {
-        /* $slider = Slider::where('posted', false)->get();
-
-        if (sizeof($slider) <= 3) {
-            return redirect()->route('admin.landing.slider.index', $id)->with(['error' => 'Jumlah slider untuk di ditampilkan kurang']);
-        } */
-
         $dataUpdate = [
             'posted'  => false,
         ];

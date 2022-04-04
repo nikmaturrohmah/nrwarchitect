@@ -97,7 +97,6 @@ class ArticleController extends Controller
     public function detail($id)
     {
         $article = Article::with(['tags'])->find($id);
-        // return response()->json($article);
         return view('admin.article.detail', ['article' => $article]);
     }
 

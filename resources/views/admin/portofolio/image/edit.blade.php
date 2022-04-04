@@ -62,11 +62,9 @@
                         @csrf
                         <div class="mb-3">
                             <label for="">Gambar</label>
-                            <!-- <img src="{{ asset('images/'.$image->image) }}" style="width: 100%; height: 250px; object-fit: none" class="rounded mb-2 shadow border-0" alt=""> -->
-                            <div class="uploader" onclick="$('#image').click()" style="margin-left: 15px">
-                                click here or drag here your image for preview and set image data
-                                <img src="{{ asset('images/' . $image->image) }}"/>
-                                <input type="file" name="image"  id="image" />
+                            <img src="{{ asset('images/'.$image->image) }}" style="width: 100%; height: 100%; object-fit: none" class="rounded mb-2 shadow border-0" alt="">
+                            <div class="needsclick dropzone" id="document-dropzone">
+
                             </div>
                         </div>
                         <button class="btn btn-primary">
@@ -82,23 +80,43 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
-    <script type="text/javascript">
-        Dropzone.options.imageUpload = {
-            maxFilesize : 2,
-            acceptedFiles : ".jpeg,.jpg,.png,.gif"
-        };
-    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <script>
-    var imageLoader = document.getElementById('image');
-    imageLoader.addEventListener('change', handleImage, false);
+        var uploadedDocumentMap = {}
+        Dropzone.options.documentDropzone = {
+            url: "{{ route('admin.dropzone.handler') }}",
+            maxFiles: 1,
+            maxFilesize: 20,
+            addRemoveLinks: true,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+            },
+            success: function(file, response) {
+                $('form').append('<input type="hidden" name="file" value="' + response.name + '">');
+                uploadedDocumentMap[file.name] = response.name;
+                console.log(response);
+            },
+            removedfile: function(file) {
+                file.previewElement.remove();
+                var name = '';
+                if (typeof file.file_name !== 'undefined') {
+                    name = file.file_name;
+                } else {
+                    name = uploadedDocumentMap[file.name];
+                }
 
-    function handleImage(e) {
-        var reader = new FileReader();
-        reader.onload = function (event) {
-            $('.uploader img').attr('src',event.target.result);
+                $('form').find('input[name="file"][value="' + name + '"]').remove();
+                
+                $.post("{{ route('admin.dropzone.handler') }}", {
+                    '_token': "{{ csrf_token() }}",
+                    'actionDz': "remove",
+                    'name': name
+                },
+                function(data, status){
+                    console.log(data);
+                });
+            }
         }
-        reader.readAsDataURL(e.target.files[0]);
-    }
-</script>
+    </script>
 @endpush

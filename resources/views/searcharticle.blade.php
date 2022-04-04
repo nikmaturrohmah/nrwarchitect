@@ -53,7 +53,7 @@
         <ul>
           <li><a class="text-white nav-link scrollto active" href="{{ url('/') }}#hero">Home</a></li>
           <li><a class="text-white nav-link scrollto" href="{{ url('/') }}#about">About</a></li>
-          <li><a class="text-white nav-link scrollto" href="{{ url('/') }}#portfolio">Portfolio</a></li>
+          <li><a class="text-white nav-link scrollto" href="{{ route('portofolio') }}">Portfolio</a></li>
           <li><a class="text-white nav-link scrollto" href="{{ url('/') }}#contact">Contact</a></li>
           <li><a class="text-white nav-link" href="{{ route('article') }}">Article</a></li>
         </ul>

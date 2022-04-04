@@ -19,7 +19,6 @@
                     </div>
                     @endif
 
-
                     @if ($message = Session::get('error'))
                     <div class="alert alert-danger alert-block">
                         <button type="button" class="close" data-dismiss="alert">×</button>    
@@ -149,8 +148,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Gambar portofolio</label>
-                            <div class="dropzone" style="" id="my-dropzone" name="mainFileUploader">
-                                <input name="file" type="file" multiple hidden required />
+                            <div class="needsclick dropzone" id="document-dropzone">
+
                             </div>
                         </div>
                         <div class="mb-3">
@@ -178,7 +177,6 @@
 @push('scripts')
     <script src="https://unpkg.com/@yaireo/tagify"></script>
     <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
     <script type="text/javascript">
         let theEditor;
 
@@ -202,7 +200,6 @@
 
         $('#selectSpec').change(function(){
             let spec = document.getElementById("selectSpec").value;
-            console.log(spec);
             if (spec == 1) {
                 $( ".spesificationBuilding" ).prop( "disabled", false );
                 $( ".spesificationInterior" ).prop( "disabled", true );
@@ -213,65 +210,46 @@
                 $( ".spesificationInterior" ).prop( "disabled", false );
             }
         });
+    </script>
 
-        Dropzone.autoDiscover = false;
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+    <script>
         var uploadedDocumentMap = {}
-        var myDropzone = new Dropzone(".dropzone", { 
-            url: "{{ route('admin.portofolio.store') }}",
-            autoProcessQueue: false,
-            maxFilesize: 10,
-            uploadMultiple: true,
-            parallelUploads: 100,
+        Dropzone.options.documentDropzone = {
+            url: "{{ route('admin.dropzone.handler') }}",
             maxFiles: 100,
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            maxFilesize: 20,
             addRemoveLinks: true,
-            init: function() {
-                var myDropzone = this;
-
-                document.body.querySelector("button[type=submit]").addEventListener("click", function(e) {
-                    document.getElementById("overlay").style.display = "block";
-                    //e.preventDefault();
-                    e.stopPropagation();
-                    myDropzone.processQueue();
-                });
-
-                this.on("sending", function(data, xhr, formData) {
-                    formData.append("_token", $('input[name="_token"]').val());
-                    formData.append("file[]", $('input[name="file[]"]').val());
-                    formData.append("name", $('input[name="name"]').val());
-                    formData.append("portofolio_category_id", $('select[name="portofolio_category_id"]').val());
-                    formData.append("land_length", $('input[name="land_length"]').val());
-                    formData.append("land_width", $('input[name="land_width"]').val());
-                    formData.append("building_length", $('input[name="building_length"]').val());
-                    formData.append("building_width", $('input[name="building_width"]').val());
-                    formData.append("floor", $('input[name="floor"]').val());
-                    formData.append("bedroom", $('input[name="bedroom"]').val());
-                    formData.append("bathroom", $('input[name="bathroom"]').val());
-                    formData.append("type", $('input[name="type"]').val());
-                    formData.append("style", $('input[name="style"]').val());
-                    formData.append("room_length", $('input[name="room_length"]').val());
-                    formData.append("room_width", $('input[name="room_width"]').val());
-                    formData.append("page_area", $('input[name="page_area"]').val());
-                    formData.append("building_area", $('input[name="building_area"]').val());
-                    formData.append("room_area", $('input[name="room_area"]').val());
-                    formData.append("tags", $('input[id="tags"]').val());
-                    formData.append("description", getDataFromTheEditor() );
-                });
-
-                this.on("processing", function() {
-                    this.options.autoProcessQueue = true;
-                });
-
-                this.on("successmultiple", function(files, response) {
-                    window.location = "{{ route('admin.portofolio.index') }}";
-                })
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
             },
-            removedfile: function (file) {
-                var _ref;
-                    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+            success: function(file, response) {
+                $('form').append('<input type="hidden" name="file[]" value="' + response.name + '">');
+                uploadedDocumentMap[file.name] = response.name;
+                console.log(response);
             },
-        });
+            removedfile: function(file) {
+                file.previewElement.remove();
+                var name = '';
+                if (typeof file.file_name !== 'undefined') {
+                    name = file.file_name;
+                } else {
+                    name = uploadedDocumentMap[file.name];
+                }
+
+                $('form').find('input[name="file[]"][value="' + name + '"]').remove();
+                
+                $.post("{{ route('admin.dropzone.handler') }}", {
+                    '_token': "{{ csrf_token() }}",
+                    'actionDz': "remove",
+                    'name': name
+                },
+                function(data, status){
+                    console.log(data);
+                });
+            }
+        }
     </script>
 
     <script>

@@ -12,146 +12,60 @@ use App\Models\Portofolio;
 use App\Models\Testimonial;
 use App\Models\Slider;
 use App\Models\Article;
+use Webp;
 
 class LandingController extends Controller
 {
-    public function index()
+    public function dropzoneHandler(Request $request)
     {
-        $landing['logo']        = Landing::where('meta_key', 'like', 'landing_logo%')->get();
-        $landing['slider']      = Landing::where('meta_key', 'like', 'landing_slider_%')->get();
-        $landing['aboutus']     = Landing::where('meta_key', 'like', 'landing_about_us_%')->get();
-        $landing['contactus']   = Landing::where('meta_key', 'like', 'landing_contact_%')->get();
-        $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
-        $landing['category']    = PortofolioCategory::get();
-        $portofolio = Portofolio::with(['images', 'category'])
-                                ->paginate(9);
-        $landing['portofolio']  = $portofolio;
+        $action = $request->post('actionDz') ?? "store";
+        $path = storage_path('tmp/uploads');
 
-        $landing['testimonial'] = Testimonial::where('posted', 1)
-                                    ->orderBy('id','DESC')
-                                    ->skip(0)
-                                    ->take(3)
-                                    ->get();
-        $slider = Slider::where('posted', true)
-                    ->orderBy('id','DESC')
-                    ->skip(0)
-                    ->take(3)
-                    ->get();
-        
-        return view('landing', ['landing' => $landing, 'slider' => $slider]);
-    }
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
 
-    public function list()
-    {
-        $landing['logo']        = Landing::where('meta_key', 'like', 'landing_logo%')->get();
-        $landing['slider']      = Landing::where('meta_key', 'like', 'landing_slider_%')->get();
-        $landing['aboutus']     = Landing::where('meta_key', 'like', 'landing_about_us_%')->get();
-        $landing['contactus']   = Landing::where('meta_key', 'like', 'landing_contact_%')->get();
-        $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
-        $landing['category']    = PortofolioCategory::get();
-        $portofolio = Portofolio::with(['images', 'category'])
-                                ->paginate(9);
-        $landing['portofolio']  = $portofolio;
+        if ($action == "store") {
+            $file = $request->file('file');
+            $originalName = $file->getClientOriginalName();
+            $name = uniqid() . '_' . trim($originalName);
+            $webp = Webp::make($file);
+            $webp->save($path."/".$name);
+        }
 
-        //dd($landing['portofolio']);
-        $landing['testimonial'] = Testimonial::where('posted', 'published')
-                                    ->orderBy('id','DESC')
-                                    ->skip(0)
-                                    ->take(3)
-                                    ->get();
-        $slider = Slider::where('posted', true)
-                    ->orderBy('id','DESC')
-                    ->skip(0)
-                    ->take(3)
-                    ->get();
-        
-        return view('list', ['landing' => $landing, 'slider' => $slider]);
-    }
+        if ($action == "remove") {
+            $name = $request->name;
+            $originalName = "";
+            if(File::exists($path."/".$name)) {
+                File::delete($path."/".$name);
+            }
+        }
 
-    public function gg()
-    {
-        return view('landing2');
-    }
-
-    public function detail()
-    {
-        $landing['logo'] = Landing::where('meta_key', 'like', 'landing_logo%')->get();
-        $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
-        
-        return view('detail', ['landing' => $landing]);
-    }
-
-    public function article()
-    {
-        $landing['logo'] = Landing::where('meta_key', 'like', 'landing_logo%')->get();
-        $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
-        $landing['article'] = Article::where('posted', true)->paginate(9);
-        
-        return view('article', ['landing' => $landing]);
-    }
-
-    public function articleDetail($slug)
-    {
-        $landing['logo'] = Landing::where('meta_key', 'like', 'landing_logo%')->get();
-        $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
-        $article = Article::with('tags')->where('slug_title', $slug)->first();
-        
-        return view('articledetail', ['landing' => $landing, 'article' => $article]);
-    }
-
-    public function articleSearch(Request $request)
-    {
-        $landing['logo'] = Landing::where('meta_key', 'like', 'landing_logo%')->get();
-        $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
-        $article = Article::where('posted', true)
-                            ->where('title', 'like', '%'.$request->get('q').'%')
-                            ->paginate(9)
-                            ->appends(request()->query());
-
-        //return $article;
-        $landing['article'] = $article;
-        $landing['q'] = $request->get('q');
-
-        return view('searcharticle', ['landing' => $landing]);
-    }
-
-    public function adminIndex()
-    {
-        return response()->json(Landing::get());
-        return view('admin.landing.index');
+        return response()->json([
+            'name'          => $name,
+            'original_name' => $originalName,
+        ]);
     }
 
     private function updateData($request, $landing, $customImageName = "image")
     {
         foreach ($landing as $key => $value) {
             $metaKey = $value->meta_key;
-
             if ($value->meta_type == "image") {
-                if ($request->hasfile('file')) {
-                    $request->validate([
-                        //$metaKey => 'image|mimes:jpeg,png,jpg,gif,svg',
-                        'file' => 'image|mimes:jpeg,png,jpg,gif,svg',
-                    ]);
-
+                if ($request->post($metaKey) !== null) {
                     $imageOld = public_path('images/').$value->meta_value;
                     if(File::exists($imageOld)) {
                         File::delete($imageOld);
                     }
 
-                    $image = $request->file('file');
-                    $extension = $image->getClientOriginalExtension();
-                    $name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                    $imageName = $customImageName . "-" . Str::slug(date('Y-m-d-h-i-s') . Str::random(8)) . '.' . $extension;
-                    
-                    //$storage = Storage::putFileAs("public/images/", $image, $imageName);
-                    $image->move(public_path('images/'), $imageName);
+                    File::move( storage_path('tmp/uploads/'.$request->post($metaKey)), public_path('images/'.$request->post($metaKey)) );
 
-                    $data = [ 'meta_value' => $imageName ];
+                    $data = [ 'meta_value' => $request->post($metaKey) ];
                 }
             } else {
                 $data = [ 'meta_value' => $request->post($metaKey) ];
             }
-
+            
             if ($data != null) {
                 Landing::where('id', $value->id)
                     ->update($data);
@@ -188,7 +102,7 @@ class LandingController extends Controller
 
         $this->updateData($request, $about, "about");
 
-        //return redirect()->route('admin.landing.aboutus')->with(['success' => 'Data berhasil diubah']);
+        return redirect()->route('admin.landing.aboutus')->with(['success' => 'Data berhasil diubah']);
     }
 
     public function adminContactus()
@@ -229,6 +143,10 @@ class LandingController extends Controller
 
     public function adminLogoUpdate(Request $request)
     {
+        $validated = $request->validate([
+            'landing_logo' => 'required',
+        ]);
+
         $about = Landing::where('meta_key', 'like', 'landing_logo%')->get();
 
         $this->updateData($request, $about, "logo");

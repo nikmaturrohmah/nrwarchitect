@@ -58,12 +58,15 @@
                     </div>
                     @endif
 
-                    <form action="{{ route('admin.portofolio.image.store', $portofolio->id) }}" class="dropzone" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.portofolio.image.store', $portofolio->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
+                        <div class="needsclick dropzone" id="document-dropzone">
+
+                        </div>
+                        <button type="submit" id="uploadFile" class="btn btn-primary mt-3">
+                            Kirim
+                        </button>
                     </form>
-                    <button type="submit" id="uploadFile" class="btn btn-primary mt-3">
-                        Kirim
-                    </button>
                 </div>
             </div>
         </div>
@@ -72,48 +75,43 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
-    <script type="text/javascript">
-        Dropzone.autoDiscover = false;
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+    <script>
         var uploadedDocumentMap = {}
-        var myDropzone = new Dropzone(".dropzone", { 
-            url: "{{ route('admin.portofolio.image.store', $portofolio->id) }}",
-            autoProcessQueue: false,
-            maxFilesize: 10,
-            uploadMultiple: true,
-            parallelUploads: 100,
+        Dropzone.options.documentDropzone = {
+            url: "{{ route('admin.dropzone.handler') }}",
             maxFiles: 100,
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            maxFilesize: 20,
             addRemoveLinks: true,
-            init: function() {
-                var myDropzone = this;
-
-                document.body.querySelector("button[type=submit]").addEventListener("click", function(e) {
-                    document.getElementById("overlay").style.display = "block";
-                    //e.preventDefault();
-                    e.stopPropagation();
-                    myDropzone.processQueue();
-                });
-
-                this.on("sending", function(data, xhr, formData) {
-                    formData.append("_token", $('input[name="_token"]').val());
-                    formData.append("file[]", $('input[name="file[]"]').val());
-                });
-
-                this.on("processing", function() {
-                    this.options.autoProcessQueue = true;
-                });
-
-                this.on("successmultiple", function(files, response) {
-                    window.location = "{{ route('admin.portofolio.detail', $portofolio->id) }}";
-                    //console.log(response);
-                })
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
             },
-            removedfile: function (file) {
-                var _ref;
-                    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+            success: function(file, response) {
+                $('form').append('<input type="hidden" name="file[]" value="' + response.name + '">');
+                uploadedDocumentMap[file.name] = response.name;
+                console.log(response);
             },
-        });
+            removedfile: function(file) {
+                file.previewElement.remove();
+                var name = '';
+                if (typeof file.file_name !== 'undefined') {
+                    name = file.file_name;
+                } else {
+                    name = uploadedDocumentMap[file.name];
+                }
+
+                $('form').find('input[name="file[]"][value="' + name + '"]').remove();
+                
+                $.post("{{ route('admin.dropzone.handler') }}", {
+                    '_token': "{{ csrf_token() }}",
+                    'actionDz': "remove",
+                    'name': name
+                },
+                function(data, status){
+                    console.log(data);
+                });
+            }
+        }
     </script>
 @endpush

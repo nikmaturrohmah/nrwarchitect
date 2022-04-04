@@ -41,11 +41,11 @@ class ArticleTagsController extends Controller
     public function update($tagId, Request $request)
     {
         $request->validate([
-            'tags'                      => 'required',
+            'tags'  => 'required',
         ]);
 
         $dataUpdate = [
-            'tag'                      => $request->tag,
+            'tag'   => $request->tag,
         ];
 
         ArticleTags::where('id', $tagId)->update($dataUpdate);

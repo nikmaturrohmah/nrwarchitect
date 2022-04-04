@@ -13,33 +13,33 @@ class PetugasadminController extends Controller
     public function index()
     {
         $petugasadmin = PetugasAdmin::get();
-        return view('petugasadmin.index', ['petugasadmin' => $petugasadmin]);
+        return view('admin.petugasadmin.index', ['petugasadmin' => $petugasadmin]);
     }
 
     public function create()
     {
-        return view('petugasadmin.create');
+        return view('admin.petugasadmin.create');
     }
 
     public function store(Request $request)
     {
-            $newData = [
-                'name'    => $request->post('name'),
-                'email'   => $request->post('email'),
-                'password'   => Hash::make($request->post('password')),
-                
-            ];
-    
-            PetugasAdmin::create($newData);
+        $newData = [
+            'name'    => $request->post('name'),
+            'email'   => $request->post('email'),
+            'password'   => Hash::make($request->post('password')),
+            
+        ];
+
+        PetugasAdmin::create($newData);
         
 
-        return redirect()->route('admin.petugasadmin.index')->with(['success' => 'Data berhasil dibuat']);
+        return redirect()->route('admin.admin.index')->with(['success' => 'Data berhasil dibuat']);
     }
 
     public function edit($id)
     {
         $petugasadmin = PetugasAdmin::find($id);
-        return view('petugasadmin.edit',  ['petugasadmin'=> $petugasadmin]);
+        return view('admin.petugasadmin.edit',  ['petugasadmin'=> $petugasadmin]);
     }
 
     public function update($id, Request $request)
@@ -65,7 +65,7 @@ class PetugasadminController extends Controller
 
         PetugasAdmin::where('id', $id)->update($dataUpdate);
         $petugasadmin = PetugasAdmin::find($id);
-        return redirect()->route('admin.petugasadmin.index')->with(['success' => 'Data berhasil diubah']);
+        return redirect()->route('admin.admin.index')->with(['success' => 'Data berhasil diubah']);
     }
 
     public function delete($id)
@@ -73,7 +73,7 @@ class PetugasadminController extends Controller
         $petugasadmin = PetugasAdmin::find($id);
         $petugasadmin->delete();
         
-        return redirect()->route('admin.petugasadmin.index')->with(['success' => 'Data berhasil dihapus']);
+        return redirect()->route('admin.admin.index')->with(['success' => 'Data berhasil dihapus']);
     }
 
 }

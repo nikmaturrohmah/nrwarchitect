@@ -20,18 +20,15 @@ class PortofolioImageController extends Controller
 
     public function store($id, Request $request)
     {
-        foreach ($request->file as $key => $value) {
-            $imageName = "portofolio-".rand(1000, 9999).time().'.'.$value->extension();
-            $webp = Webp::make($value);
+        foreach ($request->input('file', []) as $imageName) {
+            File::move( storage_path('tmp/uploads/'.$imageName), public_path('images/'.$imageName) );
 
-            if ($webp->save(public_path('images/'.$imageName))) {
-                $image = [
-                    'portofolio_id' => $id,
-                    'image'         => $imageName,
-                ];
-    
-                PortofolioImage::create($image);
-            }
+            $image = [
+                'portofolio_id' => $id,
+                'image'         => $imageName,
+            ];
+
+            PortofolioImage::create($image);
         }
 
         return redirect()->route('admin.portofolio.detail', $id)->with(['success' => 'Data berhasil dibuat']);
@@ -46,26 +43,17 @@ class PortofolioImageController extends Controller
 
     public function update($imageId, Request $request)
     {
-        $dataUpdate = [];
         $old = PortofolioImage::find($imageId);
 
-        if ($request->hasFile('image')) {
-
-            $imagePath = public_path('images/').$old->image;
-            if(File::exists($imagePath)) {
-                File::delete($imagePath);
-            }
-
-            $imageName = "slider-".rand(1000, 9999).time().'.'.$request->image->extension();
-
-            $webp = Webp::make($request->image);
-
-            if ($webp->save(public_path('images/'.$imageName))) {
-                $dataUpdate = array_merge($dataUpdate, ['image' => $imageName]);
-            }
+        $imageOld = public_path('images/').$old->image;
+        if(File::exists($imageOld)) {
+            File::delete($imageOld);
         }
 
-        PortofolioImage::where('id', $imageId)->update($dataUpdate);
+        File::move( storage_path('tmp/uploads/'.$request->post('file')), public_path('images/'.$request->post('file')) );
+        $data = [ 'image' => $request->post('file') ];
+
+        PortofolioImage::where('id', $imageId)->update($data);
         return redirect()->route('admin.portofolio.detail', $old->portofolio_id)->with(['success' => 'Data berhasil diubah']);
     }
 

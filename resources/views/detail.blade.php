@@ -99,7 +99,7 @@
         <ul>
           <li><a class="text-white nav-link scrollto active" href="{{ url('/') }}#hero">Home</a></li>
           <li><a class="text-white nav-link scrollto" href="{{ url('/') }}#about">About</a></li>
-          <li><a class="text-white nav-link scrollto" href="{{ url('/') }}#portfolio">Portfolio</a></li>
+          <li><a class="text-white nav-link scrollto" href="{{ route('portofolio') }}">Portfolio</a></li>
           <li><a class="text-white nav-link scrollto" href="{{ url('/') }}#contact">Contact</a></li>
           <li><a class="text-white nav-link scrollto" href="{{ route('article') }}">Article</a></li>
         </ul>
@@ -273,7 +273,7 @@
                     <div class="card rounded mb-3 border-0 shadow h-100">
                         <img height="200px" style="object-fit: cover" src="{{ asset('images/'.$value->images[0]->image) }}" alt="">
                         <div class="p-2 px-4">
-                          <a href="{{ route('detail', $value->id) }}">
+                          <a href="{{ route('portofolio.detail', $value->id) }}">
                             <h4 class="mt-2" style="color: #000000"><strong>{{ $value->name }}</strong></h4>
                           </a>
                           <!-- <p>{{ $value->description }}</p> -->
