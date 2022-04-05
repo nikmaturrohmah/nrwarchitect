@@ -33,7 +33,6 @@ Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'index
 Route::middleware('auth')->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::post('dropzone', [LandingController::class, 'dropzoneHandler'])->name('dropzone.handler');
-    Route::get('clear/tmp', [DashboardController::class, 'clearTmp'])->name('clear.tmp');
 
     Route::name('landing.')->prefix('landing')->group(function () {
         Route::name('slider.')->prefix('slider')->group(function () {
@@ -135,3 +134,4 @@ Route::middleware('auth')->name('admin.')->prefix('admin')->group(function () {
     });
 });
 
+Route::get('clear/tmp', [DashboardController::class, 'clearTmp'])->name('clear.tmp');
