@@ -17,6 +17,7 @@ class Article extends Model
         'author',
         'cover_image',
         'posted',
+        'paragraph',
         'description',
     ];
 

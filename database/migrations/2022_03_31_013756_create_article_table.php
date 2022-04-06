@@ -22,6 +22,7 @@ class CreateArticleTable extends Migration
             $table->string('author');
             $table->string('cover_image');
             $table->boolean('posted');
+            $table->longtext('paragraph');
             $table->longtext('description');
             $table->timestamps();
         });
