@@ -46,8 +46,12 @@
                             <input type="text" name="author" class="form-control" value="{{ $article->author }}">
                         </div>
                         <div class="mb-3">
+                            <label for="">Paragraph</label>
+                            <textarea id="editor" name="paragraph" class="form-control" cols="30" rows="10" >{!! $article->paragraph !!}</textarea>
+                        </div>
+                        <div class="mb-3">
                             <label for="">Deskripsi</label>
-                            <textarea id="editor" name="description" class="form-control" cols="30" rows="10" >{!! $article->description !!}</textarea>
+                            <textarea id="editor2" name="description" class="form-control" cols="30" rows="10" >{!! $article->description !!}</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="">Gambar lama</label>
@@ -95,6 +99,19 @@
             return theEditor.getData();
         }
 
+        ClassicEditor
+            .create( document.querySelector('#editor2') )
+            .then( editor2 => {
+                theEditor2 = editor2; // Save for later use.
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+
+        function getDataFromTheEditor2() {
+            return theEditor2.getData();
+        }
+        
         Dropzone.autoDiscover = false;
 
         var uploadedDocumentMap = {}
@@ -128,7 +145,8 @@
                     formData.append("topic", $('input[name="topic"]').val());
                     formData.append("author", $('input[name="author"]').val());
                     formData.append("tags", $('input[id="tags"]').val());
-                    formData.append("description", getDataFromTheEditor() );
+                    formData.append("paragraph", getDataFromTheEditor() );
+                    formData.append("description", getDataFromTheEditor2() );
                 });
 
                 this.on("processing", function() {

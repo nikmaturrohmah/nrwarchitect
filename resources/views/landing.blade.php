@@ -296,18 +296,8 @@
               <img class="card-img-top rounded" src="{{ asset('images/'.$value->cover_image) }}" alt="Card image cap">
               <div class="card-body">
                 <p>{{ $value->created_at }}</p>
-                <h5 style="
-                  font-style: normal;
-                  font-weight: 600;
-                  font-size: 20px;
-                  line-height: 25px;
-                ">{{ $value->title }}</h5>
-                <p style="
-                  font-stretch: expanded;
-                  font-weight: 500;
-                  font-size: 12px;
-                  color: #878588;
-                ">{!! substr(strip_tags($value->description), 0, 50) !!}</p>
+                <ar>{{ $value->title }}</ar></br>
+                <pg>{!! substr(strip_tags($value->description), 0, 50) !!}</pg></br>
                 <a href="{{ route('article.detail', $value->slug_title) }}">Baca Selengkapnya</a>
               </div>
             </div>

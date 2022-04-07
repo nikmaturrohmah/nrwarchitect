@@ -33,13 +33,18 @@
                         <h4>{{ $article->slug_title }}</h4>
                         <br>
                         Sub Judul
-                        <h4>{{ $article->sub_judul }}</h4>
+                        <h4>{{ $article->sub_title }}</h4>
                         <br>
                         Topik
                         <h4>{{ $article->topic }}</h4>
                         <br>
                         Penulis
-                        <h4>{{ $article->penulis }}</h4>
+                        <h4>{{ $article->author }}</h4>
+                        <br>
+                        Paragraph 1
+                        <div class="rounded border p-4">
+                            {!! $article->paragraph !!}
+                        </div>
                         <br>
                         Deskripsi
                         <div class="rounded border p-4">

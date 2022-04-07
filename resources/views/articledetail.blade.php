@@ -64,12 +64,14 @@
   </header><!-- End Header -->
   
   <div class="container text-center pt-5">
-    <p>Published {{\Carbon\Carbon::parse($article->created_at)->format('l');}}, {{\Carbon\Carbon::parse($article->created_at)->format('d F Y');}}</p>
-    <h3><strong>{{$article->title}}</strong></h3>
-    <h5>{{$article->sub_title}}</h5>
+    <B>Published {{\Carbon\Carbon::parse($article->created_at)->format('l');}}, {{\Carbon\Carbon::parse($article->created_at)->format('d F Y');}}</br></B>
+    <j><strong>{{$article->title}}</strong></j>
+    </br>
+    <sj>{{$article->sub_title}}</sj>
+</br>
     <div class="d-flex flex-wrap gap-1 justify-content-center mb-3">
       @foreach($article->tags as $key=>$value)
-        <div style="width: fit-content"><span class="badge bg-secondary">#{{$value->tag}}</span></div>
+        <div style="width: fit-content"><span class="badge bg-secondary">#{{$value->tag}}</ta></span></div>
       @endforeach
     </div>
     <div class="mb-3">
@@ -79,10 +81,11 @@
 
   <div class="container mb-3">
     <div class="row px-5">
-      <div class="col-md-10">{!! $article->description !!}</div>
+    <div class="col-md-08S">{!! $article->paragraph !!}</div>
+      <div class="col-md-10" style="color: #9A9A9A">{!! $article->description !!}</div>
       <div class="col-md-2">
         <div class="d-flex align-items-end flex-column gap-1">
-          <h6 class="mb-2" style="color: #9A9A9A"><strong>Share this link via</strong></h6>
+          <sl class="mb-2" style="color: #000000"><strong>Share this link via</strong></sl>
           <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" data-toggle="tooltip" title="Bagikan ke Facebook">
             <img src="{{ asset('logo/share/fb.png') }}" alt="copy">
           </a>

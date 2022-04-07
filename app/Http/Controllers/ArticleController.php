@@ -31,6 +31,7 @@ class ArticleController extends Controller
             'sub_title' => $request->post('sub_title'),
             'topic' => $request->post('topic'),
             'author'    => $request->post('author'),
+            'paragraph'    => $request->post('paragraph'),
             'description'    => $request->post('description'),
             'posted'    => true,
         ];
@@ -70,6 +71,7 @@ class ArticleController extends Controller
             'sub_title' => $request->post('sub_title'),
             'topic' => $request->post('topic'),
             'author'    => $request->post('author'),
+            'paragraph'    => $request->post('paragraph'),
             'description'    => $request->post('description'),
         ];
 
@@ -82,7 +84,7 @@ class ArticleController extends Controller
                 File::delete($imagePath);
             }
 
-            $imageName = "testimonial-".rand(1000, 9999).time().'.'.$request->file->extension();
+            $imageName = "article-".rand(1000, 9999).time().'.'.$request->file->extension();
             $webp = Webp::make($request->file);
 
             if ($webp->save(public_path('images/'.$imageName))) {
