@@ -194,43 +194,31 @@
       </div>
     </section><!-- End Our Portfolio Section -->
 
-    <section>
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <p style="
-          margin-left: auto;
-          margin-right: auto;
-          margin-bottom: 50px;
-          width: 50%;
-          font-style: normal;
-          font-weight: 600;
-          font-size: 14px;
-          line-height: 19px;
-          text-align: center;"
-        >
-        Kami juga menyediakan video untuk melihat lebih detail dari portofolio  pada channel Youtube NRW Architect </p>
-
-        <div class="row mt-3" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-md-6">
-            <iframe class="rounded" style="
-              width: 100%;
-              height: 300px;
-            " src="https://www.youtube.com/embed/8CdcCD5V-d8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-
-          <div class="col-md-6">
-            <iframe class="rounded" style="
-              width: 100%;
-              height: 300px;
-            " src="https://www.youtube.com/embed/8CdcCD5V-d8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-
+    <section style="
+      width: 100%;
+      height: 900px;
+    ">
+      <div style="
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        padding-top: 100%;
+      " data-aos="fade-up" data-aos-delay="100">
+        <iframe style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          width: 100%;
+          height: 100%;
+          border: none;
+        " src="{{ url('/video/2.mp4') }}" loop allow="autoplay; fullscreen; picture-in-picture; xr-spatial-tracking; clipboard-write"></iframe>
       </div>
-
     </section>
 
     <!-- ======= Our Team Section ======= -->
-    <section id="team" class="team">
+    <section id="team" class="team mt-5">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
