@@ -114,8 +114,13 @@ class PublicController extends Controller
         $landing['logo'] = Landing::where('meta_key', 'like', 'landing_logo%')->get();
         $landing['socialmedia'] = Landing::where('meta_key', 'like', 'landing_social_media_%')->get();
         $article = Article::with('tags')->where('slug_title', $slug)->first();
+        $otherArticle = Article::where('posted', true)
+                        ->orderBy('id','DESC')
+                        ->skip(0)
+                        ->take(4)
+                        ->get();
         
-        return view('articledetail', ['landing' => $landing, 'article' => $article]);
+        return view('articledetail', ['landing' => $landing, 'article' => $article, 'otherArticle' => $otherArticle]);
     }
 
     public function articleSearch(Request $request)

@@ -100,6 +100,48 @@
     </div>
   </div>
 
+  <div class="container mt-5 mb-3">
+    <div class="section-title">
+      <div class="d-flex justify-content-between">
+        <h2 style="color: #000">See Other Article</h2>
+        <a href="{{ route('article') }}">
+          <button style="
+            background-color: #000;
+            color: #fff
+          " class="btn">
+            More
+          </button>
+        </a>
+      </div>
+    </div>
+    <div class="row" >
+      @foreach($otherArticle as $key=>$value)
+      <div class="col-md-3">
+        <div class="card shadow h-100" style="
+          border: none">
+          <img class="card-img-top rounded" src="{{ asset('images/'.$value->cover_image) }}" alt="Card image cap">
+          <div class="card-body">
+            <p>{{ $value->created_at }}</p>
+            <h5 style="
+              font-style: normal;
+              font-weight: 600;
+              font-size: 20px;
+              line-height: 25px;
+            ">{{ $value->title }}</h5>
+            <p style="
+              font-stretch: expanded;
+              font-weight: 500;
+              font-size: 12px;
+              color: #878588;
+            ">{!! substr(strip_tags($value->description), 0, 50) !!}</p>
+            <a href="{{ route('article.detail', $value->slug_title) }}">Baca Selengkapnya</a>
+          </div>
+        </div>
+      </div>
+      @endforeach
+    </div>
+  </div>
+
   <!-- ======= Footer ======= -->
   <footer style="background-color: #2C2B2B" class="d-flex align-items-center" id="footer">
 

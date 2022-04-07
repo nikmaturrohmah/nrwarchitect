@@ -97,6 +97,11 @@ class ArticleController extends Controller
     public function detail($id)
     {
         $article = Article::with(['tags'])->find($id);
+        $otherArticle = Article::where('posted', true)
+                        ->orderBy('id','DESC')
+                        ->skip(0)
+                        ->take(4)
+                        ->get();
         return view('admin.article.detail', ['article' => $article]);
     }
 
