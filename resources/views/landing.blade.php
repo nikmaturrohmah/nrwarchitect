@@ -89,8 +89,19 @@
           <div class="carousel-item {{ ($key == 0 ? 'active' : '' ) }}" style="background-image: url('{{ asset('images/'.$value->image) }}');">
             <div class="carousel-container">
               <div class="carousel-content container">
-                <h2 class="animate__animated animate__fadeInDown">{{ $value->title }}</h2>
-                <p class="animate__animated animate__fadeInUp">{{ $value->description }}</p>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <h2 class="animate__animated animate__fadeInDown">{{ $value->title }}</h2>
+                  <p class="animate__animated animate__fadeInUp">{{ \Illuminate\Support\Str::limit($value->description, 200, $end='...') }}</p>
+                </div>
+                <div class="col-md-6">
+                  <div class="embed-responsive embed-responsive-1by1">
+                    <iframe class="rounded" width="560" height="315" src="https://www.youtube.com/embed/L30ixzWZzuk" title="YouTube video player" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                </div>
+              </div>
               </div>
             </div>
           </div>
@@ -199,7 +210,7 @@
       height: 900px;
     ">
       <div style="
-        position: relative;
+        position: auto;
         width: 100%;
         overflow: hidden;
         padding-top: 100%;
@@ -361,21 +372,20 @@
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  <footer style="background-color: #2C2B2B" class="d-flex align-items-center" id="footer">
+  <footer style="background-color: #2C2B2B" class=" align-items-center" id="footer">
 
     <div class="container mt-5 d-flex flex-sm-row flex-column justify-content-between align-items-center">
       <div class="">
-        <h5 class="text-white font-weight"><strong>NRW Architecture</strong></h5>
-        <p>Copyright NRW Architecture. <br>All Rights Reserved</p>
+        <h5 class="text-white font-weight"><strong>NRW Architecture</strong></h5>Copyright NRW Architecture. All Rights Reserved
+        
       </div>
 
       <div>
-        <p class="text-right">Connect With US</p>
-        <div>
+        <div class="text-right">Connect With US
           <a class="mx-2" href="{{ $landing['socialmedia'][1]->meta_value }}"><img src="{{ asset('logo/Logo-facebook.png') }}" alt=""></a>
           <a class="mx-2" href="{{ $landing['socialmedia'][2]->meta_value }}"><img src="{{ asset('logo/Logo-twitter.png') }}" alt=""></a>
           <a class="ml-2" href="{{ $landing['socialmedia'][0]->meta_value }}"><img src="{{ asset('logo/Logo-instagram.png') }}" alt=""></a>
-        </div>
+      </div>
       </div>
     </div>
   </footer><!-- End Footer -->
