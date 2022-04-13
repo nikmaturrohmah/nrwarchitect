@@ -358,9 +358,19 @@
                 <p>{{ $landing['contactus'][0]->meta_value }}</p>
               </div>
             </div>
+          
 
+          <div class="col-md-12" >
             <div class="col-lg-12 d-flex" data-aos="fade-up">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15812.931708593733!2d110.366855!3d-7.7651054!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xa4e1a3a99628573!2sPT.%20Baracipta%20Esa%20Engineering!5e0!3m2!1sid!2sid!4v1647921456655!5m2!1sid!2sid" width="100%" height="300px" style="border:0;" allowfullscreen="" loading="lazy" onmouseover="cardOver.call(this)" onmouseout="cardOut.call(this)"></iframe>
+              <iframe style="
+                    width: 800px; 
+                    height: 348px; 
+                    object-fit: cover;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-bottom: 20px;
+                  " src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15812.931708593733!2d110.366855!3d-7.7651054!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xa4e1a3a99628573!2sPT.%20Baracipta%20Esa%20Engineering!5e0!3m2!1sid!2sid!4v1647921456655!5m2!1sid!2sid" width="100%" height="300px" style="border:0;" allowfullscreen="" loading="lazy" onmouseover="cardOver.call(this)" onmouseout="cardOut.call(this)"></iframe>
             </div>
           </div>
 
@@ -374,7 +384,7 @@
   <!-- ======= Footer ======= -->
   <footer style="background-color: #2C2B2B" class=" align-items-center" id="footer">
 
-    <div class="container mt-5 d-flex flex-sm-row flex-column justify-content-between align-items-center">
+    <div class="container mt-5 py-3 d-flex flex-sm-row flex-column justify-content-between align-items-center">
       <div class="">
         <h5 class="text-white font-weight"><strong>NRW Architecture</strong></h5>Copyright NRW Architecture. All Rights Reserved
         
