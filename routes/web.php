@@ -20,8 +20,9 @@ Route::get('/', [PublicController::class, 'index'])->name('index');
 Route::get('/portofolio', [PublicController::class, 'portofolio'])->name('portofolio');
 Route::get('/portofolio/detail/{id}', [PublicController::class, 'portofolioDetail'])->name('portofolio.detail');
 Route::get('/article', [PublicController::class, 'article'])->name('article');
-Route::get('/article/{slug}', [PublicController::class, 'articleDetail'])->name('article.detail');
 Route::get('/article/search', [PublicController::class, 'articleSearch'])->name('article.search');
+Route::get('/article/{slug}', [PublicController::class, 'articleDetail'])->name('article.detail');
+
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::name('auth.')->prefix('auth')->group(function () {
